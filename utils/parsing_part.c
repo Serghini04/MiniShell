@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/18 16:55:59 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/18 18:17:55 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_list	*tokening(char *input)
     int		i;
     int		s;
     int		len;
+	char	*res;
     t_list	*head;
 
     i = 0;
@@ -60,12 +61,28 @@ t_list	*tokening(char *input)
     {
         if (check_token(input[i]) != -1)
         {
-            char *res = ft_substr(input, s, i - s);
-            char *res_cln = ft_strtrim(res, " \t");
-			if (*res_cln)
-            add_back(&head, new_node(res_cln, t_word));
-            if (input[i] != '\0') {
-                char *res = ft_substr(input, i, 1);
+            res = ft_substr(input, s, i - s);
+			if (!res)
+				exit(1);
+            res = ft_strtrim(res, " \t");
+			if (!res)
+				return (NULL);
+			if (*res)
+           		add_back(&head, new_node(res, t_word));
+			else
+				free(res);
+			if (input[i] == '>' && input[i + 1] == '>')
+			{
+                add_back(&head, new_node(ft_strdup(">>"), t_app));
+				i++;
+			}
+			else if (input[i] == '<' && input[i + 1] == '<')
+			{
+                add_back(&head, new_node(ft_strdup("<<"), t_heredoc));
+				i++;
+			}
+            else if (input[i] != '\0') {
+                res = ft_substr(input, i, 1);
                 add_back(&head, new_node(res, check_token(input[i])));
             }
             s = i + 1;

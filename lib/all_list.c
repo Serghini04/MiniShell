@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:47:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/18 00:36:46 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:57:48 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ void	add_back(t_list **lst, t_list *new)
 		i = i->next;
 	i->next = new;
 }
+void	free_node(t_list *node)
+{
+	free(node->wrd);
+	free(node);
+}
 
 void	clear_lst(t_list **lst)
 {
@@ -53,8 +58,7 @@ void	clear_lst(t_list **lst)
 	while (i)
 	{
 		swap = i->next;
-		free(i->wrd);
-		free(i);
+		free_node(i);
 		i = swap;
 	}
 	i = NULL;
