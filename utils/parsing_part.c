@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/18 18:17:55 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/19 03:39:14 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 int	check_token(char c)
 {
-	if (c == '\'')
-		return (t_signle_q);
-	else if (c == '"')
-		return (t_double_q);
-	else if (c == '<')
+	if (c == '<')
 		return (t_red_in);
 	else if (c == '>')
 		return (t_red_out);
@@ -29,18 +25,40 @@ int	check_token(char c)
 	return (-1);
 }
 
-void	add_to_list(t_list **head, char *input, int s, int pos)
+int	len_c(char *input, int c)
 {
-    char	*res;
-    char	*res_cln;
+	int	i;
 
-    res = ft_substr(input, s, pos);
-    res_cln = ft_strtrim(res, " \t");
-    add_back(head, new_node(res_cln, t_word));
-    if (input[s + pos] != ' ' && input[s + pos] != '\0') {
-        res = ft_substr(input, s + pos, 1);
-        add_back(head, new_node(res, check_token(input[s + pos])));
-    }
+	i = 0;
+	while (input[i])
+	{
+		if (c == input[i])
+			return (i);
+		i++;
+	}
+	printf("syntax error \"%c\"", c);
+	exit(1);
+}
+
+void	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
+{
+	char	*res;
+	int		len;
+	char	c;
+
+	c = input[*pos];
+	res = ft_substr(input, *i, *pos - *i);
+    res = ft_strtrim(res, " \t");
+	if (*res)
+    	add_back(head, new_node(res, t_word));
+	len = len_c(&input[*pos + 1], c);
+	printf(">>len == %d\n", len);
+	if (c == '\'')
+		add_back(head, new_node(ft_substr(input, *pos + 1, len), t_signle_q));
+	else
+		add_back(head, new_node(ft_substr(input, *pos + 1, len), t_double_q));
+	(*pos) += len + 1;
+	(*i) = *pos + 1;
 }
 
 t_list	*tokening(char *input)
@@ -59,18 +77,14 @@ t_list	*tokening(char *input)
         return (NULL);
     while (i <= len)
     {
+		if (input[i] == '\'' || input[i] == '\"')
+			add_singl_double_q(&head, input, &s, &i);
         if (check_token(input[i]) != -1)
         {
             res = ft_substr(input, s, i - s);
-			if (!res)
-				exit(1);
             res = ft_strtrim(res, " \t");
-			if (!res)
-				return (NULL);
 			if (*res)
            		add_back(&head, new_node(res, t_word));
-			else
-				free(res);
 			if (input[i] == '>' && input[i + 1] == '>')
 			{
                 add_back(&head, new_node(ft_strdup(">>"), t_app));
