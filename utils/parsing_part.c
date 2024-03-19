@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/19 03:39:14 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:19:15 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 	if (*res)
     	add_back(head, new_node(res, t_word));
 	len = len_c(&input[*pos + 1], c);
-	printf(">>len == %d\n", len);
 	if (c == '\'')
 		add_back(head, new_node(ft_substr(input, *pos + 1, len), t_signle_q));
 	else
