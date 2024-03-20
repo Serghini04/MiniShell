@@ -6,11 +6,16 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/19 16:19:15 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/20 02:10:53 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+// i wanna to clean my code and fix memory leaks ...
+// you need to change linked list to double ...
+// start parsing ...
+// ...
 
 int	check_token(char c)
 {
@@ -36,11 +41,10 @@ int	len_c(char *input, int c)
 			return (i);
 		i++;
 	}
-	printf("syntax error \"%c\"", c);
-	exit(1);
+	return (-1);
 }
 
-void	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
+int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 {
 	char	*res;
 	int		len;
@@ -52,12 +56,19 @@ void	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 	if (*res)
     	add_back(head, new_node(res, t_word));
 	len = len_c(&input[*pos + 1], c);
+	if (len == -1)
+	{
+		printf("syntax error \"%c\"\n", c);
+		clear_lst(head);
+		return (-1);
+	}
 	if (c == '\'')
 		add_back(head, new_node(ft_substr(input, *pos + 1, len), t_signle_q));
 	else
 		add_back(head, new_node(ft_substr(input, *pos + 1, len), t_double_q));
 	(*pos) += len + 1;
 	(*i) = *pos + 1;
+	return (1);
 }
 
 t_list	*tokening(char *input)
@@ -77,7 +88,10 @@ t_list	*tokening(char *input)
     while (i <= len)
     {
 		if (input[i] == '\'' || input[i] == '\"')
-			add_singl_double_q(&head, input, &s, &i);
+		{
+			if (add_singl_double_q(&head, input, &s, &i) == -1)
+				return (NULL);
+		}
         if (check_token(input[i]) != -1)
         {
             res = ft_substr(input, s, i - s);
@@ -104,6 +118,53 @@ t_list	*tokening(char *input)
     }
     return (head);
 }
+int	is_token(int c)
+{
+	if (c == t_pipe)
+		return (1);
+	else if (c == t_red_in)
+		return (1);
+	else if (c == t_red_out)
+		return (1);
+	else if (c == t_app)
+		return (1);
+	else if (c == t_heredoc)
+		return (1);
+	return (0);
+}
+
+void	checking_syntax(t_list **head)
+{
+	t_list	*i;
+
+	i = *head;
+	if (!head)
+		return ;
+	if (is_token(i->token))
+	{
+		printf("syntax error \"%c\"\n", i->token);
+		clear_lst(head);
+		return ;
+	}
+	while (i->next)
+	{
+		if (is_token(i->token))
+		{
+			if (i->next->token != t_word && i->next->token != t_double_q && i->next->token != t_signle_q)
+			{
+				printf("syntax error \"%c\"\n", i->token);
+				clear_lst(head);
+				return ;
+			}
+		}
+		i = i->next;
+	}
+	if (is_token(i->token))
+	{
+		printf("syntax error \"%c\"\n", i->token);
+		clear_lst(head);
+	}
+}
 
 t_list	*parsing_part(char *line)
 {
@@ -112,6 +173,7 @@ t_list	*parsing_part(char *line)
 
 	res = ft_strtrim(line, " \t");
 	head = tokening(res);
-	print_lst(head);
+	checking_syntax(&head);
+	//print_lst(head);
 	return (NULL);
 }

@@ -6,14 +6,14 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/03/17 22:55:45 by meserghi         ###   ########.fr        #
+#    Updated: 2024/03/19 20:31:54 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 lib = lib/ft_strdup.c lib/ft_strjoin.c lib/ft_strlen.c lib/ft_strtrim.c\
 	lib/ft_substr.c lib/all_list.c
 
-utils = utils/parsing_part.c
+utils = parser_utils/parsing_part.c
 
 FILE = ${lib} ${utils} minishell.c
 
