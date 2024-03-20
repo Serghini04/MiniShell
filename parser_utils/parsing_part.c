@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/20 02:10:53 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/20 02:12:27 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,5 @@ t_list	*parsing_part(char *line)
 	res = ft_strtrim(line, " \t");
 	head = tokening(res);
 	checking_syntax(&head);
-	//print_lst(head);
 	return (NULL);
 }
