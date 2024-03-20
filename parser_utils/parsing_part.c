@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/20 02:12:27 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/20 02:19:45 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	checking_syntax(t_list **head)
 	t_list	*i;
 
 	i = *head;
-	if (!head)
+	if (!head || !*head)
 		return ;
 	if (is_token(i->token))
 	{
@@ -174,5 +174,6 @@ t_list	*parsing_part(char *line)
 	res = ft_strtrim(line, " \t");
 	head = tokening(res);
 	checking_syntax(&head);
+	print_lst(head);
 	return (NULL);
 }
