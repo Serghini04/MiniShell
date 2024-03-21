@@ -6,12 +6,14 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/21 00:47:54 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/21 02:35:09 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+
+//fix leaks ...
 // start parsing like this :
 /* Example For the line : cat < "Makefile" | grep something > outfile | wc -l < outfile */
 //	 /---------------------------------------------------\
@@ -77,6 +79,7 @@ int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 		add_back(head, new_node(ft_substr(input, *pos + 1, len), t_double_q));
 	(*pos) += len + 1;
 	(*i) = *pos + 1;
+	free(res);
 	return (1);
 }
 
@@ -198,5 +201,7 @@ t_list	*parsing_part(char *line)
 	head = tokening(res);
 	checking_syntax(&head);
 	print_lst(head);
+	clear_lst(&head);
+	free(res);
 	return (NULL);
 }

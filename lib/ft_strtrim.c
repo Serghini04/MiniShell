@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:07:54 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/18 18:15:58 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/21 02:08:04 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_strtrim(char *s1, char *set)
 	end = ft_end(s1, set);
 	if (s > end)
 		return (ft_strdup(""));
-	res = malloc(end - s + 1);
+	res = malloc(end - s + 2);
 	if (!res)
 		return (free(s1), NULL);
 	while (s + i <= end)
