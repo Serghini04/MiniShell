@@ -6,16 +6,18 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/03/21 02:16:27 by meserghi         ###   ########.fr        #
+#    Updated: 2024/03/21 18:06:25 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 lib = lib/ft_strdup.c lib/ft_strjoin.c lib/ft_strlen.c lib/ft_strtrim.c\
 	lib/ft_substr.c lib/all_list.c
 
-utils = parser_utils/parsing_part.c
+parser = parser/parsing_part.c parser/tokening.c
 
-FILE = ${lib} ${utils} minishell.c
+utils = utils/print_error.c utils/is_token.c
+
+FILE = ${lib} ${parser} ${utils} minishell.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
