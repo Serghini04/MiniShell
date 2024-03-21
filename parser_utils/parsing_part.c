@@ -6,16 +6,27 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/20 02:19:45 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/21 00:47:04 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// i wanna to clean my code and fix memory leaks ...
-// you need to change linked list to double ...
-// start parsing ...
+// fix redirection for syntax error.
+
+// start parsing like this :
+/* Example For the line : cat < "Makefile" | grep something > outfile | wc -l < outfile */
+//	 /---------------------------------------------------\
+//   | PIPE_LINE|  CMD|      ARGS|   IN_REDIR|  OUT_REDIR|
+//   |---------------------------------------------------|
+//   |        00|  cat|      NULL| "Makefile"|       NULL|
+//   |        01| grep| something|       NULL|    outfile|
+//   |        02|   wc|        -l|    outfile|       NULL|
+//   \---------------------------------------------------/
 // ...
+
+// i wanna to clean my code and fix memory leaks ...
+
 
 int	check_token(char c)
 {
@@ -133,6 +144,19 @@ int	is_token(int c)
 	return (0);
 }
 
+int is_redirection(int c)
+{
+	if (c == t_red_in)
+		return (1);
+	else if (c == t_red_out)
+		return (1);
+	else if (c == t_app)
+		return (1);
+	else if (c == t_heredoc)
+		return (1);
+	return (0);
+}
+
 void	checking_syntax(t_list **head)
 {
 	t_list	*i;
@@ -140,7 +164,7 @@ void	checking_syntax(t_list **head)
 	i = *head;
 	if (!head || !*head)
 		return ;
-	if (is_token(i->token))
+	if (i->token == t_pipe)
 	{
 		printf("syntax error \"%c\"\n", i->token);
 		clear_lst(head);
@@ -150,9 +174,10 @@ void	checking_syntax(t_list **head)
 	{
 		if (is_token(i->token))
 		{
-			if (i->next->token != t_word && i->next->token != t_double_q && i->next->token != t_signle_q)
+			if (i->next->token != t_word && i->next->token != t_double_q\
+				&& i->next->token != t_signle_q && (!is_redirection(i->next->token) && is_redirection(i->token)))
 			{
-				printf("syntax error \"%c\"\n", i->token);
+				printf("syntax error \"%s\"\n", i->wrd);
 				clear_lst(head);
 				return ;
 			}
@@ -161,7 +186,7 @@ void	checking_syntax(t_list **head)
 	}
 	if (is_token(i->token))
 	{
-		printf("syntax error \"%c\"\n", i->token);
+		printf("syntax error \"%s\"\n", i->wrd);
 		clear_lst(head);
 	}
 }
