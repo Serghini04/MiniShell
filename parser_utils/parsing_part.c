@@ -6,13 +6,11 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/21 00:47:04 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/21 00:47:54 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// fix redirection for syntax error.
 
 // start parsing like this :
 /* Example For the line : cat < "Makefile" | grep something > outfile | wc -l < outfile */
