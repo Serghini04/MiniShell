@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/21 02:35:09 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/21 03:45:31 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void	checking_syntax(t_list **head)
 		if (is_token(i->token))
 		{
 			if (i->next->token != t_word && i->next->token != t_double_q\
-				&& i->next->token != t_signle_q && (!is_redirection(i->next->token) && is_redirection(i->token)))
+				&& i->next->token != t_signle_q && (!is_redirection(i->next->token)))
 			{
 				printf("syntax error \"%s\"\n", i->wrd);
 				clear_lst(head);
