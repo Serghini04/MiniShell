@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:57:09 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/21 18:05:59 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/21 20:07:46 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 		add_back(head, new_node(ft_substr(input, *pos + 1, len), t_double_q));
 	(*pos) += len + 1;
 	(*i) = *pos + 1;
-	free(res);
 	return (1);
 }
 
