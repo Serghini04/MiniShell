@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/21 18:05:28 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/22 01:29:19 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ t_list	*parsing_part(char *line)
 	head = tokening(res);
 	if (!head)
 		return (clear_lst(&head), free(res), NULL);
-	if (checking_syntax(&head) == -1)
-		return (free(res), NULL);
+	// if (checking_syntax(&head) == -1)
+	// 	return (free(res), NULL);
 	print_lst(head);
 	clear_lst(&head);
 	free(res);
