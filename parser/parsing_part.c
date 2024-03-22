@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/22 01:29:19 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/22 03:59:35 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,23 @@
 //   |        02|   wc|        -l|    outfile|       NULL|
 //   \---------------------------------------------------/
 // ...
+
+int join_qoute(t_list **head)
+{
+	t_list	*i;
+
+	i = *head;
+	while (i->next)
+	{
+		if (i->token == t_word)
+		{
+			if (i->token == t_double_q && i->token == t_signle_q)
+				break;
+		}
+		i = i->next;
+	}
+	return (0);
+}
 
 int	checking_syntax(t_list **head)
 {
@@ -46,6 +63,8 @@ int	checking_syntax(t_list **head)
 	}
 	if (is_red(i->token) || i->token == t_pipe)
 		return (print_error(head, i), -1);
+	if (join_qoute(head) == -1)
+		return (clear_lst(head), 1);
 	return (0);
 }
 
@@ -58,8 +77,8 @@ t_list	*parsing_part(char *line)
 	head = tokening(res);
 	if (!head)
 		return (clear_lst(&head), free(res), NULL);
-	// if (checking_syntax(&head) == -1)
-	// 	return (free(res), NULL);
+	if (checking_syntax(&head) == -1)
+		return (free(res), NULL);
 	print_lst(head);
 	clear_lst(&head);
 	free(res);

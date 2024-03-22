@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:07:54 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/22 01:30:04 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/22 01:33:36 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,7 @@ char	*ft_strtrim(char *s1, char *set)
 	if (!s1 || !set)
 		return (NULL);
 	if (*s1 == '\0')
-	{
-		res = ft_strdup(s1);
-		free(s1);
-		return (res);
-	}
+		return (res = ft_strdup(s1), free(s1), res);
 	s = ft_start(s1, set);
 	end = ft_end(s1, set);
 	if (s > end)

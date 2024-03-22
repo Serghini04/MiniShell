@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:57:09 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/22 01:25:25 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/22 03:50:36 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	len_q(char *input, int c)
 
 int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 {
+	t_list	*node;
 	char	*res;
 	int		len;
 	char	c;
@@ -47,12 +48,20 @@ int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 		return (-1);
 	}
 	if (c == '\'')
-		add_back(head, new_node(ft_substr(input, *pos + 1, len), t_signle_q));
+	{
+		node = new_node(ft_substr(input, *pos + 1, len), t_signle_q);
+		if (input[*pos - 1] == ' ' || input[*pos - 1] == '\t')
+			node->is_sp = 1;
+		add_back(head, node);
+	}
 	else
-		add_back(head, new_node(ft_substr(input, *pos + 1, len), t_double_q));
-	(*pos) += len + 1;
-	(*i) = *pos + 1;
-	return (1);
+	{
+		node = new_node(ft_substr(input, *pos + 1, len), t_double_q);
+		if (input[*pos - 1] == ' ' || input[*pos - 1] == '\t')
+			node->is_sp = 1;
+		add_back(head, node);
+	}
+	return ((*pos) += len + 1, (*i) = *pos + 1, 1);
 }
 
 int	add_token_lst(t_list **head, char *input, int *i, int *s)
@@ -64,7 +73,7 @@ int	add_token_lst(t_list **head, char *input, int *i, int *s)
 	if (*res)
    		add_back(head, new_node(res, t_word));
 	else
-		(free(res), res = NULL);
+		free(res);
 	if (input[*i] == '>' && input[*i + 1] == '>')
 	{
         add_back(head, new_node(ft_strdup(">>"), t_app));

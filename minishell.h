@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/21 20:02:59 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/22 03:22:42 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_list
 {
 	char *wrd;
 	int	token;
+	int	is_sp;
 	struct s_list *next;
 }	t_list;
 
