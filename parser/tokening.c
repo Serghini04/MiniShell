@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:57:09 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/22 03:50:36 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/22 19:53:06 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 	if (c == '\'')
 	{
 		node = new_node(ft_substr(input, *pos + 1, len), t_signle_q);
-		if (input[*pos - 1] == ' ' || input[*pos - 1] == '\t')
-			node->is_sp = 1;
+		if (input[*pos - 1] != ' ' && input[*pos - 1] != '\t')
+			node->is_sp = 0;
 		add_back(head, node);
 	}
 	else
 	{
 		node = new_node(ft_substr(input, *pos + 1, len), t_double_q);
-		if (input[*pos - 1] == ' ' || input[*pos - 1] == '\t')
-			node->is_sp = 1;
+		if (input[*pos - 1] != ' ' && input[*pos - 1] != '\t')
+			node->is_sp = 0;
 		add_back(head, node);
 	}
 	return ((*pos) += len + 1, (*i) = *pos + 1, 1);
@@ -67,11 +67,17 @@ int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 int	add_token_lst(t_list **head, char *input, int *i, int *s)
 {
 	char	*res;
+	t_list	*node;
 
     res = ft_substr(input, *s, *i - *s);
 	res = ft_strtrim(res, " \t");
 	if (*res)
-   		add_back(head, new_node(res, t_word));
+	{
+		node = new_node(res, t_word);
+		if (input[*i - 2] != ' ' && input[*i - 2] != '\t')
+			node->is_sp = 0;
+   		add_back(head, node);
+	}
 	else
 		free(res);
 	if (input[*i] == '>' && input[*i + 1] == '>')

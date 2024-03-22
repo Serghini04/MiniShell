@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:47:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/22 03:47:19 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:51:20 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_list	*new_node(char *data, int token)
 		return (NULL);
 	new->wrd = data;
 	new->token = token;
-	new->is_sp = 0;
+	new->is_sp = 1;
 	new->next = NULL;
 	return (new);
 }

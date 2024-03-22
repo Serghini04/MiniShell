@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/22 03:59:35 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/22 20:26:58 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,30 @@
 int join_qoute(t_list **head)
 {
 	t_list	*i;
+	t_list	*swap;
 
 	i = *head;
-	while (i->next)
+	while (i && i->next)
 	{
-		if (i->token == t_word)
+		if (i->next->token == t_signle_q || i->next->token == t_double_q)
 		{
-			if (i->token == t_double_q && i->token == t_signle_q)
-				break;
+			if (i->token == t_word && !i->next->is_sp)
+			{
+				swap = i->next->next;
+				i->wrd = ft_strjoin(i->wrd, i->next->wrd);
+				free_node(i->next);
+				i->next = swap;
+			}
+		}
+		if (i->token == t_signle_q || i->token == t_double_q)
+		{
+			if (i->next->token == t_word && !i->next->is_sp)
+			{
+				swap = i->next->next;
+				i->wrd = ft_strjoin(i->wrd, i->next->wrd);
+				free_node(i->next);
+				i->next = swap;
+			}
 		}
 		i = i->next;
 	}
@@ -68,9 +84,17 @@ int	checking_syntax(t_list **head)
 	return (0);
 }
 
-t_list	*parsing_part(char *line)
+t_mini	*last_update_lst(t_list **head)
+{
+	t_mini	*data;
+
+	data = NULL;
+}
+
+t_mini	*parsing_part(char *line)
 {
 	t_list	*head;
+	t_mini	*data;
 	char 	*res;
 
 	res = ft_strtrim(line, " \t");
@@ -79,8 +103,8 @@ t_list	*parsing_part(char *line)
 		return (clear_lst(&head), free(res), NULL);
 	if (checking_syntax(&head) == -1)
 		return (free(res), NULL);
+	data = last_update_lst(head);
 	print_lst(head);
-	clear_lst(&head);
 	free(res);
-	return (NULL);
+	return (data);
 }
