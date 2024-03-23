@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:47:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/22 17:51:20 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/23 22:47:06 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_list	*new_node(char *data, int token)
 	new->wrd = data;
 	new->token = token;
 	new->is_sp = 1;
+	new->prv = NULL;
 	new->next = NULL;
 	return (new);
 }
@@ -40,6 +41,7 @@ void	add_back(t_list **lst, t_list *new)
 	}
 	while (i->next)
 		i = i->next;
+	new->prv = i;
 	i->next = new;
 }
 
@@ -64,6 +66,15 @@ void	clear_lst(t_list **lst)
 		i = swap;
 	}
 	*lst = NULL;
+}
+
+t_list	*last_lst(t_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }
 
 void	print_lst(t_list *h)

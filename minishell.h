@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/23 17:43:21 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/23 22:18:24 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef	struct s_mini
 }	t_mini;
 
 // lib ...
+int		ft_strcmp(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 size_t	ft_strlen(char *s);
 char	*ft_strdup(char *s1);
@@ -63,8 +64,9 @@ char	*ft_substr(char *s, size_t start, size_t len);
 void	print_lst(t_list *h);
 t_mini	*create_node();
 void    add_back_t_mini(t_mini **lst, t_mini *new);
-t_mini	*last_update_lst(t_list **head);
-
+t_mini	*last_update_lst(t_list *head);
+int		find_space(char *s);
+t_list	*last_lst(t_list *lst);
 // utils ...
 
 t_mini	*parsing_part(char *line);

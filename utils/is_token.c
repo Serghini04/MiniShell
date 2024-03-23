@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:04:30 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/21 18:05:48 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/23 21:54:35 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,18 @@ int	check_token(char c)
 	else if (c == '\0')
 		return (t_last);
 	return (-1);
+}
+
+int	find_space(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == ' ' || s[i] == '\t')
+			return (1);
+		i++;
+	}
+	return (0);
 }
