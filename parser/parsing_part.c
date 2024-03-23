@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/22 20:26:58 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:29:40 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,6 @@ int	checking_syntax(t_list **head)
 	return (0);
 }
 
-t_mini	*last_update_lst(t_list **head)
-{
-	t_mini	*data;
-
-	data = NULL;
-}
-
 t_mini	*parsing_part(char *line)
 {
 	t_list	*head;
@@ -103,7 +96,7 @@ t_mini	*parsing_part(char *line)
 		return (clear_lst(&head), free(res), NULL);
 	if (checking_syntax(&head) == -1)
 		return (free(res), NULL);
-	data = last_update_lst(head);
+	data = last_update_lst(&head);
 	print_lst(head);
 	free(res);
 	return (data);

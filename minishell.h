@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/22 20:26:22 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/23 01:56:06 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_list
 	char *wrd;
 	int	token;
 	int	is_sp;
+	struct s_list *prv;
 	struct s_list *next;
 }	t_list;
 
@@ -48,6 +49,7 @@ typedef	struct s_mini
 }	t_mini;
 
 // lib ...
+char	**ft_split(char const *s, char c);
 size_t	ft_strlen(char *s);
 char	*ft_strdup(char *s1);
 char	*ft_strtrim(char *s1, char *set);
@@ -58,8 +60,12 @@ void	clear_lst(t_list **lst);
 void	add_back(t_list **lst, t_list *new);
 char	*ft_substr(char *s, size_t start, size_t len);
 void	print_lst(t_list *h);
+t_mini	*create_node(char *data, char *in, char *out);
+void	add_back_t_mini(t_mini **lst, t_list *new);
+t_mini	*last_update_lst(t_list **head);
 
 // utils ...
+
 t_mini	*parsing_part(char *line);
 t_list	*tokening(char *input);
 void	print_error(t_list **head, t_list *i);
