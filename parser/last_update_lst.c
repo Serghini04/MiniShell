@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/23 03:23:20 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/23 18:38:04 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,44 @@ int	len(char **cmd)
 	return (i);
 }
 
+int	open_file(t_list *i, t_mini *node)
+{
+	char	*res;
+
+	if (i->token == t_heredoc)
+	{
+		node->fd_in = open("/tmp/my_f", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (node->fd_in == -1)
+			return (-1);
+		while (1)
+		{
+			res = readline(">");
+			if (!res)
+				break;
+			
+		}
+	}
+	else if (i->token == t_red_in)
+	{
+		node->fd_in = open(i->next->wrd, O_RDONLY, 0644);
+		if (node->fd_in == -1)
+			return (-1);
+	}
+	else if (i->token == t_red_out)
+	{
+		node->fd_out = open(i->next->wrd, O_CREAT | O_WRONLY, 0644);
+		if (node->fd_out == -1)
+			return (-1);
+	}
+	else if (i->token == t_app)
+	{
+		node->fd_out = open(i->next->wrd, O_APPEND | O_CREAT | O_RDWR, 0644);
+		if (node->fd_out == -1)
+			return (-1);
+	}
+	return (0);
+}
+
 int	add_cmd_to_lst(t_list *i)
 {
 	char	**cmd;
@@ -54,10 +92,8 @@ int	add_cmd_to_lst(t_list *i)
 	int		index;
 
 	count = 0;
-	node = NULL;
-	cmd = NULL;
 	index = 0;
-	node = malloc(sizeof(t_mini));
+	node = create_node();
 	if (!node)
 		return (-1);
 	if (i->wrd)
@@ -76,8 +112,14 @@ int	add_cmd_to_lst(t_list *i)
 		node->cmd[index] = cmd[index];
 		index++;
 	}
-	while (i->next && i->token != t_pipe)
+	while (i && i->next && i->token != t_pipe)
 	{
+		if (is_red(i->token))
+		{
+			if (open_file(i, node) == -1)
+				break;
+			i->next = i->next->next;
+		}
 		node->cmd[index] = i->wrd;
 		index++;
 		i = i->next;

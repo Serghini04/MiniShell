@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/23 01:56:06 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:43:21 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -43,8 +44,8 @@ typedef struct s_list
 typedef	struct s_mini
 {
 	char			**cmd;
-	char			*input;
-	char			*output;
+	int				fd_in;
+	int				fd_out;
 	struct s_mini	*next;
 }	t_mini;
 
@@ -60,8 +61,8 @@ void	clear_lst(t_list **lst);
 void	add_back(t_list **lst, t_list *new);
 char	*ft_substr(char *s, size_t start, size_t len);
 void	print_lst(t_list *h);
-t_mini	*create_node(char *data, char *in, char *out);
-void	add_back_t_mini(t_mini **lst, t_list *new);
+t_mini	*create_node();
+void    add_back_t_mini(t_mini **lst, t_mini *new);
 t_mini	*last_update_lst(t_list **head);
 
 // utils ...
