@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/24 01:23:32 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/24 01:44:26 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	len(char **cmd)
 	return (i);
 }
 
-int	open_file(t_list *i, t_mini *node)
+void	open_file(t_list *i, t_mini *node)
 {
 	char	*res;
 
@@ -59,7 +59,7 @@ int	open_file(t_list *i, t_mini *node)
 	{
 		node->fd_in = open("/tmp/my_f", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (node->fd_in == -1)
-			return (printf("bash: %s: No such file or directory\n", i->wrd), -1);
+			printf("bash: %s: No such file or directory\n", i->wrd);
 		while (1)
 		{
 			res = readline(">");
@@ -71,21 +71,20 @@ int	open_file(t_list *i, t_mini *node)
 	{
 		node->fd_in = open(i->next->wrd, O_RDONLY, 0644);
 		if (node->fd_in == -1)
-			return (printf("bash: %s: No such file or directory\n", i->wrd), -1);
+			printf("bash: %s: No such file or directory\n", i->wrd);
 	}
 	else if (i->token == t_red_out)
 	{
 		node->fd_out = open(i->next->wrd, O_CREAT | O_WRONLY, 0644);
 		if (node->fd_out == -1)
-			return (printf("bash: %s: No such file or directory\n", i->wrd), -1);
+			printf("bash: %s: No such file or directory\n", i->wrd);
 	}
 	else if (i->token == t_app)
 	{
 		node->fd_out = open(i->next->wrd, O_APPEND | O_CREAT | O_RDWR, 0644);
 		if (node->fd_out == -1)
-			return (printf("bash: %s: No such file or directory\n", i->wrd), -1);
+			printf("bash: %s: No such file or directory\n", i->wrd);
 	}
-	return (0);
 }
 
 int	add_cmd_to_lst(t_list *i)
@@ -101,16 +100,15 @@ int	add_cmd_to_lst(t_list *i)
 	cmd = NULL;
 	node->cmd = malloc(sizeof(char *) * len_cmd(i));
 	if (!node->cmd)
-		return (-1);;
+		return (-1);
 	while (i->token != t_pipe)
 	{
 		if (is_red(i))
 		{
-			if (open_file(i, node) == -1)
-				break;
+			open_file(i, node);
 			printf("1\n");
 		}
-		else
+		else if (is_red(i->prv))
 		{
 			node->cmd[index] = i->wrd;
 			printf(">>%s\n", node->cmd[index]);
