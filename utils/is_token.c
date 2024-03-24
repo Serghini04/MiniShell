@@ -6,21 +6,23 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:04:30 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/23 21:54:35 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/24 00:58:28 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_red(int c)
+int	is_red(t_list *c)
 {
-	if (c == t_red_in)
+	if (!c)
+		return (0);
+	else if (c->token == t_red_in)
 		return (1);
-	else if (c == t_red_out)
+	else if (c->token == t_red_out)
 		return (1);
-	else if (c == t_app)
+	else if (c->token == t_app)
 		return (1);
-	else if (c == t_heredoc)
+	else if (c->token == t_heredoc)
 		return (1);
 	return (0);
 }

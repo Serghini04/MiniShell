@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/23 22:18:24 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/24 00:56:55 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_list	*last_lst(t_list *lst);
 t_mini	*parsing_part(char *line);
 t_list	*tokening(char *input);
 void	print_error(t_list **head, t_list *i);
-int		is_red(int c);
+int     is_red(t_list *c);
 int		is_q(int c);
 int		check_token(char c);
 

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/23 23:06:21 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/24 00:57:24 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,18 +108,18 @@ int	checking_syntax(t_list **head)
 		return (print_error(head, i), -1);
 	while (i->next)
 	{
-		if (is_red(i->token) && i->next->token != t_word \
+		if (is_red(i) && i->next->token != t_word \
 													&& !is_q(i->next->token))
 			return (print_error(head, i), -1);
 		if (i->token == t_pipe)
 		{
-			if (!is_red(i->next->token) && i->next->token != t_word \
+			if (!is_red(i->next) && i->next->token != t_word \
 													&& !is_q(i->next->token))
 				return (print_error(head, i), -1);
 		}
 		i = i->next;
 	}
-	if (is_red(i->token) || i->token == t_pipe)
+	if (is_red(i) || i->token == t_pipe)
 		return (print_error(head, i), -1);
 	if (split_wrd(head) == -1 || join_qoute(head) == -1)
 		return (clear_lst(head), 1);
@@ -129,7 +129,7 @@ int	checking_syntax(t_list **head)
 t_mini	*parsing_part(char *line)
 {
 	t_list	*head;
-	// t_mini	*data;
+	t_mini	*data;
 	char 	*res;
 
 	res = ft_strtrim(line, " \t");
@@ -138,8 +138,8 @@ t_mini	*parsing_part(char *line)
 		return (clear_lst(&head), free(res), NULL);
 	if (checking_syntax(&head) == -1)
 		return (free(res), NULL);
-	// data = last_update_lst(head);
+	data = last_update_lst(head);
 	print_lst(head);
 	free(res);
-	return (NULL);
+	return (data);
 }

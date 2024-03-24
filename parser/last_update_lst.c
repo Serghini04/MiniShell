@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/23 21:35:54 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/24 01:23:32 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,20 @@ int	len_cmd(t_list *head)
 {
 	t_list	*i;
 	int		count;
+	int		s;
 
 	count = 0;
 	i = head;
+	s = 0;
 	while (i && i->token != t_pipe)
 	{
-		printf("$>>%s\n", i->wrd);
-		if (!is_red(i->token))
+		if (!is_red(i))
 			count++;
+		else
+			s++;
 		i = i->next;
 	}
-	return (count);
+	return (count - s);
 }
 int	len(char **cmd)
 {
@@ -56,7 +59,7 @@ int	open_file(t_list *i, t_mini *node)
 	{
 		node->fd_in = open("/tmp/my_f", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (node->fd_in == -1)
-			return (-1);
+			return (printf("bash: %s: No such file or directory\n", i->wrd), -1);
 		while (1)
 		{
 			res = readline(">");
@@ -68,19 +71,19 @@ int	open_file(t_list *i, t_mini *node)
 	{
 		node->fd_in = open(i->next->wrd, O_RDONLY, 0644);
 		if (node->fd_in == -1)
-			return (-1);
+			return (printf("bash: %s: No such file or directory\n", i->wrd), -1);
 	}
 	else if (i->token == t_red_out)
 	{
 		node->fd_out = open(i->next->wrd, O_CREAT | O_WRONLY, 0644);
 		if (node->fd_out == -1)
-			return (-1);
+			return (printf("bash: %s: No such file or directory\n", i->wrd), -1);
 	}
 	else if (i->token == t_app)
 	{
 		node->fd_out = open(i->next->wrd, O_APPEND | O_CREAT | O_RDWR, 0644);
 		if (node->fd_out == -1)
-			return (-1);
+			return (printf("bash: %s: No such file or directory\n", i->wrd), -1);
 	}
 	return (0);
 }
@@ -89,42 +92,30 @@ int	add_cmd_to_lst(t_list *i)
 {
 	char	**cmd;
 	t_mini	*node;
-	int		count;
 	int		index;
 
-	count = 0;
 	index = 0;
 	node = create_node();
 	if (!node)
 		return (-1);
 	cmd = NULL;
-	if (i->token == t_word)
+	node->cmd = malloc(sizeof(char *) * len_cmd(i));
+	if (!node->cmd)
+		return (-1);;
+	while (i->token != t_pipe)
 	{
-		cmd = ft_split(i->wrd, ' ');
-		if (!cmd)
-			return (-1);
-		count = len(cmd);
-		i = i->next;
-	}
-	// node->cmd = malloc(sizeof(char *) * (count + len_cmd(i)));
-	// if (!node->cmd)
-	// 	return (-1);
-	printf("%d\n", count + len_cmd(i));
-	exit(1);
-	while (cmd[index])
-	{
-		node->cmd[index] = cmd[index];
-		index++;
-	}
-	while (i && i->token != t_pipe)
-	{
-		if (is_red(i->token))
+		if (is_red(i))
 		{
 			if (open_file(i, node) == -1)
 				break;
+			printf("1\n");
 		}
-		node->cmd[index] = i->wrd;
-		index++;
+		else
+		{
+			node->cmd[index] = i->wrd;
+			printf(">>%s\n", node->cmd[index]);
+			index++;
+		}
 		i = i->next;
 	}
 	node->cmd[index] = NULL;
@@ -149,6 +140,5 @@ t_mini	*last_update_lst(t_list *head)
 		}
 		i = i->next;
 	}
-	printf("===> end <====\n");
 	return (data);
 }
