@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:07:54 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/22 01:33:36 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/24 02:50:13 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	ft_end(char *s1, char *set)
 {
 	int	i;
 
-	i = ft_strlen(s1) - 1;
+	i = ft_strlen(s1);
 	while (s1[i] && check(s1[i], set) == 1)
 		i--;
 	return (i);

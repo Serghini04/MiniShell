@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:57:09 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/24 02:43:28 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/24 02:52:02 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ int	add_token_lst(t_list **head, char *input, int *i, int *s)
 	if (*res)
 	{
 		node = new_node(res, t_word);
-		if (input[*i - 2] != ' ' && input[*i - 2] != '\t')
+		if (*i > 1 && input[*i - 2] != ' ' && input[*i - 2] != '\t')
 			node->is_sp = 0;
    		add_back(head, node);
 	}
 	else
 		free(res);
-	if (input[*i] == '>' && input[*i + 1] == '>')
+	if (*i > 1 && input[*i] == '>' && input[*i + 1] == '>')
 	{
         add_back(head, new_node(ft_strdup(">>"), t_app));
 		(*i)++;
