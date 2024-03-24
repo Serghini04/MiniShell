@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/24 00:57:24 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/24 02:40:36 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,27 @@ int	checking_syntax(t_list **head)
 	return (0);
 }
 
+void	print_t_mini(t_mini *data)
+{
+	t_mini	*i;
+
+	i = data;
+	int index = 1;
+	printf("=========================================\n");
+	printf("|cmd ...|	Arg    | fd_in	| fd_out |\n");
+	printf("==========================================\n");
+	while (i)
+	{
+		index = 0;
+		printf("|%s	|", i->cmd[0]);
+		while (i->cmd[index++])
+			printf("%s ", i->cmd[index]);
+		printf("	|%d	|	%d|\n", i->fd_in, i->fd_out);
+		i = i->next;
+	}
+	printf("==========================================\n");
+}
+
 t_mini	*parsing_part(char *line)
 {
 	t_list	*head;
@@ -139,7 +160,8 @@ t_mini	*parsing_part(char *line)
 	if (checking_syntax(&head) == -1)
 		return (free(res), NULL);
 	data = last_update_lst(head);
-	print_lst(head);
+	print_t_mini(data);
+	// print_lst(head);
 	free(res);
 	return (data);
 }

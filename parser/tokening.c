@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:57:09 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/23 21:42:09 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/24 02:43:28 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 	if (c == '\'')
 	{
 		node = new_node(ft_substr(input, *pos + 1, len), t_signle_q);
-		if (input[*pos - 1] != ' ' && input[*pos - 1] != '\t')
+		if (*pos > 0 && input[*pos - 1] != ' ' && input[*pos - 1] != '\t')
 			node->is_sp = 0;
 		add_back(head, node);
 	}
 	else
 	{
 		node = new_node(ft_substr(input, *pos + 1, len), t_double_q);
-		if (input[*pos - 1] != ' ' && input[*pos - 1] != '\t')
+		if (*pos > 0 && input[*pos - 1] != ' ' && input[*pos - 1] != '\t')
 			node->is_sp = 0;
 		add_back(head, node);
 	}
