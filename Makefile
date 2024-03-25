@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/03/25 21:13:47 by meserghi         ###   ########.fr        #
+#    Updated: 2024/03/25 22:38:00 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,10 @@ lib = lib/ft_strdup.c lib/ft_strjoin.c lib/ft_strlen.c lib/ft_strtrim.c\
 	lib/ft_substr.c lib/all_list.c lib/ft_split.c lib/all_new_list.c lib/ft_strcmp.c\
 	lib/free_arr.c
 
-parser = parser/parsing_part.c parser/tokening.c parser/last_update_lst.c
+parser = parser/parsing_part.c parser/tokening.c parser/last_update_lst.c\
+	parser/checking_syntax.c
 
-utils = utils/print_error.c utils/is_token.c
+utils = utils/print_error.c utils/is_token.c utils/parsing_utils.c utils/split_cmd.c
 
 FILE = ${lib} ${parser} ${utils} minishell.c
 

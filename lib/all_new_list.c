@@ -6,13 +6,13 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:24:30 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/25 18:37:10 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:47:55 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_mini	*create_node()
+t_mini	*create_node(void)
 {
 	t_mini	*new;
 

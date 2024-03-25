@@ -6,67 +6,16 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/25 19:51:22 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:03:39 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// start parsing like this :
-/* Example For the line : cat < "Makefile" | grep something > outfile | wc -l < outfile */
-//	 /---------------------------------------------------\
-//   | PIPE_LINE|  CMD|      ARGS|   IN_REDIR|  OUT_REDIR|
-//   |---------------------------------------------------|
-//   |        00|  cat|      NULL| "Makefile"|       NULL|
-//   |        01| grep| something|       NULL|    outfile|
-//   |        02|   wc|        -l|    outfile|       NULL|
-//   \---------------------------------------------------/
-
-// ls | ls
-
-int	len_cmd(t_list *head)
-{
-	t_list	*i;
-	int		count;
-	int		s;
-
-	count = 0;
-	i = head;
-	s = 0;
-	while (i && i->token != t_pipe)
-	{
-		if (!is_red(i))
-			count++;
-		else
-			s++;
-		i = i->next;
-	}
-	return (count - s);
-}
-int	len(char **cmd)
-{
-	int i = 0;
-	while (cmd[i])
-		i++;
-	return (i);
-}
-
 void	open_file(t_list *i, t_mini *node)
 {
-	char	*res;
-
 	if (i->token == t_heredoc)
-	{
-		node->fd_in = open("/tmp/my_f", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (node->fd_in == -1)
-			printf("bash: %s: No such file or directory\n", i->wrd);
-		while (1)
-		{
-			res = readline(">");
-			if (!res || !ft_strcmp(res, i->next->wrd))
-				break;
-		}
-	}
+		node->fd_in = part_heredoc(i, node);
 	else if (i->token == t_red_in)
 	{
 		node->fd_in = open(i->next->wrd, O_RDONLY, 0644);
@@ -137,3 +86,15 @@ t_mini	*last_update_lst(t_list *head)
 	add_back_t_mini(&data, add_cmd_to_lst(s));
 	return (data);
 }
+
+// start parsing like this :
+/* Ex: cat < "Makefile" | grep something > outfile| wc -l < outfile */
+//	 /---------------------------------------------------\
+//   | PIPE_LINE|  CMD|      ARGS|   IN_REDIR|  OUT_REDIR|
+//   |---------------------------------------------------|
+//   |        00|  cat|      NULL| "Makefile"|       NULL|
+//   |        01| grep| something|       NULL|    outfile|
+//   |        02|   wc|        -l|    outfile|       NULL|
+//   \---------------------------------------------------/
+
+// ls | ls
