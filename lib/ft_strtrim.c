@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:07:54 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/24 02:50:13 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:14:53 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static int	ft_end(char *s1, char *set)
 {
 	int	i;
 
-	i = ft_strlen(s1);
-	while (s1[i] && check(s1[i], set) == 1)
+	i = ft_strlen(s1) - 1;
+	while (i > 0 && check(s1[i], set) == 1)
 		i--;
 	return (i);
 }
@@ -61,7 +61,7 @@ char	*ft_strtrim(char *s1, char *set)
 	s = ft_start(s1, set);
 	end = ft_end(s1, set);
 	if (s > end)
-		return (ft_strdup(""));
+		return (free(s1), ft_strdup(""));
 	res = malloc(end - s + 2);
 	if (!res)
 		return (free(s1), NULL);

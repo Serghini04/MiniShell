@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/24 02:33:17 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:51:22 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	open_file(t_list *i, t_mini *node)
 
 t_mini	*add_cmd_to_lst(t_list *i)
 {
-	char	**cmd;
 	t_mini	*node;
 	int		index;
 
@@ -97,7 +96,6 @@ t_mini	*add_cmd_to_lst(t_list *i)
 	node = create_node();
 	if (!node)
 		return (NULL);
-	cmd = NULL;
 	node->cmd = malloc(sizeof(char *) * (len_cmd(i) + 1));
 	if (!node->cmd)
 		return (NULL);
@@ -115,8 +113,7 @@ t_mini	*add_cmd_to_lst(t_list *i)
 		}
 		i = i->next;
 	}
-	node->cmd[index] = NULL;
-	return (node);
+	return (node->cmd[index] = NULL, node);
 }
 
 t_mini	*last_update_lst(t_list *head)

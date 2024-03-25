@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   free_arr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/25 18:37:50 by meserghi         ###   ########.fr       */
+/*   Created: 2024/03/25 18:30:26 by meserghi          #+#    #+#             */
+/*   Updated: 2024/03/25 18:31:30 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void f()
+void	free_arr(char **res)
 {
-	system("leaks minishell");
-}
+	int	i;
 
-int main()
-{
-	char *res;
-
-	while (1)
+	i = 0;
+	if (!res)
+		return ;
+	while (res[i])
 	{
-		res = readline("hi me>> ");
-		if (!res)
-			break;
-		if (*res)
-			add_history(res);
-		parsing_part(res);
+		free(res[i]);
+		i++;
 	}
-	atexit(f);
-	return (0);
+	free(res);
 }

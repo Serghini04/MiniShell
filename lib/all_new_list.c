@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:24:30 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/23 17:21:14 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:37:10 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	cln_node(t_mini *node)
 	free(node);
 }
 
-void	clean_t_mini(t_mini **lst)
+void	clear_t_mini(t_mini **lst)
 {
 	t_mini	*i;
 	t_mini	*swap;

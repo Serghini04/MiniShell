@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/24 00:56:55 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:34:16 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void    add_back_t_mini(t_mini **lst, t_mini *new);
 t_mini	*last_update_lst(t_list *head);
 int		find_space(char *s);
 t_list	*last_lst(t_list *lst);
+void	free_arr(char **res);
+void	clear_t_mini(t_mini **lst);
 // utils ...
 
 t_mini	*parsing_part(char *line);

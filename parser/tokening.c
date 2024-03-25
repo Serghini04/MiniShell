@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:57:09 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/24 02:52:02 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/25 20:52:11 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 	char	c;
 
 	c = input[*pos];
-	res = ft_substr(input, *i, *pos - *i);
-    res = ft_strtrim(res, " \t");
+    res = ft_strtrim(ft_substr(input, *i, *pos - *i), " \t");
 	if (*res)
     	add_back(head, new_node(res, t_word));
 	else
@@ -74,7 +73,7 @@ int	add_token_lst(t_list **head, char *input, int *i, int *s)
 	if (*res)
 	{
 		node = new_node(res, t_word);
-		if (*i > 1 && input[*i - 2] != ' ' && input[*i - 2] != '\t')
+		if (*i > 0 && input[*i - 1] != ' ' && input[*i - 1] != '\t')
 			node->is_sp = 0;
    		add_back(head, node);
 	}
