@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:20:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/25 22:47:55 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/26 00:06:41 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	join_qoute(t_list **head)
 
 	i = *head;
 	delete_if_to_wrd_empty(head);
-	print_lst(*head);
 	while (i && i->next)
 	{
 		if (is_q(i->token) && i->next->token == t_word && !i->next->is_sp)

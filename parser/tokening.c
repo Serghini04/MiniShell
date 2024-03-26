@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:57:09 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/25 22:51:13 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/26 00:30:12 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 			node->is_sp = 0;
 		add_back(head, node);
 	}
-	return ((*pos) += len + 1, (*i) = *pos + 1, 1);
+	return ((*pos) += len + 1, (*i) = *pos + 1, 0);
 }
 
 int	add_token_lst(t_list **head, char *input, int *i, int *s)
@@ -70,7 +70,7 @@ int	add_token_lst(t_list **head, char *input, int *i, int *s)
 
 	res = ft_strtrim(ft_substr(input, *s, *i - *s), " \t");
 	if (!res || !*res)
-		return (free(res), -1);
+		return (free(res), 0);
 	node = new_node(res, t_word);
 	if (*i > 0 && input[*s] != ' ' && input[*s] != '\t')
 		node->is_sp = 0;
@@ -88,7 +88,7 @@ int	add_token_lst(t_list **head, char *input, int *i, int *s)
     else if (input[*i] != '\0')
         add_back(head, new_node(ft_substr(input, *i, 1), \
 										check_token(input[*i])));
-	return(*s = *i + 1, 1);
+	return(*s = *i + 1, 0);
 }
 
 t_list	*tokening(char *input)
