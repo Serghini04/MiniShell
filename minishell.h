@@ -6,18 +6,18 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/25 22:36:29 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/26 01:03:54 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef enum e_token
 {
@@ -34,14 +34,14 @@ typedef enum e_token
 
 typedef struct s_list
 {
-	char *wrd;
-	int	token;
-	int	is_sp;
-	struct s_list *prv;
-	struct s_list *next;
+	char			*wrd;
+	int				token;
+	int				is_sp;
+	struct s_list	*prv;
+	struct s_list	*next;
 }	t_list;
 
-typedef	struct s_mini
+typedef struct s_mini
 {
 	char			**cmd;
 	int				fd_in;

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:30:26 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/25 22:05:39 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/26 01:06:17 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void	free_arr(char **res)
 void	print_t_mini(t_mini *data)
 {
 	t_mini	*i;
+	int		index;
 
 	i = data;
-	int index = 1;
+	index = 1;
 	printf("=========================================\n");
 	printf("|cmd ...|	Arg    | fd_in	| fd_out |\n");
 	printf("==========================================\n");
@@ -46,4 +47,18 @@ void	print_t_mini(t_mini *data)
 		i = i->next;
 	}
 	printf("==========================================\n");
+}
+
+void	print_lst(t_list *h)
+{
+	t_list	*i;
+
+	i = h;
+	printf("---------------------------------\n");
+	while (i)
+	{
+		printf(">>%s<< ===> %d ==> %d\n", i->wrd, i->token, i->is_sp);
+		i = i->next;
+	}
+	printf("\n---------------------------------\n");
 }
