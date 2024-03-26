@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:24:30 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/25 21:47:55 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/26 21:38:22 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	cln_node(t_mini *node)
 	while (node->cmd[++i])
 		free(node->cmd[i]);
 	free(node->cmd);
-	if (node->fd_in)
+	if (node->fd_in != -1 && node->fd_in != 0)
 		close(node->fd_in);
-	if (node->fd_out)
+	if (node->fd_out != -1 && node->fd_out != 1)
 		close(node->fd_out);
 	free(node);
 }

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/25 22:03:39 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/26 21:32:27 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_mini	*add_cmd_to_lst(t_list *i)
 		return (NULL);
 	node->cmd = malloc(sizeof(char *) * (len_cmd(i) + 1));
 	if (!node->cmd)
-		return (NULL);
+		return (free(node), NULL);
 	while (i && i->token != t_pipe)
 	{
 		if (is_red(i))
@@ -57,7 +57,7 @@ t_mini	*add_cmd_to_lst(t_list *i)
 		}
 		else
 		{
-			node->cmd[index] = i->wrd;
+			node->cmd[index] = ft_strdup(i->wrd);
 			index++;
 		}
 		i = i->next;
@@ -86,15 +86,3 @@ t_mini	*last_update_lst(t_list *head)
 	add_back_t_mini(&data, add_cmd_to_lst(s));
 	return (data);
 }
-
-// start parsing like this :
-/* Ex: cat < "Makefile" | grep something > outfile| wc -l < outfile */
-//	 /---------------------------------------------------\
-//   | PIPE_LINE|  CMD|      ARGS|   IN_REDIR|  OUT_REDIR|
-//   |---------------------------------------------------|
-//   |        00|  cat|      NULL| "Makefile"|       NULL|
-//   |        01| grep| something|       NULL|    outfile|
-//   |        02|   wc|        -l|    outfile|       NULL|
-//   \---------------------------------------------------/
-
-// ls | ls

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/26 01:05:01 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/26 21:17:10 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	f(void)
 {
 	system("leaks minishell");
 }
+// fix leaks ...
+// expanding ...
 
 int	main(void)
 {

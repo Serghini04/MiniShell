@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:01:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/26 01:07:23 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/26 21:31:29 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ int	part_heredoc(t_list *i, t_mini *node)
 
 	node->fd_in = open("/tmp/my_f", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (node->fd_in == -1)
-		printf("bash: %s: No such file or directory\n", i->wrd);
+		return (printf("bash: %s: No such file or directory\n", i->wrd), -1);
 	while (1)
 	{
 		res = readline(">");
 		if (!res || !ft_strcmp(res, i->next->wrd))
 			break ;
+		free(res);
 	}
+	free(res);
 	return (node->fd_in);
 }

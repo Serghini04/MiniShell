@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:57:09 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/26 01:20:58 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/26 21:22:14 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	len_q(char *input, int c)
 	int	i;
 
 	i = 0;
-	printf(">>%s<<===>%c\n", input, c);
 	while (input[i])
 	{
 		if (c == input[i])
@@ -77,12 +76,15 @@ int	add_token_lst(t_list **head, char *input, int *i, int *s)
 	t_list	*node;
 
 	res = ft_strtrim(ft_substr(input, *s, *i - *s), " \t");
-	if (!res || !*res)
-		return (free(res), 0);
-	node = new_node(res, t_word);
-	if (*i > 0 && input[*s] != ' ' && input[*s] != '\t')
-		node->is_sp = 0;
-	add_back(head, node);
+	if (*res)
+	{
+		node = new_node(res, t_word);
+		if (*i > 0 && input[*s] != ' ' && input[*s] != '\t')
+			node->is_sp = 0;
+		add_back(head, node);
+	}
+	else
+		free(res);
 	if (*i > 1 && input[*i] == '>' && input[*i + 1] == '>')
 	{
 		add_back(head, new_node(ft_strdup(">>"), t_app));
