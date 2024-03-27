@@ -6,30 +6,41 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/26 21:32:27 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:57:43 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void	close_if_open(int fd, int nb)
+{
+	if (fd != nb)
+		close(fd);
+}
+
 void	open_file(t_list *i, t_mini *node)
 {
+	if (node->fd_in == -1 || node->fd_out == -1)
+		return ;
 	if (i->token == t_heredoc)
-		node->fd_in = part_heredoc(i, node);
+		(close_if_open(node->fd_in, 0), node->fd_in = part_heredoc(i, node));
 	else if (i->token == t_red_in)
 	{
+		close_if_open(node->fd_in, 0);
 		node->fd_in = open(i->next->wrd, O_RDONLY, 0644);
 		if (node->fd_in == -1)
 			printf("bash: %s: No such file or directory\n", i->wrd);
 	}
 	else if (i->token == t_red_out)
 	{
+		close_if_open(node->fd_out, 1);
 		node->fd_out = open(i->next->wrd, O_CREAT | O_WRONLY, 0644);
 		if (node->fd_out == -1)
 			printf("bash: %s: No such file or directory\n", i->wrd);
 	}
 	else if (i->token == t_app)
 	{
+		close_if_open(node->fd_out, 1);
 		node->fd_out = open(i->next->wrd, O_APPEND | O_CREAT | O_RDWR, 0644);
 		if (node->fd_out == -1)
 			printf("bash: %s: No such file or directory\n", i->wrd);
