@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:01:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/26 21:31:29 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/29 21:56:21 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ int	len(char **cmd)
 int	part_heredoc(t_list *i, t_mini *node)
 {
 	char	*res;
+	int		v;
 
+	v = 1;
+	if (node->fd_in == -1)
+		v = 0;
 	node->fd_in = open("/tmp/my_f", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (node->fd_in == -1)
 		return (printf("bash: %s: No such file or directory\n", i->wrd), -1);
@@ -56,6 +60,10 @@ int	part_heredoc(t_list *i, t_mini *node)
 			break ;
 		free(res);
 	}
-	free(res);
-	return (node->fd_in);
+	if (!v)
+	{
+		close(node->fd_in);
+		node->fd_in = -1;
+	}
+	return (free(res), node->fd_in);
 }

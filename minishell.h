@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/26 01:03:54 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/29 21:34:29 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int		len_q(char *input, int c);
 int		add_singl_double_q(t_list **head, char *input, int *i, int *pos);
 int		add_token_lst(t_list **head, char *input, int *i, int *s);
 t_list	*tokening(char *input);
+void	close_if_open(int fd, int nb);
 
 //utils
 int		is_red(t_list *c);

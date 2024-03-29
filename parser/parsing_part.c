@@ -6,14 +6,14 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/26 21:39:59 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/28 21:10:03 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// protection function...
 // expanding...
+// protection function...
 // done.
 
 void	delete_if_to_wrd_empty(t_list **head)
@@ -61,7 +61,7 @@ void	add_split_lst(char **cmd, t_list **head, t_list **root)
 	free_node(swap);
 }
 
-t_mini	*parsing_part(char*line)
+t_mini	*parsing_part(char *line)
 {
 	t_list	*head;
 	t_mini	*data;
@@ -77,6 +77,8 @@ t_mini	*parsing_part(char*line)
 	free(res);
 	if (checking_syntax(&head) == -1)
 		return (NULL);
+	// if (expanding(&head) == 1)
+	// 	return (NULL);
 	data = last_update_lst(head);
 	clear_lst(&head);
 	print_t_mini(data);

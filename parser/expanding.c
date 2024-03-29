@@ -1,36 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/29 21:20:20 by meserghi         ###   ########.fr       */
+/*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
+/*   Updated: 2024/03/28 18:24:39 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	f(void)
+char	*find_dollar(char *s)
 {
-	system("leaks minishell");
+	int		i;
+	int		j;
+	char	*name;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '$')
+		{
+
+		}
+		i++;
+	}
+	return (NULL);
 }
 
-int	main(void)
+int	expanding(t_list **head)
 {
-	t_mini	*data;
-	char	*res;
+	t_list *i;
+	char	*name;
 
-	while (1)
+	while (i)
 	{
-		res = readline("hi me>> ");
-		if (!res)
-			break ;
-		if (*res)
-			add_history(res);
-		data = parsing_part(res);
+		if (i->token == t_word || i->token == t_double_q)
+		{
+			name = find_dollar(i->wrd);
+			if (name)
+			{
+
+			}
+		}
+		i = i->next;
 	}
-	atexit(f);
-	return (0);
 }
