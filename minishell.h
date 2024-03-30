@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/29 21:34:29 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/30 00:48:14 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_list
 typedef struct s_mini
 {
 	char			**cmd;
+	char			**env;
 	int				fd_in;
 	int				fd_out;
 	struct s_mini	*next;
@@ -97,4 +98,6 @@ int		len(char **cmd);
 int		part_heredoc(t_list *i, t_mini *node);
 void	print_error(t_list **head, t_list *i);
 int		split_cmd(t_list **head);
+char	*find_path(char *cmd, char **env);
+
 #endif
