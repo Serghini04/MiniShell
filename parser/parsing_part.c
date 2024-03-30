@@ -6,12 +6,14 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/28 21:10:03 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/29 23:10:33 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+
+// you need to fix ls -"s infile"
 // expanding...
 // protection function...
 // done.
