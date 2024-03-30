@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:17:26 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/03/30 00:50:22 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/03/30 01:02:51 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	main_process(t_mini	*data)
 	pid = fork();
 	if (pid == 0)
 	{
-		run_cmd(data->cmd, dataenv, t_fd);
+		run_cmd(data->cmd, data->env, t_fd);
 	}
 	else if (pid > 0)
 	{
