@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/29 21:20:20 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/30 02:06:20 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ void	f(void)
 	system("leaks minishell");
 }
 
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
 	t_mini	*data;
 	char	*res;
 
+	(void)av;
+	if (ac != 1 || !env || !*env)
+		exit(EXIT_FAILURE);
 	while (1)
 	{
 		res = readline("hi me>> ");
@@ -31,6 +34,6 @@ int	main(void)
 			add_history(res);
 		data = parsing_part(res);
 	}
-	atexit(f);
+	// atexit(f);
 	return (0);
 }

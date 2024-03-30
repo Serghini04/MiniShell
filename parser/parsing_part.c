@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/29 23:10:33 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/30 02:35:30 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 
 // you need to fix ls -"s infile"
+// split with '\t'/./
 // expanding...
 // protection function...
 // done.
@@ -81,6 +82,7 @@ t_mini	*parsing_part(char *line)
 		return (NULL);
 	// if (expanding(&head) == 1)
 	// 	return (NULL);
+	print_lst(head);
 	data = last_update_lst(head);
 	clear_lst(&head);
 	print_t_mini(data);

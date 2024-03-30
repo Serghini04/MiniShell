@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:20:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/29 22:55:49 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/30 03:36:16 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	join_empty_wrd(t_list *i)
 
 	swap = i->next->next;
 	i->wrd = ft_strjoin(i->wrd, i->next->wrd);
-	i->token = i->next->token;
+	if (i->next->token != t_word)
+		i->token = i->next->token;
+	else
+		i->token = i->token;
 	free_node(i->next);
 	i->next = swap;
 }
@@ -31,7 +34,7 @@ int	join_qoute(t_list **head)
 	delete_if_to_wrd_empty(head);
 	while (i && i->next)
 	{
-		if (is_q(i->token) && i->next->token == t_word && !i->next->is_sp)
+		if (is_q(i->token)  && i->next->wrd && !i->next->is_sp)
 			join_empty_wrd(i);
 		if (i && i->next && is_q(i->next->token))
 		{
