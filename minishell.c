@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/30 02:06:20 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/31 21:27:57 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ int	main(int ac, char **av, char **env)
 			add_history(res);
 		data = parsing_part(res);
 	}
-	// atexit(f);
+	atexit(f);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/30 03:47:51 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/31 21:51:31 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	open_file(t_list *i, t_mini *node)
 	if (i->token != t_heredoc && (node->fd_in == -1 || node->fd_out == -1))
 		return ;
 	if (i->token == t_heredoc)
-			(close_if_open(node->fd_in, 0), node->fd_in = part_heredoc(i, node));
+		(close_if_open(node->fd_in, 0), node->fd_in = part_heredoc(i, node));
 	else if (i->token == t_red_in)
 	{
 		close_if_open(node->fd_in, 0);

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:57:09 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/30 02:05:17 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/31 21:56:41 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,12 @@ int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 	if (!res)
 		(clear_lst(head), free(input), exit(1));
 	if (*res)
-		add_back(head, new_node(res, t_word));
+	{
+		node = new_node(res, t_word);
+		if (*pos > 0 && input[*i] != ' ' && input[*i] != '\t')
+			node->is_sp = 0;
+		add_back(head, node);
+	}
 	else
 		free(res);
 	len = len_q(&input[*pos + 1], input[*pos]);
@@ -65,10 +70,7 @@ int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 		clear_lst(head);
 		return (-1);
 	}
-	node = add_single_or_double_q(input, *pos, len);
-	if (!node)
-		return (-1);
-	add_back(head, node);
+	add_back(head, add_single_or_double_q(input, *pos, len));
 	return ((*pos) += len + 1, (*i) = *pos + 1, 0);
 }
 
@@ -88,15 +90,9 @@ int	add_token_lst(t_list **head, char *input, int *i, int *s)
 	else
 		free(res);
 	if (*i > 1 && input[*i] == '>' && input[*i + 1] == '>')
-	{
-		add_back(head, new_node(ft_strdup(">>"), t_app));
-		(*i)++;
-	}
+		(add_back(head, new_node(ft_strdup(">>"), t_app)), (*i)++);
 	else if (input[*i] == '<' && input[*i + 1] == '<')
-	{
-		add_back(head, new_node(ft_strdup("<<"), t_heredoc));
-		(*i)++;
-	}
+		(add_back(head, new_node(ft_strdup("<<"), t_heredoc)), (*i)++);
 	else if (input[*i] != '\0')
 		add_back(head, new_node(ft_substr(input, *i, 1), \
 										check_token(input[*i])));

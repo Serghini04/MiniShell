@@ -6,12 +6,11 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/30 19:50:26 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/31 21:52:24 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 // you need to fix ls -"s infile"
 // split with '\t'/./
@@ -19,29 +18,29 @@
 // protection function...
 // done.
 
-void delete_if_empty_wrd(t_list **head)
+void	delete_if_empty_wrd(t_list **head)
 {
-    t_list *i;
-    t_list *temp;
+	t_list	*i;
+	t_list	*tmp;
 
-    i = *head;
-    while (i && i->next)
-    {
-        if (!*i->wrd && !i->next->is_sp)
-        {
-            if (i->prv)
-                i->prv->next = i->next;
-            else
-                (*head) = i->next;
-            if (i->next)
-                i->next->prv = i->prv;
-            temp = i;
-            i = i->next;
-            free(temp);
-        }
-        else
-            i = i->next;
-    }
+	i = *head;
+	while (i && i->next)
+	{
+		if (!*i->wrd && !i->next->is_sp)
+		{
+			if (i->prv)
+				i->prv->next = i->next;
+			else
+				(*head) = i->next;
+			if (i->next)
+				i->next->prv = i->prv;
+			tmp = i;
+			i = i->next;
+			free_node(tmp);
+		}
+		else
+			i = i->next;
+	}
 }
 
 void	add_split_lst(char **cmd, t_list **head, t_list **root)
@@ -88,7 +87,6 @@ t_mini	*parsing_part(char *line)
 		return (NULL);
 	// if (expanding(&head) == 1)
 	// 	return (NULL);
-	print_lst(head);
 	data = last_update_lst(head);
 	clear_lst(&head);
 	print_t_mini(data);

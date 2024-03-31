@@ -1,0 +1,123 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   join_qoute.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/31 01:27:11 by meserghi          #+#    #+#             */
+/*   Updated: 2024/03/31 21:50:53 by meserghi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
+
+void	join_empty_wrd(t_list *i)
+{
+	t_list	*swap;
+
+	swap = i->next->next;
+	i->wrd = ft_strjoin(i->wrd, i->next->wrd);
+	if (i->next->token != t_word)
+		i->token = i->next->token;
+	else
+		i->token = i->token;
+	free_node(i->next);
+	i->next = swap;
+}
+
+char	*join_q_wrd(char *s1, char *s2)
+{
+	char	*res;
+	int		len;
+	int		i;
+
+	len = 0;
+	i = 0;
+	while (s2[len] && !ft_isspace(s2[len]))
+		len++;
+	res = malloc(len + ft_strlen(s1) + 1);
+	if (!res)
+		return (NULL);
+	while (s1[i])
+	{
+		res[i] = s1[i];
+		i++;
+	}
+	len = 0;
+	while (s2[len] && !ft_isspace(s2[len]))
+	{
+		res[i] = s2[len];
+		i++;
+		len++;
+	}
+	res[i] = '\0';
+	return (res);
+}
+
+int	cln_space(char *s1)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && !ft_isspace(s1[i]))
+		i++;
+	while (ft_isspace(s1[i]))
+		i++;
+	return (i);
+}
+
+void	split_and_join(t_list	**i)
+{
+	char	*s;
+	char	*next_wrd;
+	t_list	*tmp;
+
+	s = (*i)->wrd;
+	next_wrd = (*i)->next->wrd;
+	(*i)->wrd = join_q_wrd((*i)->wrd, next_wrd);
+	free(s);
+	if (ft_strlen(next_wrd) - cln_space(next_wrd) != 0)
+	{
+		s = next_wrd;
+		next_wrd = ft_substr(next_wrd, cln_space(next_wrd), \
+									ft_strlen(next_wrd) - cln_space(next_wrd));
+		free(s);
+		*i = (*i)->next;
+	}
+	else
+	{
+		tmp = (*i)->next;
+		(*i)->next = (*i)->next->next;
+		free_node(tmp);
+	}
+}
+
+int	join_qoute(t_list **head)
+{
+	t_list	*i;
+	t_list	*tmp;
+
+	(delete_if_empty_wrd(head), i = *head);
+	while (i && i->next)
+	{
+		if (is_q(i->token) && !i->next->is_sp && is_q(i->next->token))
+		{
+			i->wrd = ft_strjoin(i->wrd, i->next->wrd);
+			(1) && (i->next = i->next->next, tmp = i->next);
+			free_node(tmp);
+		}
+		else if (is_q(i->token) && !i->next->is_sp)
+			split_and_join(&i);
+		else if (is_q(i->next->token) && !i->next->is_sp)
+		{
+			i->wrd = ft_strjoin(i->wrd, i->next->wrd);
+			(1) && (i->token = i->next->token, tmp = i->next);
+			i->next = i->next->next;
+			free_node(tmp);
+		}
+		else
+			i = i->next;
+	}
+	return (0);
+}
