@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/29 21:58:11 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/30 03:47:51 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_mini	*add_cmd_to_lst(t_list *i)
 			open_file(i, node);
 			i = i->next;
 		}
-		else
+		else if (*i->wrd)
 		{
 			node->cmd[index] = ft_strdup(i->wrd);
 			index++;

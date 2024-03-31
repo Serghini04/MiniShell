@@ -6,13 +6,13 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/03/30 03:39:35 by meserghi         ###   ########.fr        #
+#    Updated: 2024/03/31 00:13:05 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 lib = lib/ft_strdup.c lib/ft_strjoin.c lib/ft_strlen.c lib/ft_strtrim.c\
 	lib/ft_substr.c lib/all_list.c lib/ft_split.c lib/all_new_list.c lib/ft_strcmp.c\
-	lib/free_arr.c
+	lib/free_arr.c lib/ft_isspace.c
 
 parser = parser/parsing_part.c parser/tokening.c parser/last_update_lst.c\
 	parser/checking_syntax.c

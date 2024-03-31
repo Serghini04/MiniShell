@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/30 00:48:14 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/03/30 21:12:38 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	free_node(t_list *node);
 void	clear_lst(t_list **lst);
 t_list	*last_lst(t_list *lst);
 void	print_lst(t_list *h);
+int		ft_isspace(int c);
 t_mini	*create_node(void);
 void	add_back_t_mini(t_mini **lst, t_mini *new);
 void	cln_node(t_mini *node);
@@ -78,7 +79,7 @@ int		checking_syntax(t_list **head);
 void	open_file(t_list *i, t_mini *node);
 t_mini	*add_cmd_to_lst(t_list *i);
 t_mini	*last_update_lst(t_list *head);
-void	delete_if_to_wrd_empty(t_list **head);
+void	delete_if_empty_wrd(t_list **head);
 int		join_qoute(t_list **head);
 void	add_split_lst(char **cmd, t_list **head, t_list **root);
 t_mini	*parsing_part(char*line);

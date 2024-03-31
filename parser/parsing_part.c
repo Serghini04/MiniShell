@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/30 02:35:30 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/30 19:50:26 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,29 @@
 // protection function...
 // done.
 
-void	delete_if_to_wrd_empty(t_list **head)
+void delete_if_empty_wrd(t_list **head)
 {
-	t_list	*i;
-	t_list	*swap;
+    t_list *i;
+    t_list *temp;
 
-	i = *head;
-	while (i)
-	{
-		if (i->next && !*i->wrd && !*i->next->wrd)
-		{
-			swap = i->next;
-			i->next = i->next->next;
-			free_node(swap);
-		}
-		else
-			i = i->next;
-	}
+    i = *head;
+    while (i && i->next)
+    {
+        if (!*i->wrd && !i->next->is_sp)
+        {
+            if (i->prv)
+                i->prv->next = i->next;
+            else
+                (*head) = i->next;
+            if (i->next)
+                i->next->prv = i->prv;
+            temp = i;
+            i = i->next;
+            free(temp);
+        }
+        else
+            i = i->next;
+    }
 }
 
 void	add_split_lst(char **cmd, t_list **head, t_list **root)
