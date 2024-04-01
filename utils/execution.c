@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/01 22:09:16 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/01 22:25:37 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,13 @@ void	main_process(t_mini	**data, char **env)
 		}
 		else if (pid > 0)
 		{
-			if((*data)->fd_in != 0)
-				close((*data)->fd_in);
-			if((*data)->fd_out!= 1)
-				close((*data)->fd_out);
 			close(t_fd[0]);
 			close(t_fd[1]);
+			if ((*data)->next)
+			{
+				close((*data)->fd_in);
+				close((*data)->fd_out);
+			}
 		}
 		else
 		{
