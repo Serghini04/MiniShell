@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/04/01 03:49:45 by meserghi         ###   ########.fr        #
+#    Updated: 2024/04/01 22:39:26 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,14 @@ lib = lib/ft_strdup.c lib/ft_strjoin.c lib/ft_strlen.c lib/ft_strtrim.c\
 parser = parser/parsing_part.c parser/tokening.c parser/last_update_lst.c\
 	parser/checking_syntax.c parser/join_qoute.c parser/join_qoute_part_two.c
 
-utils = utils/print_error.c utils/is_token.c utils/parsing_utils.c utils/split_cmd.c
+utils = utils/print_error.c utils/is_token.c utils/parsing_utils.c utils/split_cmd.c\
+		utils/execution.c utils/ft_strchr.c utils/ft_strnstr.c utils/ft_putstr_fd.c
 
 FILE = ${lib} ${parser} ${utils} minishell.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror
 
 NAME = minishell
 

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:12:50 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/30 03:23:54 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/01 22:39:55 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	len = ft_strlen(s1) + ft_strlen(s2);
 	res = malloc(len + 1);
 	if (!res)
-		return (free(s1), NULL);
+		return (NULL);
 	while (s1[i])
 	{
 		res[i] = s1[i];
@@ -35,5 +35,5 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j])
 		res[i++] = s2[j++];
 	res[i] = '\0';
-	return (free(s1), res);
+	return (res);
 }

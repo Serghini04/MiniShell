@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/01 02:47:28 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/01 22:39:49 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	add_split_lst(char **cmd, t_list **head, t_list **root)
 	free_node(swap);
 }
 
-t_mini	*parsing_part(char *line)
+t_mini	* parsing_part(char *line)
 {
 	t_list	*head;
 	t_mini	*data;
@@ -89,8 +89,8 @@ t_mini	*parsing_part(char *line)
 	// if (expanding(&head) == 1)
 	// 	return (NULL);
 	data = last_update_lst(head);
-	clear_lst(&head);
-	print_t_mini(data);
-	clear_t_mini(&data);
+	// clear_lst(&head);
+	// print_t_mini(data);
+	// clear_t_mini(&data);
 	return (data);
 }
