@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 20:12:50 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/30 19:58:15 by hidriouc         ###   ########.fr       */
+/*   Created: 2023/11/06 21:35:29 by hidriouc          #+#    #+#             */
+/*   Updated: 2024/03/30 02:11:28 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int		len;
-	char	*res;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	if (!s1 || !s2)
-		return (ft_strdup(""));
-	len = ft_strlen(s1) + ft_strlen(s2);
-	res = malloc(len + 1);
-	if (!res)
-		return (NULL);
-	while (s1[i])
+	while ((*s1 || *s2) && n > 0)
 	{
-		res[i] = s1[i];
-		i++;
+		if (*s1 != *s2)
+			return ((unsigned char)*s1 - (unsigned char)*s2);
+		s1++;
+		s2++;
+		n--;
 	}
-	while (s2[j])
-		res[i++] = s2[j++];
-	res[i] = '\0';
-	return (res);
+	return (0);
 }

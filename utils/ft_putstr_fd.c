@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 20:12:50 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/30 19:58:15 by hidriouc         ###   ########.fr       */
+/*   Created: 2023/11/10 21:27:59 by hidriouc          #+#    #+#             */
+/*   Updated: 2024/04/01 21:29:44 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+void	ft_putstr_fd(char *s, int fd)
 {
-	int		len;
-	char	*res;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	if (!s1 || !s2)
-		return (ft_strdup(""));
-	len = ft_strlen(s1) + ft_strlen(s2);
-	res = malloc(len + 1);
-	if (!res)
-		return (NULL);
-	while (s1[i])
+	if (!s || fd < 0)
+		return ;
+	while (*s)
 	{
-		res[i] = s1[i];
-		i++;
+		write(fd, s, 1);
+		s++;
 	}
-	while (s2[j])
-		res[i++] = s2[j++];
-	res[i] = '\0';
-	return (res);
 }

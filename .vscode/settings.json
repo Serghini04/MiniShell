@@ -2,6 +2,12 @@
 	"files.associations": {
 		"minishell.h": "c",
 		"history.h": "c",
-		"__node_handle": "c"
-	}
+		"__node_handle": "c",
+		"array": "c",
+		"iterator": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c"
+	},
+	"C_Cpp.errorSquiggles": "disabled"
 }

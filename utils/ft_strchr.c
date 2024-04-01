@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 20:12:50 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/30 19:58:15 by hidriouc         ###   ########.fr       */
+/*   Created: 2023/11/06 20:57:03 by hidriouc          #+#    #+#             */
+/*   Updated: 2024/03/30 02:07:05 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strchr(const char *s, int c)
 {
-	int		len;
-	char	*res;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	if (!s1 || !s2)
-		return (ft_strdup(""));
-	len = ft_strlen(s1) + ft_strlen(s2);
-	res = malloc(len + 1);
-	if (!res)
-		return (NULL);
-	while (s1[i])
+	if (!*s && (char)c == 0)
+		return ((char *)s);
+	while (*s)
 	{
-		res[i] = s1[i];
-		i++;
+		if (*s == (const char)c)
+			return ((char *)s);
+		s++;
 	}
-	while (s2[j])
-		res[i++] = s2[j++];
-	res[i] = '\0';
-	return (res);
+	if ((const char)c == '\0')
+		return ((char *)s);
+	return (NULL);
 }
