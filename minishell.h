@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/30 21:12:38 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/01 03:48:58 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ typedef struct s_mini
 	struct s_mini	*next;
 }	t_mini;
 
+typedef struct	s_free
+{
+	t_list	**head;
+	t_mini	**mini;
+	char	*res;
+}	t_free;
+
+
 // lib ...
 t_list	*new_node(char *data, int token);
 void	add_back(t_list **lst, t_list *new);
@@ -81,13 +89,16 @@ t_mini	*add_cmd_to_lst(t_list *i);
 t_mini	*last_update_lst(t_list *head);
 void	delete_if_empty_wrd(t_list **head);
 int		join_qoute(t_list **head);
-void	add_split_lst(char **cmd, t_list **head, t_list **root);
 t_mini	*parsing_part(char*line);
 int		len_q(char *input, int c);
-int		add_singl_double_q(t_list **head, char *input, int *i, int *pos);
-int		add_token_lst(t_list **head, char *input, int *i, int *s);
 t_list	*tokening(char *input);
+char	*rm_all_split(char *s1);
 void	close_if_open(int fd, int nb);
+char	*split_wrd_and_join(char *s1, char *s2);
+void	skip_or_delete(t_list	**head, t_list **i);
+void	add_split_lst(char **cmd, t_list **head, t_list **root);
+int		add_token_lst(t_list **head, char *input, int *i, int *s);
+int		add_singl_double_q(t_list **head, char *input, int *i, int *pos);
 
 //utils
 int		is_red(t_list *c);

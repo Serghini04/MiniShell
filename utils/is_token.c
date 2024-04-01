@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:04:30 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/26 01:06:34 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/31 22:48:54 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	find_space(char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 	{
 		if (s[i] == ' ' || s[i] == '\t')

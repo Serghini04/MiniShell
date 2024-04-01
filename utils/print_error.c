@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:35:14 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/26 01:07:29 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/03/31 22:57:18 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,27 @@ void	print_error(t_list **head, t_list *i)
 	else if (is_red(i))
 		printf("bash : syntax error near unexpected token `%s'\n", i->wrd);
 	clear_lst(head);
+}
+
+t_free	*get_free(t_free *data)
+{
+	static t_free	*save_data;
+
+	if (!data)
+		return (save_data);
+	save_data = data;
+	return (save_data);
+}
+
+void	if_failing(void)
+{
+	t_free	*data;
+
+	data = get_free(NULL);
+	if (data->head)
+		clear_lst(data->head);
+	if (data->mini)
+		clear_t_mini(data->mini);
+	if (data->res)
+		free(data->res);
 }

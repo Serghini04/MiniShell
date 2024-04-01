@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:11:25 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/18 00:41:46 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/01 00:14:22 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);

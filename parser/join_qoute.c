@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 01:27:11 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/31 21:50:53 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/01 03:47:46 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +67,21 @@ int	cln_space(char *s1)
 	return (i);
 }
 
-void	split_and_join(t_list	**i)
+void	split_and_join(t_list **i)
 {
 	char	*s;
-	char	*next_wrd;
+	int		len;
 	t_list	*tmp;
 
 	s = (*i)->wrd;
-	next_wrd = (*i)->next->wrd;
-	(*i)->wrd = join_q_wrd((*i)->wrd, next_wrd);
+	(*i)->wrd = join_q_wrd((*i)->wrd, (*i)->next->wrd);
 	free(s);
-	if (ft_strlen(next_wrd) - cln_space(next_wrd) != 0)
+	len = ft_strlen((*i)->next->wrd) - cln_space((*i)->next->wrd);
+	if (len != 0)
 	{
-		s = next_wrd;
-		next_wrd = ft_substr(next_wrd, cln_space(next_wrd), \
-									ft_strlen(next_wrd) - cln_space(next_wrd));
+		s = (*i)->next->wrd;
+		(*i)->next->wrd = ft_substr((*i)->next->wrd, \
+								cln_space((*i)->next->wrd), len);
 		free(s);
 		*i = (*i)->next;
 	}
@@ -104,18 +104,14 @@ int	join_qoute(t_list **head)
 		if (is_q(i->token) && !i->next->is_sp && is_q(i->next->token))
 		{
 			i->wrd = ft_strjoin(i->wrd, i->next->wrd);
-			(1) && (i->next = i->next->next, tmp = i->next);
+			tmp = i->next;
+			i->next = i->next->next;
 			free_node(tmp);
 		}
 		else if (is_q(i->token) && !i->next->is_sp)
 			split_and_join(&i);
-		else if (is_q(i->next->token) && !i->next->is_sp)
-		{
-			i->wrd = ft_strjoin(i->wrd, i->next->wrd);
-			(1) && (i->token = i->next->token, tmp = i->next);
-			i->next = i->next->next;
-			free_node(tmp);
-		}
+		else if (!is_q(i->token) && is_q(i->next->token) && !i->next->is_sp)
+			skip_or_delete(head, &i);
 		else
 			i = i->next;
 	}
