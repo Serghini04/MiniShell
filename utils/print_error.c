@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:35:14 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/31 22:57:18 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/03 00:41:18 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_free	*get_free(t_free *data)
 
 void	if_failing(void)
 {
-	t_free	*data;
+	 t_free	*data;
 
 	data = get_free(NULL);
 	if (data->head)

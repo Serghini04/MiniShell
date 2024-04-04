@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/01 22:39:40 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/04 02:19:34 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	ft_putstr_fd(char *s, int fd);
 int		part_heredoc(t_list *i, t_mini *node);
 void	print_error(t_list **head, t_list *i);
 int		split_cmd(t_list **head);
+void	if_failing(void);
 void	main_process(t_mini	**data, char **env);
 void	duping_fd(t_mini *data, int *t_fd);
 

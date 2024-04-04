@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/01 22:25:37 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:07:07 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ void	run_cmd(t_mini **data)
 void	main_process(t_mini	**data, char **env)
 {
 	int		pid;
-	int t_fd[2];
-	int	swp_fd_out1;
-	int	swp_fd_in;
+	int		t_fd[2];
+	int		swp_fd_out1;
+	int		swp_fd_in;
 	t_mini		*tmp;
 
 	tmp = *data;

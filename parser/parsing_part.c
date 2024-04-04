@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/02 19:49:09 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/04 02:01:54 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,19 @@ t_mini	* parsing_part(char *line)
 	data = NULL;
 	res = ft_strtrim(line, " \t");
 	if (!res)
-		return (free(res), NULL);
+		(free(res), exit(1));
 	head = tokening(res);
 	if (!head)
 		return (clear_lst(&head), free(res), NULL);
 	free(res);
+	print_lst(head);
 	if (checking_syntax(&head) == -1)
 		return (NULL);
 	// if (expanding(&head) == 1)
 	// 	return (NULL);
 	data = last_update_lst(head);
 	clear_lst(&head);
-	//print_t_mini(data);
-	// clear_t_mini(&data);
+	print_t_mini(data);
+	clear_t_mini(&data);
 	return (data);
 }
