@@ -59,4 +59,4 @@ push :
 	@read -p "Enter commit message: " msg_push; \
 	git commit -m "$$msg_push";
 	@git push
-	@echo "${BLUE}Changes have been pushed${STOP_C}"
+	@echo "${RED}Changes have been pushed${STOP_C}"
