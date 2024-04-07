@@ -46,6 +46,6 @@ re : fclean all
 
 push : fclean
 	git add .
-	read -p "Enter commit message: " msg_push; \
-	git commit -m "$$msg_push"; \
+	read -p "Enter commit message: " msg_push;\
+	git commit -m "$$msg_push"
 	git push
