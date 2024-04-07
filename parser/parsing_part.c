@@ -29,6 +29,7 @@ void	delete_if_empty_wrd(t_list **head)
 		if (!*i->wrd && !i->next->is_sp)
 		{
 			i->next->is_sp = i->is_sp;
+			i->next->token = i->token;
 			if (i->prv)
 				i->prv->next = i->next;
 			else

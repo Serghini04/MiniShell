@@ -60,7 +60,7 @@ t_mini	*add_cmd_to_lst(t_list *i)
 			open_file(i, node);
 			i = i->next;
 		}
-		else if (*i->wrd)
+		else if (i->wrd)
 		{
 			node->cmd[index] = ft_strdup(i->wrd);
 			index++;
