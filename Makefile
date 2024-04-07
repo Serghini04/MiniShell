@@ -20,6 +20,12 @@ parser = parser/parsing_part.c parser/tokening.c parser/last_update_lst.c\
 utils = utils/print_error.c utils/is_token.c utils/parsing_utils.c utils/split_cmd.c\
 		utils/execution.c utils/ft_strchr.c utils/ft_strnstr.c utils/ft_putstr_fd.c
 
+GREEN = \033[1;32m
+RED = \033[1;31m
+BLUE = \033[1;34m
+YELL = \033[0;33m
+STOP_C = \033[0m
+
 FILE = ${lib} ${parser} ${utils} minishell.c
 
 FILE_OBJ = ${FILE:.c=.o}
@@ -29,23 +35,28 @@ FLAGS = -Wall -Wextra -Werror
 NAME = minishell
 
 all : ${NAME}
+	@echo "${GREEN}minishell has been built ...${STOP_C}"
 
 ${NAME} : ${FILE_OBJ}
-	cc ${FLAGS} -lreadline ${FILE_OBJ} -o ${NAME}
+	cc ${FLAGS} ${FILE_OBJ} -lreadline -o ${NAME}
 
 %.o : %.c minishell.h
-	cc ${FLAGS} -c $< -o $@
+	@cc ${FLAGS} -c $< -o $@
+	@echo "${BLUE}$@ has been built${NC}"
 
 clean :
 	rm -f ${FILE_OBJ}
+	@echo "${RED}Cleaned object files${STOP_C}"
 
 fclean : clean
 	rm -f ${NAME}
+	@echo "${RED}Fully cleaned${STOP_C}"
 
 re : fclean all
 
-push : fclean
-	git add .
-	read -p "Enter commit message: " msg_push; \
-	git commit -m "$$msg_push"; \
-	git push
+push :
+	@git add .
+	@read -p "Enter commit message: " msg_push; \
+	git commit -m "$$msg_push";
+	@git push
+	@echo "${BLUE}Changes have been pushed${STOP_C}"
