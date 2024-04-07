@@ -43,3 +43,9 @@ fclean : clean
 	rm -f ${NAME}
 
 re : fclean all
+
+push : fclean
+	git add .
+	read $msg_push
+	git commit -m $msg_push 
+	git push
