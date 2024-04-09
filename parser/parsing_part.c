@@ -6,13 +6,12 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/01 22:39:49 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/09 00:13:13 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// you need to fix ls -"s infile"
 // split with '\t'/./
 // expanding...
 // protection function...
@@ -29,7 +28,7 @@ void	delete_if_empty_wrd(t_list **head)
 		if (!*i->wrd && !i->next->is_sp)
 		{
 			i->next->is_sp = i->is_sp;
-			i->next->token = i->token;
+			//i->next->token = i->token;
 			if (i->prv)
 				i->prv->next = i->next;
 			else
@@ -89,8 +88,9 @@ t_mini	* parsing_part(char *line)
 		return (NULL);
 	// if (expanding(&head) == 1)
 	// 	return (NULL);
+	print_lst(head);
 	data = last_update_lst(head);
-	// clear_lst(&head);
+	clear_lst(&head);
 	// print_t_mini(data);
 	// clear_t_mini(&data);
 	return (data);

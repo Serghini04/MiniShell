@@ -6,9 +6,19 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/04/01 22:39:26 by meserghi         ###   ########.fr        #
+#    Updated: 2024/04/08 23:32:38 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+# // expanding...
+# //==> if fond " or ' after $ you need to no print $
+# //==> if single qoute not expand var else expland.
+# //==> 
+
+# // protection function...
+# // split with '\t'/./
+# // done.
+
 
 lib = lib/ft_strdup.c lib/ft_strjoin.c lib/ft_strlen.c lib/ft_strtrim.c\
 	lib/ft_substr.c lib/all_list.c lib/ft_split.c lib/all_new_list.c lib/ft_strcmp.c\
@@ -30,7 +40,7 @@ FILE = ${lib} ${parser} ${utils} minishell.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 
 NAME = minishell
 
