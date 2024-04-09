@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/04/09 22:40:28 by marvin           ###   ########.fr        #
+#    Updated: 2024/04/10 00:19:15 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ fclean : clean
 
 re : fclean all
 
-push :
+push : fclean
 	@git add .
 	@read -p "Enter commit message: " msg_push; \
 	git commit -m "$$msg_push";
