@@ -3,44 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/31 21:14:48 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/10 00:09:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*find_dollar(char *s)
+char	*find_dollar_sing(char *str)
 {
+	char	*res;
+	int		len;
 	int		i;
-	int		j;
-	char	*name;
 
+	len = ft_strlen(str) - 1;
 	i = 0;
-	while (s[i])
+	if ((len > 0 && str[len - 1] == '$') || str[len] != '$')
+		return (str);
+	res = malloc(len);
+	if (!res)
+		return (free(str), NULL);
+	while (i < len)
 	{
-		if (s[i] == '$')
-		{
-
-		}
+		res[i] = str[i];
 		i++;
 	}
-	return (NULL);
+	res[i] = '\0';
+	return (res);
 }
 
-int	expanding(t_list **head)
+int	remove_dollar_sign(t_list **head)
 {
-	t_list *i;
-	char	*name;
+	t_list	*h;
 
-	while (i)
+	if (!head)
+		return (0);
+	h = *head;
+	while (h->next)
 	{
-		if (i->token == t_word || i->token == t_double_q)
+		if (is_q(h->next->token))
 		{
-			name = find_dollar(i->wrd);
+			h->wrd = find_dollar_sing(h->wrd);
+			if (!h->wrd)
+				return (-1);
 		}
-		i = i->next;
+		h = h->next;
 	}
+	return (0);
 }
+
+
+// int	expanding(t_list **head)
+// {
+// 	t_list *i;
+	
+// 	i = *head;
+// 	if (!delete_)
+// }

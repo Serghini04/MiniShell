@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_part.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/09 00:13:13 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/10 00:16:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// split with '\t'/./
-// expanding...
-// protection function...
-// done.
 
 void	delete_if_empty_wrd(t_list **head)
 {
@@ -70,7 +65,7 @@ void	add_split_lst(char **cmd, t_list **head, t_list **root)
 	free_node(swap);
 }
 
-t_mini	* parsing_part(char *line)
+t_mini	*parsing_part(char *line)
 {
 	t_list	*head;
 	t_mini	*data;
@@ -88,7 +83,7 @@ t_mini	* parsing_part(char *line)
 		return (NULL);
 	// if (expanding(&head) == 1)
 	// 	return (NULL);
-	print_lst(head);
+	//print_lst(head);
 	data = last_update_lst(head);
 	clear_lst(&head);
 	// print_t_mini(data);
