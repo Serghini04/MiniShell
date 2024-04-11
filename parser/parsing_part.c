@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/10 00:16:34 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/10 19:13:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,11 @@ t_mini	*parsing_part(char *line)
 	free(res);
 	if (checking_syntax(&head) == -1)
 		return (NULL);
-	// if (expanding(&head) == 1)
-	// 	return (NULL);
-	//print_lst(head);
+	if (expanding(&head) == -1)
+		return (NULL);
 	data = last_update_lst(head);
 	clear_lst(&head);
-	// print_t_mini(data);
+	//print_t_mini(data);
 	// clear_t_mini(&data);
 	return (data);
 }

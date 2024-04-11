@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/09 23:32:22 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/10 16:22:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,18 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 //parser
 t_list	*tokening(char *input);
 char	*rm_all_split(char *s1);
+int		expanding(t_list **head);
 t_mini	*parsing_part(char*line);
+int		len_q(char *input, int c);
 void	join_empty_wrd(t_list *i);
 int		join_qoute(t_list **head);
 int		join_qoute(t_list **head);
-int		len_q(char *input, int c);
 t_mini	*add_cmd_to_lst(t_list *i);
 void	close_if_open(int fd, int nb);
-int		remove_dollar_sign(t_list **head);
 int		checking_syntax(t_list **head);
 t_mini	*last_update_lst(t_list *head);
+int		get_next_dollar_sing(char *str);
+int		remove_dollar_sign(t_list **head);
 void	open_file(t_list *i, t_mini *node);
 void	delete_if_empty_wrd(t_list **head);
 char	*split_wrd_and_join(char *s1, char *s2);

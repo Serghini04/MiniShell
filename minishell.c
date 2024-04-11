@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/09 22:01:41 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/10 13:58:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int	main(int ac, char **av, char **env)
 		if(data)
 			main_process(&data, env);
 	}
-	atexit(f);
+	//atexit(f);
 	return (0);
 }
