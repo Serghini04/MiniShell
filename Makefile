@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/04/10 18:05:52 by marvin           ###   ########.fr        #
+#    Updated: 2024/04/12 03:52:32 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # // expanding...
-# //==> if fond " or ' after $ you need to no print $
-# //==> if single qoute not expand var else expland.
-# //==> 
+# //==> fix leaks.
+# //==> heredoc expanding.
+# //==> check if all good.
 
 # // protection function...
 # // split with '\t'/./

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/11 09:03:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/12 03:43:39 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+// you need to fix >>$
 
 char	*find_dollar_sing(char *str)
 {
@@ -18,11 +20,13 @@ char	*find_dollar_sing(char *str)
 	int		len;
 	int		i;
 
+	if (!str || !*str)
+		return (str);
 	len = ft_strlen(str) - 1;
 	i = 0;
 	if ((len > 0 && str[len - 1] == '$') || str[len] != '$')
 		return (str);
-	res = malloc(len);
+	res = malloc(len + 1);
 	if (!res)
 		return (free(str), NULL);
 	while (i < len)
@@ -31,7 +35,7 @@ char	*find_dollar_sing(char *str)
 		i++;
 	}
 	res[i] = '\0';
-	return (res);
+	return (free(str), res);
 }
 
 int	remove_dollar_sign(t_list **head)
@@ -158,9 +162,12 @@ char	*replace_dollar_sing(char *str)
 			else
 				res = ft_strjoin(res, ft_substr(str, s, next_doll(&str[s])));
 		}
+		else if (str[i] == '$')
+			res = ft_strjoin(res, ft_strdup("$"));
 		i++;
 	}
-	if (!*res)
+	free(str);
+	if (!res || !*res)
 		return (free(res), NULL);
 	return (res);
 }
