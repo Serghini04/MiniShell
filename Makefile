@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/04/19 10:47:23 by meserghi         ###   ########.fr        #
+#    Updated: 2024/04/19 11:11:57 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,9 +64,11 @@ fclean : clean
 
 re : fclean all
 
+
+# Replace 'mehdi' with your branch name before executing.
 push : fclean
 	@git add .
 	@read -p "Enter commit message: " msg_push; \
 	git commit -m "$$msg_push";
-	@git push origin mehdi
+	@git push origin $(git branch | grep "*" | awk '{print $2}')
 	@echo "${RED}Changes have been pushed${STOP_C}"
