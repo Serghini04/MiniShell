@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/19 10:42:47 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:15:55 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_mini	*parsing_part(char *line)
 	if (!head)
 		return (clear_lst(&head), free(res), NULL);
 	free(res);
-	print_lst(head);
 	if (checking_syntax(&head) == -1)
 		return (NULL);
 	if (expanding(&head) == -1)

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/03 20:07:07 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:55:32 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,10 @@ void	main_process(t_mini	**data, char **env)
 		{
 			creat_pipe(t_fd);
 			(*data)->fd_in = swp_fd_in;
-			(*data)->fd_out = t_fd[1];
+			if ((*data)->fd_out == 1)
+				(*data)->fd_out = t_fd[1];
+			else
+				close(t_fd[1]);
 			swp_fd_in = t_fd[0];
 		}
 		else
