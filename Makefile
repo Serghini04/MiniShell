@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/04/19 11:13:10 by meserghi         ###   ########.fr        #
+#    Updated: 2024/04/20 16:19:36 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,5 +70,5 @@ push : fclean
 	@git add .
 	@read -p "Enter commit message: " msg_push; \
 	git commit -m "$$msg_push";
-	@git push origin $(git branch | grep "*" | awk '{print $2}'| cat)
+	@git push origin mehdi
 	@echo "${RED}Changes have been pushed${STOP_C}"
