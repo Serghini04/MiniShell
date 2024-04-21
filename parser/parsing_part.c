@@ -6,17 +6,11 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/02 20:00:35 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:12:22 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// you need to fix ls -"s infile"
-// split with '\t'/./
-// expanding...
-// protection function...
-// done.
 
 void	delete_if_empty_wrd(t_list **head)
 {
@@ -29,6 +23,7 @@ void	delete_if_empty_wrd(t_list **head)
 		if (!*i->wrd && !i->next->is_sp)
 		{
 			i->next->is_sp = i->is_sp;
+			//i->next->token = i->token;
 			if (i->prv)
 				i->prv->next = i->next;
 			else
@@ -70,7 +65,7 @@ void	add_split_lst(char **cmd, t_list **head, t_list **root)
 	free_node(swap);
 }
 
-t_mini	* parsing_part(char *line)
+t_mini	*parsing_part(char *line)
 {
 	t_list	*head;
 	t_mini	*data;
@@ -79,18 +74,17 @@ t_mini	* parsing_part(char *line)
 	data = NULL;
 	res = ft_strtrim(line, " \t");
 	if (!res)
-		return (free(res), NULL);
+		(free(res), exit(1));
 	head = tokening(res);
 	if (!head)
 		return (clear_lst(&head), free(res), NULL);
 	free(res);
+
 	if (checking_syntax(&head) == -1)
 		return (NULL);
-	// if (expanding(&head) == 1)
-	// 	return (NULL);
+	if (expanding(&head) == -1)
+		return (NULL);
 	data = last_update_lst(head);
 	clear_lst(&head);
-	//print_t_mini(data);
-	// clear_t_mini(&data);
 	return (data);
 }

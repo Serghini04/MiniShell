@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:47:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/01 02:28:22 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/19 10:44:58 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_list	*new_node(char *data, int token)
 {
 	t_list	*new;
 
+	if (!data)
+		return (NULL);
 	new = malloc(sizeof(t_list));
 	if (!new)
 		return (NULL);

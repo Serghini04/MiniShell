@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/02 17:14:53 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/21 13:37:12 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,20 @@ void	run_cmd(t_mini **data)
 {
 	if ((*data)->fd_in == -1 || (*data)->fd_out == -1 )
 		(perror("open error !!"), exit(EXIT_FAILURE));
-	if ((*data)->fd_in != 0)
-	{
-		dup2((*data)->fd_in, 0);
-		close((*data)->fd_in);
-	}
-	if ((*data)->fd_out != 1)
-	{
-		dup2((*data)->fd_out, 1);
-		close((*data)->fd_out);
-	}
+	// if ((*data)->fd_in != 0)
+	// {
+	// 	dup2((*data)->fd_in, 0);
+	// 	close((*data)->fd_in);
+	// }
+	// else
+	// 	close((*data)->t_fd[0]);
+	// if ((*data)->fd_out != 1)
+	// {
+	// 	dup2((*data)->fd_out, 1);
+	// 	close((*data)->fd_out);
+	// }
+	// else
+	// 	close ((*data)->t_fd[1]);
 	if (ft_strchr((*data)->cmd[0], '/'))
 		(*data)->cmd_path = (*data)->cmd[0];
 	else
@@ -82,53 +86,64 @@ void	run_cmd(t_mini **data)
 void	main_process(t_mini	**data, char **env)
 {
 	int		pid;
-	int		t_fd[2];
-	int		swp_fd_out1;
-	int		swp_fd_in;
-	t_mini	*tmp;
+	int		fdin;
+	int		fdout;
+	int		p_fdin;
+	int		p_fdout;
 
-	tmp = *data;
-	swp_fd_in = (*data)->fd_in;
-	while (tmp->next)
-		tmp = tmp->next;
-	swp_fd_out1 = tmp->fd_out;
+	p_fdin = dup(0);
+	p_fdout = dup(1);
+	if((*data)->fd_in != 0)
+	{
+		fdin = (*data)->fd_in;
+	}
 	while (*data)
 	{
 		(*data)->env = env;
+		if (fdin != 0)
+		{
+			dup2(fdin, 0);
+			close(fdin);
+		}
 		if ((*data)->next)
 		{
-			creat_pipe(t_fd);
-			(*data)->fd_in = swp_fd_in;
-			(*data)->fd_out = t_fd[1];
-			swp_fd_in = t_fd[0];
+			creat_pipe((*data)->t_fd);
+			dup2((*data)->t_fd[1], 1);
+			close ((*data)->t_fd[1]);
+			fdin = (*data)->t_fd[0];
 		}
 		else
 		{
-			(*data)->fd_in = swp_fd_in;
-			(*data)->fd_out = swp_fd_out1;
+			if ((*data)->fd_in != 0)
+			{
+				fdin = (*data)->fd_in;
+				dup2(fdin, 0);
+				close(fdin);
+			}
+			fdout = (*data)->fd_out;
+			if (fdout != 1)
+			{
+				dup2(fdout, 1);
+				close(fdout);
+			}
 		}
 		pid = fork();
 		if (pid == 0)
 		{
 			run_cmd(data);
 		}
-		else if (pid > 0)
-		{
-			close(t_fd[0]);
-			close(t_fd[1]);
-			if ((*data)->next)
-			{
-				close((*data)->fd_in);
-				close((*data)->fd_out);
-			}
-		}
-		else
+		else if (pid < 0)
 		{
 			ft_putstr_fd("fork probleme !!", 2);
 			clear_t_mini(data);
 		}
 		(*data) = (*data)->next;
+		dup2(p_fdin, 0);
+		dup2(p_fdout, 1);
 	}
-	while (wait(NULL) != -1);
-	// waitpid()
+	while (wait(NULL) != -1)
+		;
+	close (p_fdin);
+	close (p_fdout);
+	fprintf(stderr,"hhhh\n");
 }

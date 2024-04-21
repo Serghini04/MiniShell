@@ -1,0 +1,11 @@
+Maile
+Makefile
+expanding.tldr
+lib
+minishell
+minishell.c
+minishell.h
+minishell.o
+parser
+t.tldr
+utils

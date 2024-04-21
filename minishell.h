@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/02 01:43:11 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/20 11:39:06 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 #include <sys/errno.h>
 # include <string.h>
+#include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 #include<limits.h>
@@ -52,6 +53,7 @@ typedef struct s_mini
 	char			**env;
 	int				fd_in;
 	int				fd_out;
+	int				t_fd[2];
 	struct s_mini	*next;
 }	t_mini;
 
@@ -76,7 +78,7 @@ void	add_back_t_mini(t_mini **lst, t_mini *new);
 void	cln_node(t_mini *node);
 void	clear_t_mini(t_mini **lst);
 void	free_arr(char **res);
-char	*ft_strchr(const char *s, int c);
+char	*ft_strchr(char *s, int c);
 void	print_t_mini(t_mini *data);
 char	**ft_split(char const *s, char c);
 int		ft_strcmp(char *s1, char *s2);
@@ -89,19 +91,22 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 
 //parser
-void	join_empty_wrd(t_list *i);
-int		join_qoute(t_list **head);
-int		checking_syntax(t_list **head);
-void	open_file(t_list *i, t_mini *node);
-t_mini	*add_cmd_to_lst(t_list *i);
-t_mini	*last_update_lst(t_list *head);
-void	delete_if_empty_wrd(t_list **head);
-int		join_qoute(t_list **head);
-t_mini	*parsing_part(char*line);
-int		len_q(char *input, int c);
 t_list	*tokening(char *input);
 char	*rm_all_split(char *s1);
+int		expanding(t_list **head);
+t_mini	*parsing_part(char*line);
+int		len_q(char *input, int c);
+void	join_empty_wrd(t_list *i);
+int		join_qoute(t_list **head);
+int		join_qoute(t_list **head);
+t_mini	*add_cmd_to_lst(t_list *i);
 void	close_if_open(int fd, int nb);
+int		checking_syntax(t_list **head);
+t_mini	*last_update_lst(t_list *head);
+int		get_next_dollar_sing(char *str);
+int		remove_dollar_sign(t_list **head);
+void	open_file(t_list *i, t_mini *node);
+void	delete_if_empty_wrd(t_list **head);
 char	*split_wrd_and_join(char *s1, char *s2);
 void	skip_or_delete(t_list	**head, t_list **i);
 void	add_split_lst(char **cmd, t_list **head, t_list **root);
@@ -119,6 +124,7 @@ void	ft_putstr_fd(char *s, int fd);
 int		part_heredoc(t_list *i, t_mini *node);
 void	print_error(t_list **head, t_list *i);
 int		split_cmd(t_list **head);
+void	if_failing(void);
 void	main_process(t_mini	**data, char **env);
 void	duping_fd(t_mini *data, int *t_fd);
 
