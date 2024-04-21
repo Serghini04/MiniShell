@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/19 15:15:55 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/21 14:58:53 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	delete_if_empty_wrd(t_list **head)
 	i = *head;
 	while (i && i->next)
 	{
-		if (!*i->wrd && !i->next->is_sp)
+		if (is_q(i->next->token) && !*i->wrd && !i->next->is_sp)
 		{
 			i->next->is_sp = i->is_sp;
 			//i->next->token = i->token;
