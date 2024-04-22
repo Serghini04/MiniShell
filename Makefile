@@ -6,10 +6,11 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/04/20 16:19:36 by meserghi         ###   ########.fr        #
+#    Updated: 2024/04/22 09:22:03 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# will be done.
 # // expanding...
 # //==> fix leaks.
 # //==> heredoc expanding.

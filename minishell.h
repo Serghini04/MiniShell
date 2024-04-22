@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/19 10:46:20 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/20 11:39:06 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 #include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
+#include<limits.h>
+#define MAX_FD 1024
 typedef enum e_token
 {
 	t_word,
@@ -52,6 +53,7 @@ typedef struct s_mini
 	char			**env;
 	int				fd_in;
 	int				fd_out;
+	int				t_fd[2];
 	struct s_mini	*next;
 }	t_mini;
 

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 01:27:11 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/21 15:04:02 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/21 21:46:59 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,17 +103,25 @@ int	join_qoute(t_list **head)
 	{
 		if (is_q(i->token) && !i->next->is_sp && is_q(i->next->token))
 		{
+			printf("1\n");
 			i->wrd = ft_strjoin(i->wrd, i->next->wrd);
 			tmp = i->next;
 			i->next = i->next->next;
 			free_node(tmp);
 		}
-		else if (is_q(i->token) && !i->next->is_sp && i->token == t_word)
+		else if (is_q(i->token) && !i->next->is_sp)
+		{
+			printf("LLL\n");
 			split_and_join(&i);
-		else if (!is_q(i->token) && is_q(i->next->token) && i->token == t_word && !i->next->is_sp)
+		}
+		else if (is_q(i->next->token) && i->token == t_word && !i->next->is_sp)
+		{
+			printf("2\n");
 			skip_or_delete(head, &i);
+		}
 		else
 			i = i->next;
 	}
+	print_lst(*head);
 	return (0);
 }
