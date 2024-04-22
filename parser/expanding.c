@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/22 13:00:14 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:13:41 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,13 @@ int	is_var(int c)
 char	*get_expand(char *str)
 {
 	char	*name_var;
+	char	*res;
 	int		i;
 	int		v;
 
-	i = 0;
-	v = 1;
+	(1) && (i = 0, v = 1);
 	if (str[i] >= '0' && str[i] <= '9')
-	{
-		v = 0;
-		str++;
-	}
+		(v = 0, str++);
 	while (str[i] && is_var(str[i]))
 		i++;
 	name_var = malloc(i + 1);
@@ -92,7 +89,8 @@ char	*get_expand(char *str)
 	name_var[i] = '\0';
 	if (!v)
 		return (name_var);
-	return (getenv(name_var));
+	res = getenv(name_var);
+	return (free(name_var), ft_strdup(res));
 }
 
 int	next_doll(char *str)
@@ -141,6 +139,32 @@ int	count_doll(char *str)
 	return (c);
 }
 
+char	*join_variable(int *s, char *str, int *i, char *res)
+{
+	char	*tmp;
+
+	if (*s != -1)
+	{
+		tmp = ft_substr(str, *s, next_doll(&str[*s]));
+		res = ft_strjoin(res, tmp);
+		if (!res)
+			return (NULL);
+	}
+	tmp = get_expand(&str[*i + 1]);
+	res = ft_strjoin(res, tmp);
+	(free(tmp), tmp = NULL);
+	if (!res)
+		return (NULL);
+	*s = *i + len_var(&str[*i + 1]) + 1;
+	tmp = ft_substr(str, *s, next_doll(&str[*s]));
+	res = ft_strjoin(res, tmp);
+	(free(tmp), tmp = NULL);
+	if (!res)
+		return (NULL);
+	*s = -1;
+	return (res);
+}
+
 char	*replace_dollar_sing(char *str)
 {
 	char	*res;
@@ -154,12 +178,9 @@ char	*replace_dollar_sing(char *str)
 	{
 		if (str[i + 1] && str[i] == '$')
 		{
-			if (s != -1)
-				res = ft_strjoin(res, ft_substr(str, s, next_doll(&str[s])));
-			res = ft_strjoin(res, get_expand(&str[i + 1]));
-			s = i + len_var(&str[i + 1]) + 1;
-			res = ft_strjoin(res, ft_substr(str, s, next_doll(&str[s])));
-			s = -1;
+			res = join_variable(&s, str, &i, res);
+			if (!res)
+				return (NULL);
 		}
 		else if (str[i] == '$')
 			res = ft_strjoin(res, ft_strdup("$"));

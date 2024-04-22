@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:09:06 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/17 20:24:03 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:32:31 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_strdup(char *s1)
 	int		i;
 
 	i = 0;
+	if (!s1)
+		return (NULL);
 	len = ft_strlen(s1);
 	res = malloc(len + 1);
 	if (!res)
