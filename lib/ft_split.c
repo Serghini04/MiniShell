@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 01:24:30 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/23 01:40:29 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:26:56 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static char	**split_string(char const *s, char c, int word_count)
 	int		i;
 
 	i = 0;
+	(void)word_count;
 	res = (char **)malloc((word_count + 1) * sizeof(char *));
 	if (!res)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/21 21:16:22 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:08:30 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,7 @@ void	main_process(t_mini	**data, char **env)
 	p_fdin = dup(0);
 	p_fdout = dup(1);
 	if((*data)->fd_in != 0)
-	{
 		fdin = (*data)->fd_in;
-	}
 	while (*data)
 	{
 		(*data)->env = env;

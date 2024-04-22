@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/20 13:14:21 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/22 13:00:14 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,10 +165,16 @@ char	*replace_dollar_sing(char *str)
 			res = ft_strjoin(res, ft_strdup("$"));
 		i++;
 	}
-	free(str);
 	if (!res || !*res)
-		return (free(res), NULL);
-	return (res);
+		return (free(str), free(res), NULL);
+	return (free(str), res);
+}
+
+int	is_expand(int token, int heredoc)
+{
+	if (token == t_word || (token == t_double_q && !heredoc))
+		return (1);
+	return (0);
 }
 
 int	expanding(t_list **head)
@@ -176,21 +182,23 @@ int	expanding(t_list **head)
 	t_list *i;
 
 	i = *head;
-	if (i && (i->token == t_word || i->token == t_double_q) && ft_strchr(i->wrd, '$'))
+	if (!i)
+		return (0);
+	if (is_expand(i->token, 0) && ft_strchr(i->wrd, '$'))
 	{
 		i->wrd = replace_dollar_sing(i->wrd);
 		if (!i->wrd)
-			return (-1);
+			return (clear_lst(head), -1);
 	}
 	while (i->next)
 	{
-		if (i->token != t_heredoc && (i->next->token == t_word || i->next->token == t_double_q))
+		if (i->token != t_heredoc && is_expand(i->next->token, 0))
 		{
 			if (ft_strchr(i->next->wrd, '$'))
 			{
 				i->next->wrd = replace_dollar_sing(i->next->wrd);
 				if (!i->next->wrd)
-					return (-1);
+					return (clear_lst(head), -1);
 			}
 		}
 		i = i->next;
