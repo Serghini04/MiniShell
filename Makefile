@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/04/22 17:13:04 by meserghi         ###   ########.fr        #
+#    Updated: 2024/04/22 18:45:36 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@
 # // split with '\t'/./
 # // done.
 
-lib = lib/ft_strdup.c lib/ft_strjoin.c lib/ft_strlen.c lib/ft_strtrim.c\
+lib = lib/ft_strdup.c lib/str_join.c lib/ft_strlen.c lib/ft_strtrim.c\
 	lib/ft_substr.c lib/all_list.c lib/ft_split.c lib/all_new_list.c lib/ft_strcmp.c\
 	lib/free_arr.c lib/ft_isspace.c lib/ft_strchr.c lib/ft_strnstr.c lib/ft_putstr_fd.c
 

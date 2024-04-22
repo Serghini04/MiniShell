@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:01:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/22 13:28:35 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:39:30 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ char	*expand_heredoc(char *str, int token)
 {
 	char	*res;
 
-	res = ft_strjoin(str, "\n");
-	free(str);
+	res = str_join(str, "\n");
 	if (is_expand(token, 1) && ft_strchr(res, '$'))
 	{
 		res = replace_dollar_sing(res);

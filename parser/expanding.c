@@ -6,13 +6,11 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/22 17:13:41 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:26:12 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// you need to fix >>$
 
 char	*find_dollar_sing(char *str)
 {
@@ -146,18 +144,18 @@ char	*join_variable(int *s, char *str, int *i, char *res)
 	if (*s != -1)
 	{
 		tmp = ft_substr(str, *s, next_doll(&str[*s]));
-		res = ft_strjoin(res, tmp);
+		res = str_join(res, tmp);
 		if (!res)
 			return (NULL);
 	}
 	tmp = get_expand(&str[*i + 1]);
-	res = ft_strjoin(res, tmp);
+	res = str_join(res, tmp);
 	(free(tmp), tmp = NULL);
 	if (!res)
 		return (NULL);
 	*s = *i + len_var(&str[*i + 1]) + 1;
 	tmp = ft_substr(str, *s, next_doll(&str[*s]));
-	res = ft_strjoin(res, tmp);
+	res = str_join(res, tmp);
 	(free(tmp), tmp = NULL);
 	if (!res)
 		return (NULL);
@@ -171,9 +169,7 @@ char	*replace_dollar_sing(char *str)
 	int		s;
 	int		i;
 
-	s = 0;
-	i = 0;
-	res = NULL;
+	(1) && (s = 0, i = 0, res = NULL);
 	while (str[i])
 	{
 		if (str[i + 1] && str[i] == '$')
@@ -183,7 +179,11 @@ char	*replace_dollar_sing(char *str)
 				return (NULL);
 		}
 		else if (str[i] == '$')
-			res = ft_strjoin(res, ft_strdup("$"));
+		{
+			char *t = ft_strdup("$");
+			res = str_join(res, t);
+			free(t);
+		}
 		i++;
 	}
 	if (!res || !*res)

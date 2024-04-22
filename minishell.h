@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/22 12:43:14 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:24:23 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*ft_strchr(char *s, int c);
 void	print_t_mini(t_mini *data);
 int		ft_strcmp(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
-char	*ft_strjoin(char *s1, char *s2);
+char	*str_join(char *s1, char *s2);
 char	*ft_strtrim(char *s1, char *set);
 t_list	*new_node(char *data, int token);
 void	add_back(t_list **lst, t_list *new);
