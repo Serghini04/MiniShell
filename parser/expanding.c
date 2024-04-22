@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/12 03:43:39 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/20 13:14:21 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	remove_dollar_sign(t_list **head)
 int	is_var(int c)
 {
 	if (c == '_' || (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-		return (1);	
+		return (1);
 	return (0);
 }
 
@@ -92,7 +92,7 @@ char	*get_expand(char *str)
 	name_var[i] = '\0';
 	if (!v)
 		return (name_var);
-	return (getenv(name_var));	
+	return (getenv(name_var));
 }
 
 int	next_doll(char *str)
@@ -154,13 +154,12 @@ char	*replace_dollar_sing(char *str)
 	{
 		if (str[i + 1] && str[i] == '$')
 		{
-			res = ft_strjoin(res, ft_substr(str, s, next_doll(&str[s])));
+			if (s != -1)
+				res = ft_strjoin(res, ft_substr(str, s, next_doll(&str[s])));
 			res = ft_strjoin(res, get_expand(&str[i + 1]));
 			s = i + len_var(&str[i + 1]) + 1;
-			if (str[s] == '$' && !str[s + 1])
-				res = ft_strjoin(res, "$");
-			else
-				res = ft_strjoin(res, ft_substr(str, s, next_doll(&str[s])));
+			res = ft_strjoin(res, ft_substr(str, s, next_doll(&str[s])));
+			s = -1;
 		}
 		else if (str[i] == '$')
 			res = ft_strjoin(res, ft_strdup("$"));
@@ -172,11 +171,10 @@ char	*replace_dollar_sing(char *str)
 	return (res);
 }
 
-
 int	expanding(t_list **head)
 {
 	t_list *i;
-	
+
 	i = *head;
 	if (i && (i->token == t_word || i->token == t_double_q) && ft_strchr(i->wrd, '$'))
 	{

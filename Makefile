@@ -6,7 +6,7 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/04/19 16:27:13 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/04/22 20:44:42 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,8 @@ fclean : clean
 
 re : fclean all
 
+
+# Replace 'mehdi' with your branch name before executing.
 push : fclean
 	@git add .
 	@read -p "Enter commit message: " msg_push; \

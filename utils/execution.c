@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/21 13:37:12 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/22 21:50:30 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,6 @@ void	run_cmd(t_mini **data)
 {
 	if ((*data)->fd_in == -1 || (*data)->fd_out == -1 )
 		(perror("open error !!"), exit(EXIT_FAILURE));
-	// if ((*data)->fd_in != 0)
-	// {
-	// 	dup2((*data)->fd_in, 0);
-	// 	close((*data)->fd_in);
-	// }
-	// else
-	// 	close((*data)->t_fd[0]);
-	// if ((*data)->fd_out != 1)
-	// {
-	// 	dup2((*data)->fd_out, 1);
-	// 	close((*data)->fd_out);
-	// }
-	// else
-	// 	close ((*data)->t_fd[1]);
 	if (ft_strchr((*data)->cmd[0], '/'))
 		(*data)->cmd_path = (*data)->cmd[0];
 	else
@@ -93,18 +79,17 @@ void	main_process(t_mini	**data, char **env)
 
 	p_fdin = dup(0);
 	p_fdout = dup(1);
-	if((*data)->fd_in != 0)
-	{
-		fdin = (*data)->fd_in;
-	}
 	while (*data)
 	{
 		(*data)->env = env;
-		if (fdin != 0)
-		{
-			dup2(fdin, 0);
-			close(fdin);
-		}
+		
+			if ((*data)->fd_in != 0)
+				fdin = (*data)->fd_in;
+			if(fdin != 0)
+			{
+				dup2(fdin, 0);
+				close(fdin);
+			}
 		if ((*data)->next)
 		{
 			creat_pipe((*data)->t_fd);
@@ -141,9 +126,8 @@ void	main_process(t_mini	**data, char **env)
 		dup2(p_fdin, 0);
 		dup2(p_fdout, 1);
 	}
-	while (wait(NULL) != -1)
-		;
 	close (p_fdin);
 	close (p_fdout);
-	fprintf(stderr,"hhhh\n");
+	while (wait(NULL) != -1)
+		;
 }
