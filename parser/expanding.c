@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/22 18:26:12 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/22 19:05:50 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,11 +179,7 @@ char	*replace_dollar_sing(char *str)
 				return (NULL);
 		}
 		else if (str[i] == '$')
-		{
-			char *t = ft_strdup("$");
-			res = str_join(res, t);
-			free(t);
-		}
+			res = str_join(res, ft_strdup("$"));
 		i++;
 	}
 	if (!res || !*res)
