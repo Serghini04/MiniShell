@@ -6,55 +6,11 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/22 19:05:50 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:37:47 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*find_dollar_sing(char *str)
-{
-	char	*res;
-	int		len;
-	int		i;
-
-	if (!str || !*str)
-		return (str);
-	len = ft_strlen(str) - 1;
-	i = 0;
-	if ((len > 0 && str[len - 1] == '$') || str[len] != '$')
-		return (str);
-	res = malloc(len + 1);
-	if (!res)
-		return (free(str), NULL);
-	while (i < len)
-	{
-		res[i] = str[i];
-		i++;
-	}
-	res[i] = '\0';
-	return (free(str), res);
-}
-
-int	remove_dollar_sign(t_list **head)
-{
-	t_list	*h;
-
-	if (!head)
-		return (0);
-	h = *head;
-	while (h->next)
-	{
-		if (is_q(h->next->token))
-		{
-			h->wrd = find_dollar_sing(h->wrd);
-			if (!h->wrd)
-				return (-1);
-		}
-		h = h->next;
-	}
-	return (0);
-}
 
 int	is_var(int c)
 {
@@ -70,6 +26,7 @@ char	*get_expand(char *str)
 	int		i;
 	int		v;
 
+	printf(">>%s<<\n",str);
 	(1) && (i = 0, v = 1);
 	if (str[i] >= '0' && str[i] <= '9')
 		(v = 0, str++);
@@ -166,6 +123,7 @@ char	*join_variable(int *s, char *str, int *i, char *res)
 char	*replace_dollar_sing(char *str)
 {
 	char	*res;
+	char	*tmp;
 	int		s;
 	int		i;
 
@@ -179,7 +137,12 @@ char	*replace_dollar_sing(char *str)
 				return (NULL);
 		}
 		else if (str[i] == '$')
-			res = str_join(res, ft_strdup("$"));
+		{
+			if (!res)
+				res = str_join(res, ft_substr(str, 0, next_doll(str)));
+			(tmp = ft_strdup("$"), res = str_join(res, tmp));
+			free(tmp);
+		}
 		i++;
 	}
 	if (!res || !*res)

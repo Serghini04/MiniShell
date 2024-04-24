@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/22 18:24:23 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:14:29 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #include<limits.h>
 #define MAX_FD 1024
 
-typedef enum e_token
+enum e_token
 {
 	t_word,
 	t_pipe,
