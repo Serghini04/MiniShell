@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/24 13:38:40 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:22:57 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,17 +128,11 @@ void	main_process(t_mini	**data, char **env)
 			creat_pipe((*data)->t_fd);
 			dup2((*data)->t_fd[1], 1);
 			close ((*data)->t_fd[1]);
-			fdin = (*data)->t_fd[0];			
+			fdin = (*data)->t_fd[0];
 		}
-		else
+		if ((*data)->fd_out != 1)
 		{
-			// if ((*data)->fd_in != 0)
-			// {
-			// 	fdin = (*data)->fd_in;
-			// 	dup2(fdin, 0);
-			// 	close(fdin);
-			// }
-				fdout = (*data)->fd_out;
+			fdout = (*data)->fd_out;
 			if (fdout != 1)
 			{
 				dup2(fdout, 1);
@@ -148,11 +142,11 @@ void	main_process(t_mini	**data, char **env)
 		pid = fork();
 		if (pid == 0)
 		{
-			close(fdin);
+			if(fdin != 0)
+				close(fdin);
+			run_cmd(data);
 			close(p_fdin);
 			close(p_fdout);
-			// while (1);
-			run_cmd(data);
 		}
 		else if (pid < 0)
 		{
