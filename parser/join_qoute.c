@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 01:27:11 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/21 15:04:02 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:24:57 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	join_empty_wrd(t_list *i)
 	t_list	*swap;
 
 	swap = i->next->next;
-	i->wrd = ft_strjoin(i->wrd, i->next->wrd);
+	i->wrd = str_join(i->wrd, i->next->wrd);
 	if (i->next->token != t_word)
 		i->token = i->next->token;
 	else
@@ -103,14 +103,14 @@ int	join_qoute(t_list **head)
 	{
 		if (is_q(i->token) && !i->next->is_sp && is_q(i->next->token))
 		{
-			i->wrd = ft_strjoin(i->wrd, i->next->wrd);
+			i->wrd = str_join(i->wrd, i->next->wrd);
 			tmp = i->next;
 			i->next = i->next->next;
 			free_node(tmp);
 		}
-		else if (is_q(i->token) && !i->next->is_sp && i->token == t_word)
+		else if (is_q(i->token) && !i->next->is_sp)
 			split_and_join(&i);
-		else if (!is_q(i->token) && is_q(i->next->token) && i->token == t_word && !i->next->is_sp)
+		else if (is_q(i->next->token) && i->token == t_word && !i->next->is_sp)
 			skip_or_delete(head, &i);
 		else
 			i = i->next;

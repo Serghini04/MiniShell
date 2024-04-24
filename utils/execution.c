@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/22 21:50:30 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:38:40 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,35 @@ void	creat_pipe(int *T)
 {
 	if (pipe(T) == -1)
 		(perror("piping probleme !!"), exit(EXIT_FAILURE));
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	int		len;
+	char	*res;
+	int		i;
+	int		j;
+
+	(1) && (i = 0, j = 0);
+	if (!s1 && s2)
+		return (s2);
+	else if (!s2 && s1)
+		return (s1);
+	if (!s1 && !s2)
+		return (ft_strdup(""));
+	len = ft_strlen(s1) + ft_strlen(s2);
+	res = malloc(len + 1);
+	if (!res)
+		return (NULL);
+	while (s1[i])
+	{
+		res[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+		res[i++] = s2[j++];
+	res[i] = '\0';
+	return (res);
 }
 
 char	*find_path(char *cmd, char **env)
@@ -77,15 +106,19 @@ void	main_process(t_mini	**data, char **env)
 	int		p_fdin;
 	int		p_fdout;
 
-	p_fdin = dup(0);
-	p_fdout = dup(1);
+	fdin = 0;
+	fdout = 1;
 	while (*data)
 	{
+		p_fdin = dup(0);
+		p_fdout = dup(1);
 		(*data)->env = env;
-		
-			if ((*data)->fd_in != 0)
-				fdin = (*data)->fd_in;
-			if(fdin != 0)
+		if ((*data)->fd_in != 0)
+		{
+			close(fdin);
+			fdin = (*data)->fd_in;
+		}
+		if(fdin != 0)
 			{
 				dup2(fdin, 0);
 				close(fdin);
@@ -95,17 +128,17 @@ void	main_process(t_mini	**data, char **env)
 			creat_pipe((*data)->t_fd);
 			dup2((*data)->t_fd[1], 1);
 			close ((*data)->t_fd[1]);
-			fdin = (*data)->t_fd[0];
+			fdin = (*data)->t_fd[0];			
 		}
 		else
 		{
-			if ((*data)->fd_in != 0)
-			{
-				fdin = (*data)->fd_in;
-				dup2(fdin, 0);
-				close(fdin);
-			}
-			fdout = (*data)->fd_out;
+			// if ((*data)->fd_in != 0)
+			// {
+			// 	fdin = (*data)->fd_in;
+			// 	dup2(fdin, 0);
+			// 	close(fdin);
+			// }
+				fdout = (*data)->fd_out;
 			if (fdout != 1)
 			{
 				dup2(fdout, 1);
@@ -115,6 +148,10 @@ void	main_process(t_mini	**data, char **env)
 		pid = fork();
 		if (pid == 0)
 		{
+			close(fdin);
+			close(p_fdin);
+			close(p_fdout);
+			// while (1);
 			run_cmd(data);
 		}
 		else if (pid < 0)
@@ -122,12 +159,13 @@ void	main_process(t_mini	**data, char **env)
 			ft_putstr_fd("fork probleme !!", 2);
 			clear_t_mini(data);
 		}
-		(*data) = (*data)->next;
-		dup2(p_fdin, 0);
+		
 		dup2(p_fdout, 1);
+		close (p_fdout);
+		dup2(p_fdin, 0);
+		close (p_fdin);
+		(*data) = (*data)->next;
 	}
-	close (p_fdin);
-	close (p_fdout);
 	while (wait(NULL) != -1)
 		;
 }

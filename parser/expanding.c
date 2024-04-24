@@ -6,13 +6,11 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/20 13:14:21 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:26:12 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// you need to fix >>$
 
 char	*find_dollar_sing(char *str)
 {
@@ -68,16 +66,13 @@ int	is_var(int c)
 char	*get_expand(char *str)
 {
 	char	*name_var;
+	char	*res;
 	int		i;
 	int		v;
 
-	i = 0;
-	v = 1;
+	(1) && (i = 0, v = 1);
 	if (str[i] >= '0' && str[i] <= '9')
-	{
-		v = 0;
-		str++;
-	}
+		(v = 0, str++);
 	while (str[i] && is_var(str[i]))
 		i++;
 	name_var = malloc(i + 1);
@@ -92,7 +87,8 @@ char	*get_expand(char *str)
 	name_var[i] = '\0';
 	if (!v)
 		return (name_var);
-	return (getenv(name_var));
+	res = getenv(name_var);
+	return (free(name_var), ft_strdup(res));
 }
 
 int	next_doll(char *str)
@@ -141,34 +137,65 @@ int	count_doll(char *str)
 	return (c);
 }
 
+char	*join_variable(int *s, char *str, int *i, char *res)
+{
+	char	*tmp;
+
+	if (*s != -1)
+	{
+		tmp = ft_substr(str, *s, next_doll(&str[*s]));
+		res = str_join(res, tmp);
+		if (!res)
+			return (NULL);
+	}
+	tmp = get_expand(&str[*i + 1]);
+	res = str_join(res, tmp);
+	(free(tmp), tmp = NULL);
+	if (!res)
+		return (NULL);
+	*s = *i + len_var(&str[*i + 1]) + 1;
+	tmp = ft_substr(str, *s, next_doll(&str[*s]));
+	res = str_join(res, tmp);
+	(free(tmp), tmp = NULL);
+	if (!res)
+		return (NULL);
+	*s = -1;
+	return (res);
+}
+
 char	*replace_dollar_sing(char *str)
 {
 	char	*res;
 	int		s;
 	int		i;
 
-	s = 0;
-	i = 0;
-	res = NULL;
+	(1) && (s = 0, i = 0, res = NULL);
 	while (str[i])
 	{
 		if (str[i + 1] && str[i] == '$')
 		{
-			if (s != -1)
-				res = ft_strjoin(res, ft_substr(str, s, next_doll(&str[s])));
-			res = ft_strjoin(res, get_expand(&str[i + 1]));
-			s = i + len_var(&str[i + 1]) + 1;
-			res = ft_strjoin(res, ft_substr(str, s, next_doll(&str[s])));
-			s = -1;
+			res = join_variable(&s, str, &i, res);
+			if (!res)
+				return (NULL);
 		}
 		else if (str[i] == '$')
-			res = ft_strjoin(res, ft_strdup("$"));
+		{
+			char *t = ft_strdup("$");
+			res = str_join(res, t);
+			free(t);
+		}
 		i++;
 	}
-	free(str);
 	if (!res || !*res)
-		return (free(res), NULL);
-	return (res);
+		return (free(str), free(res), NULL);
+	return (free(str), res);
+}
+
+int	is_expand(int token, int heredoc)
+{
+	if (token == t_word || (token == t_double_q && !heredoc))
+		return (1);
+	return (0);
 }
 
 int	expanding(t_list **head)
@@ -176,21 +203,23 @@ int	expanding(t_list **head)
 	t_list *i;
 
 	i = *head;
-	if (i && (i->token == t_word || i->token == t_double_q) && ft_strchr(i->wrd, '$'))
+	if (!i)
+		return (0);
+	if (is_expand(i->token, 0) && ft_strchr(i->wrd, '$'))
 	{
 		i->wrd = replace_dollar_sing(i->wrd);
 		if (!i->wrd)
-			return (-1);
+			return (clear_lst(head), -1);
 	}
 	while (i->next)
 	{
-		if (i->token != t_heredoc && (i->next->token == t_word || i->next->token == t_double_q))
+		if (i->token != t_heredoc && is_expand(i->next->token, 0))
 		{
 			if (ft_strchr(i->next->wrd, '$'))
 			{
 				i->next->wrd = replace_dollar_sing(i->next->wrd);
 				if (!i->next->wrd)
-					return (-1);
+					return (clear_lst(head), -1);
 			}
 		}
 		i = i->next;

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:01:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/29 21:56:21 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:39:30 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,23 @@ int	len(char **cmd)
 	return (i);
 }
 
+char	*expand_heredoc(char *str, int token)
+{
+	char	*res;
+
+	res = str_join(str, "\n");
+	if (is_expand(token, 1) && ft_strchr(res, '$'))
+	{
+		res = replace_dollar_sing(res);
+		return (res);
+	}
+	return (res);
+}
+
 int	part_heredoc(t_list *i, t_mini *node)
 {
 	char	*res;
+	char	*line_heredoc;
 	int		v;
 
 	v = 1;
@@ -58,12 +72,14 @@ int	part_heredoc(t_list *i, t_mini *node)
 		res = readline(">");
 		if (!res || !ft_strcmp(res, i->next->wrd))
 			break ;
-		free(res);
+		line_heredoc = expand_heredoc(res, i->next->token);
+		write(node->fd_in, line_heredoc, ft_strlen(line_heredoc));
+		free(line_heredoc);
 	}
+	close(node->fd_in);
 	if (!v)
-	{
-		close(node->fd_in);
 		node->fd_in = -1;
-	}
+	else
+		node->fd_in = open("/tmp/my_f", O_RDWR, 0644);
 	return (free(res), node->fd_in);
 }

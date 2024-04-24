@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/20 11:39:06 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:24:23 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <readline/history.h>
 #include<limits.h>
 #define MAX_FD 1024
+
 typedef enum e_token
 {
 	t_word,
@@ -66,26 +67,26 @@ typedef struct	s_free
 
 
 // lib ...
-t_list	*new_node(char *data, int token);
-void	add_back(t_list **lst, t_list *new);
+size_t	ft_strlen(char *s);
 void	free_node(t_list *node);
 void	clear_lst(t_list **lst);
+char	*ft_strdup(char *s1);
 t_list	*last_lst(t_list *lst);
 void	print_lst(t_list *h);
 int		ft_isspace(int c);
 t_mini	*create_node(void);
-void	add_back_t_mini(t_mini **lst, t_mini *new);
 void	cln_node(t_mini *node);
 void	clear_t_mini(t_mini **lst);
 void	free_arr(char **res);
 char	*ft_strchr(char *s, int c);
 void	print_t_mini(t_mini *data);
-char	**ft_split(char const *s, char c);
 int		ft_strcmp(char *s1, char *s2);
-char	*ft_strdup(char *s1);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(char *s);
+char	**ft_split(char const *s, char c);
+char	*str_join(char *s1, char *s2);
 char	*ft_strtrim(char *s1, char *set);
+t_list	*new_node(char *data, int token);
+void	add_back(t_list **lst, t_list *new);
+void	add_back_t_mini(t_mini **lst, t_mini *new);
 char	*ft_substr(char *s, size_t start, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
@@ -116,6 +117,7 @@ int		add_singl_double_q(t_list **head, char *input, int *i, int *pos);
 //utils
 int		is_red(t_list *c);
 int		is_q(int c);
+int		is_expand(int token, int heredoc);
 int		check_token(char c);
 int		find_space(char *s);
 int		len_cmd(t_list *head);
@@ -127,5 +129,6 @@ int		split_cmd(t_list **head);
 void	if_failing(void);
 void	main_process(t_mini	**data, char **env);
 void	duping_fd(t_mini *data, int *t_fd);
+char	*replace_dollar_sing(char *str);
 
 #endif
