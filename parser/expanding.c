@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/24 12:37:47 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:40:12 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*get_expand(char *str)
 	int		i;
 	int		v;
 
-	printf(">>%s<<\n",str);
 	(1) && (i = 0, v = 1);
 	if (str[i] >= '0' && str[i] <= '9')
 		(v = 0, str++);
@@ -102,6 +101,7 @@ char	*join_variable(int *s, char *str, int *i, char *res)
 	{
 		tmp = ft_substr(str, *s, next_doll(&str[*s]));
 		res = str_join(res, tmp);
+		(free(tmp), tmp = NULL);
 		if (!res)
 			return (NULL);
 	}
@@ -130,23 +130,27 @@ char	*replace_dollar_sing(char *str)
 	(1) && (s = 0, i = 0, res = NULL);
 	while (str[i])
 	{
-		if (str[i + 1] && str[i] == '$')
+		if (str[i + 1] && str[i + 1] != '$' && str[i] == '$')
 		{
 			res = join_variable(&s, str, &i, res);
 			if (!res)
 				return (NULL);
 		}
-		else if (str[i] == '$')
+		else if (str[i] == '$' && (!str[i + 1] || str[i + 1] == '$'))
 		{
 			if (!res)
-				res = str_join(res, ft_substr(str, 0, next_doll(str)));
+			{
+				tmp = ft_substr(str, 0, next_doll(str));
+				res = str_join(res, tmp);
+				(free(tmp), tmp = NULL);
+			}
 			(tmp = ft_strdup("$"), res = str_join(res, tmp));
 			free(tmp);
 		}
 		i++;
 	}
-	if (!res || !*res)
-		return (free(str), free(res), NULL);
+	if (!res)
+		return (free(str), NULL);
 	return (free(str), res);
 }
 
@@ -160,6 +164,7 @@ int	is_expand(int token, int heredoc)
 int	expanding(t_list **head)
 {
 	t_list *i;
+	// int		v;
 
 	i = *head;
 	if (!i)
@@ -169,9 +174,13 @@ int	expanding(t_list **head)
 		i->wrd = replace_dollar_sing(i->wrd);
 		if (!i->wrd)
 			return (clear_lst(head), -1);
+		else if (!*i->wrd)
+			return (free(i->wrd), free(i), *head = NULL, 0);
 	}
-	while (i->next)
+	print_lst(*head);
+	while (i && i->next)
 	{
+		// v = 0;
 		if (i->token != t_heredoc && is_expand(i->next->token, 0))
 		{
 			if (ft_strchr(i->next->wrd, '$'))
@@ -179,8 +188,15 @@ int	expanding(t_list **head)
 				i->next->wrd = replace_dollar_sing(i->next->wrd);
 				if (!i->next->wrd)
 					return (clear_lst(head), -1);
+				else if (!*i->next->wrd)
+				{
+					delete_node(i->next);
+					print_lst(*head);
+					// continue;
+				}
 			}
 		}
+		// if (!v)
 		i = i->next;
 	}
 	return (0);

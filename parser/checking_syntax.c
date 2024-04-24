@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:20:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/24 12:40:02 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/24 20:04:06 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	remove_dollar_sign(t_list **head)
 	if (!head)
 		return (0);
 	h = *head;
+	if (!*head)
+		return (-1);
 	while (h->next)
 	{
 		if (is_q(h->next->token))
@@ -53,7 +55,9 @@ int	remove_dollar_sign(t_list **head)
 		}
 		h = h->next;
 	}
-	return (expanding(head));
+	if (expanding(head) == -1)
+		return (-1);
+	return (1);
 }
 
 int	checking_syntax(t_list **head)
