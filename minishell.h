@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/22 18:24:23 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:59:19 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_mini
 	char			**env;
 	int				fd_in;
 	int				fd_out;
-	int				t_fd[2];
 	struct s_mini	*next;
 }	t_mini;
 
@@ -64,6 +63,15 @@ typedef struct	s_free
 	t_mini	**mini;
 	char	*res;
 }	t_free;
+
+typedef struct s_fd
+{
+	int		fdin;
+	int		fdout;
+	int		p_fdin;
+	int		p_fdout;
+	int		t_fd[2];
+}	t_fd;
 
 
 // lib ...
@@ -128,7 +136,7 @@ void	print_error(t_list **head, t_list *i);
 int		split_cmd(t_list **head);
 void	if_failing(void);
 void	main_process(t_mini	**data, char **env);
-void	duping_fd(t_mini *data, int *t_fd);
+void	duping_fd(t_mini *data, t_fd *fd);
 char	*replace_dollar_sing(char *str);
 
 #endif
