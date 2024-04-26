@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/25 19:59:19 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/26 12:10:14 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_fd
 	int		p_fdin;
 	int		p_fdout;
 	int		t_fd[2];
+	int		flag;
 }	t_fd;
 
 

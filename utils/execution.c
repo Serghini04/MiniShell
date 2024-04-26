@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/25 19:58:55 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:01:48 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	run_cmd(t_mini **data)
 	if (!(*data)->cmd_path)
 	{
 		ft_putstr_fd("bash: ", 2);
-		ft_putstr_fd((*data)->cmd[1], 1);
+		ft_putstr_fd((*data)->cmd[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 		clear_t_mini(data);
 		exit(EXIT_FAILURE);
@@ -93,7 +93,9 @@ void	run_cmd(t_mini **data)
 	if (execve((*data)->cmd_path, (*data)->cmd, (*data)->env) == -1)
 	{
 		clear_t_mini(data);
-		(ft_putstr_fd("bash: ", 2), ft_putstr_fd(": command not found\n", 2));
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd((*data)->cmd[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -101,51 +103,36 @@ void	run_cmd(t_mini **data)
 void	main_process(t_mini	**data, char **env)
 {
 	int		pid;
-	int		flag;
 	t_fd	fd;
 
 	fd.fdin = 0;
 	fd.fdout = 1;
-	flag = 1;
 	while (*data)
 	{
 		(*data)->env = env;
-		if ((*data)->fd_in == -1 || (*data)->fd_out == -1 )
+		duping_fd(*data, &fd);
+		pid = fork();
+		if (pid == 0)
 		{
-			ft_putstr_fd("bash: ", 2);
-			ft_putstr_fd(" !! :No such file or directory\n", 2);
-			if(fd.fdin != 0)
+			if(fd.fdin != 0 )
 				close(fd.fdin);
-			if(fd.fdout != 1)
-				close(fd.fdout);
-				flag = 0;
-		}
-		else
-		{
-				duping_fd(*data, &fd);
-			pid = fork();
-			if (pid == 0)
-			{
-				
-				if(fd.fdin != 0 )
-					close(fd.fdin);
-				// while (1)
+			if ((*data)->fd_in != -1)
 				run_cmd(data);
-				close(fd.p_fdin);
-				close(fd.p_fdout);
-			}
-			else if (pid < 0)
-			{
-				ft_putstr_fd("fork probleme !!", 2);
-				clear_t_mini(data);
-			}
-		
-			dup2(fd.p_fdout, 1);
-			close (fd.p_fdout);
-			dup2(fd.p_fdin, 0);
-			close (fd.p_fdin);
-			flag = 1;
+			else
+				exit(1);
+			close(fd.p_fdin);
+			close(fd.p_fdout);
 		}
+		else if (pid < 0)
+		{
+			ft_putstr_fd("fork probleme !!", 2);
+			clear_t_mini(data);
+		}
+		
+		dup2(fd.p_fdout, 1);
+		close (fd.p_fdout);
+		dup2(fd.p_fdin, 0);
+		close (fd.p_fdin);
 		(*data) = (*data)->next;
 	}
 	while (wait(NULL) != -1)
