@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:24:30 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/26 21:38:22 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/25 11:33:16 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,19 @@ void	clear_t_mini(t_mini **lst)
 		i = swap;
 	}
 	*lst = NULL;
+}
+void	delete_node(t_list *node)
+{
+	if (node->prv)
+		node->prv->next = node->next;
+	if (node->next)
+	{
+		node->next->prv = node->prv;
+		if (!node->is_sp && !node->next->is_sp)
+			node->next->is_sp = 0;
+		else
+			node->next->is_sp = 1;
+	}
+	free(node->wrd);
+	free(node);
 }

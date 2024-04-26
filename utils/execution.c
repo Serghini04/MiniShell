@@ -6,17 +6,11 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/26 15:01:48 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/26 21:29:28 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	creat_pipe(int *T)
-{
-	if (pipe(T) == -1)
-		(perror("piping probleme !!"), exit(EXIT_FAILURE));
-}
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -76,65 +70,65 @@ char	*find_path(char *cmd, char **env)
 	return (free_arr(all_paths), NULL);
 }
 
-void	run_cmd(t_mini **data)
+static void	red_fd_parent(t_fd *fd)
 {
-	if (ft_strchr((*data)->cmd[0], '/'))
-		(*data)->cmd_path = (*data)->cmd[0];
+	if (dup2(fd->p_fdout, 1) == -1)
+		(perror("dup2 Error !!"), exit(EXIT_FAILURE));
+	close (fd->p_fdout);
+	if (dup2(fd->p_fdin, 0) == -1)
+		(perror("dup2 Error !!"), exit(EXIT_FAILURE));
+	close (fd->p_fdin);
+}
+
+void	run_cmd(t_mini *data)
+{
+	if (ft_strchr((data)->cmd[0], '/'))
+		(data)->cmd_path = (data)->cmd[0];
 	else
-		(*data)->cmd_path = find_path((*data)->cmd[0], (*data)->env);
-	if (!(*data)->cmd_path)
+		(data)->cmd_path = find_path((data)->cmd[0], (data)->env);
+	if (!(data)->cmd_path)
 	{
 		ft_putstr_fd("bash: ", 2);
-		ft_putstr_fd((*data)->cmd[0], 2);
+		ft_putstr_fd((data)->cmd[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
-		clear_t_mini(data);
+		clear_t_mini(&data);
 		exit(EXIT_FAILURE);
 	}
-	if (execve((*data)->cmd_path, (*data)->cmd, (*data)->env) == -1)
+	if (execve((data)->cmd_path, (data)->cmd, (data)->env) == -1)
 	{
-		clear_t_mini(data);
+		clear_t_mini(&data);
 		ft_putstr_fd("bash: ", 2);
-		ft_putstr_fd((*data)->cmd[0], 2);
+		ft_putstr_fd((data)->cmd[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 		exit(EXIT_FAILURE);
 	}
 }
 
-void	main_process(t_mini	**data, char **env)
+void	main_process(t_mini	*data, char **env)
 {
-	int		pid;
 	t_fd	fd;
 
 	fd.fdin = 0;
 	fd.fdout = 1;
-	while (*data)
+	while (data)
 	{
-		(*data)->env = env;
-		duping_fd(*data, &fd);
-		pid = fork();
-		if (pid == 0)
+		data->env = env;
+		(duping_fd(data, &fd), fd.pid = fork());
+		if (fd.pid == 0)
 		{
-			if(fd.fdin != 0 )
+			if (fd.fdin != 0)
 				close(fd.fdin);
-			if ((*data)->fd_in != -1)
+			if ((data)->fd_in != -1 && (data)->fd_out != -1)
 				run_cmd(data);
 			else
-				exit(1);
-			close(fd.p_fdin);
-			close(fd.p_fdout);
+				exit(EXIT_FAILURE);
+			(close(fd.p_fdin), close(fd.p_fdout));
 		}
-		else if (pid < 0)
-		{
-			ft_putstr_fd("fork probleme !!", 2);
-			clear_t_mini(data);
-		}
-		
-		dup2(fd.p_fdout, 1);
-		close (fd.p_fdout);
-		dup2(fd.p_fdin, 0);
-		close (fd.p_fdin);
-		(*data) = (*data)->next;
+		else if (fd.pid < 0)
+			(ft_putstr_fd("fork probleme !!", 2), clear_t_mini(&data));
+		red_fd_parent(&fd);
+		data = data->next;
 	}
 	while (wait(NULL) != -1)
 		;
-	}
+}

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:12:50 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/22 18:23:49 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:43:35 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*str_join(char *s1, char *s2)
 
 	(1) && (i = 0, j = 0);
 	if (!s1 && s2)
-		return (s2);
+		return (ft_strdup(s2));
 	else if (!s2 && s1)
 		return (s1);
 	if (!s1 && !s2)

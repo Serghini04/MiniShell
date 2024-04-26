@@ -6,14 +6,14 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/04/25 15:31:20 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/04/26 16:51:55 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # will be done.
 # // expanding...
+# //==> handel $?.
 # //==> fix leaks.
-# //==> heredoc expanding.
 # //==> check if all good.
 
 # // protection function...
@@ -26,10 +26,10 @@ lib = lib/ft_strdup.c lib/str_join.c lib/ft_strlen.c lib/ft_strtrim.c\
 
 parser = parser/parsing_part.c parser/tokening.c parser/last_update_lst.c\
 	parser/checking_syntax.c parser/join_qoute.c parser/join_qoute_part_two.c\
-	parser/expanding.c
+	parser/expanding.c parser/expanding_part2.c
 
 utils = utils/print_error.c utils/is_token.c utils/parsing_utils.c utils/split_cmd.c\
-		utils/execution.c utils/duping_fd.c
+		utils/execution.c utils/expanding_utils.c utils/duping_fd.c
 
 GREEN = \033[1;32m
 RED = \033[1;31m

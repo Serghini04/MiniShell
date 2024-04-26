@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/22 22:02:28 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/26 16:48:48 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	delete_if_empty_wrd(t_list **head)
 		if (is_q(i->next->token) && !*i->wrd && !i->next->is_sp)
 		{
 			i->next->is_sp = i->is_sp;
-			//i->next->token = i->token;
 			if (i->prv)
 				i->prv->next = i->next;
 			else
@@ -80,8 +79,6 @@ t_mini	*parsing_part(char *line)
 		return (clear_lst(&head), free(res), NULL);
 	free(res);
 	if (checking_syntax(&head) == -1)
-		return (NULL);
-	if (expanding(&head) == -1)
 		return (NULL);
 	data = last_update_lst(head);
 	clear_lst(&head);
