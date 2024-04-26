@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:20:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/24 20:04:06 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/26 11:59:33 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ int	remove_dollar_sign(t_list **head)
 		}
 		h = h->next;
 	}
-	if (expanding(head) == -1)
-		return (-1);
-	return (1);
+	return (expanding(head));
 }
 
 int	checking_syntax(t_list **head)
@@ -82,7 +80,7 @@ int	checking_syntax(t_list **head)
 	}
 	if (i && (is_red(i) || i->token == t_pipe))
 		return (print_error(head, i), -1);
-	if (remove_dollar_sign(head) == -1 || join_qoute(head) == -1 || split_cmd(head) == -1)
+	if (remove_dollar_sign(head) == -1 || join_qoute(head) == -1)
 		return (clear_lst(head), -1);
-	return (0);
+	return (split_cmd(head));
 }

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/24 18:25:48 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:52:56 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	run_cmd(t_mini **data)
 	{
 		(ft_putstr_fd("bash: ", 2),ft_putstr_fd((*data)->cmd[0], 2), ft_putstr_fd(": command not found\n", 2));
 		clear_t_mini(data);
+		// exit(127);
 		exit(EXIT_FAILURE);
 	}
 	if (execve((*data)->cmd_path, (*data)->cmd, (*data)->env) == -1)
@@ -170,6 +171,9 @@ void	main_process(t_mini	**data, char **env)
 	}
 	while (wait(NULL) != -1)
 		;
+	// int c;
+	// waitpid(-1, &c, 0);
+	// printf("%d\n", c >> 8);
 	close (p_fdin);
 	close (p_fdout);
 }
