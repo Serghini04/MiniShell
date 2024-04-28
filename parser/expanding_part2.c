@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:09:03 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/26 15:56:06 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/28 14:56:39 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	*get_expand(char *str)
 	res = getenv(name_var);
 	return (free(name_var), ft_strdup(res));
 }
+
+// char	*join_var_part_2()
 
 char	*join_variable(int *s, char *str, int *i, char *res)
 {
