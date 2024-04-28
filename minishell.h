@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/26 12:51:18 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/26 21:06:12 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ enum e_token
 	t_last,
 }	t_token;
 
+// dd| cat <fff > ddd |ls
+
 typedef struct s_list
 {
 	char			*wrd;
@@ -54,7 +56,6 @@ typedef struct s_mini
 	char			**env;
 	int				fd_in;
 	int				fd_out;
-	int				t_fd[2];
 	struct s_mini	*next;
 }	t_mini;
 
@@ -64,6 +65,17 @@ typedef struct	s_free
 	t_mini	**mini;
 	char	*res;
 }	t_free;
+
+typedef struct s_fd
+{
+	int		pid;
+	int		fdin;
+	int		flag;
+	int		fdout;
+	int		p_fdin;
+	int		p_fdout;
+	int		t_fd[2];
+}	t_fd;
 
 
 // lib ...
@@ -131,9 +143,9 @@ int		split_cmd(t_list **head);
 void	ft_putstr_fd(char *s, int fd);
 char	*replace_dollar_sing(char *str);
 int		is_expand(int token, int heredoc);
-void	duping_fd(t_mini *data, int *t_fd);
+void	duping_fd(t_mini *data, t_fd *t_fd);
 int		part_heredoc(t_list *i, t_mini *node);
 void	print_error(t_list **head, t_list *i);
-void	main_process(t_mini	**data, char **env);
+void	main_process(t_mini	*data, char **env);
 
 #endif

@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/25 15:52:56 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/26 21:29:28 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	creat_pipe(int *T)
-{
-	if (pipe(T) == -1)
-		(perror("piping probleme !!"), exit(EXIT_FAILURE));
-}
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -76,104 +70,65 @@ char	*find_path(char *cmd, char **env)
 	return (free_arr(all_paths), NULL);
 }
 
-void	run_cmd(t_mini **data)
+static void	red_fd_parent(t_fd *fd)
 {
-	if ((*data)->fd_in == -1 || (*data)->fd_out == -1 )
-		(perror("open error !!"), exit(EXIT_FAILURE));
-	// if ((*data)->fd_in != 0)
-	// {
-	// 	dup2((*data)->fd_in, 0);
-	// 	close((*data)->fd_in);
-	// }
-	// else
-	// 	close((*data)->t_fd[0]);
-	// if ((*data)->fd_out != 1)
-	// {
-	// 	dup2((*data)->fd_out, 1);
-	// 	close((*data)->fd_out);
-	// }
-	// else
-	// 	close ((*data)->t_fd[1]);
-	if (ft_strchr((*data)->cmd[0], '/'))
-		(*data)->cmd_path = (*data)->cmd[0];
+	if (dup2(fd->p_fdout, 1) == -1)
+		(perror("dup2 Error !!"), exit(EXIT_FAILURE));
+	close (fd->p_fdout);
+	if (dup2(fd->p_fdin, 0) == -1)
+		(perror("dup2 Error !!"), exit(EXIT_FAILURE));
+	close (fd->p_fdin);
+}
+
+void	run_cmd(t_mini *data)
+{
+	if (ft_strchr((data)->cmd[0], '/'))
+		(data)->cmd_path = (data)->cmd[0];
 	else
-		(*data)->cmd_path = find_path((*data)->cmd[0], (*data)->env);
-	if (!(*data)->cmd_path)
+		(data)->cmd_path = find_path((data)->cmd[0], (data)->env);
+	if (!(data)->cmd_path)
 	{
-		(ft_putstr_fd("bash: ", 2),ft_putstr_fd((*data)->cmd[0], 2), ft_putstr_fd(": command not found\n", 2));
-		clear_t_mini(data);
-		// exit(127);
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd((data)->cmd[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		clear_t_mini(&data);
 		exit(EXIT_FAILURE);
 	}
-	if (execve((*data)->cmd_path, (*data)->cmd, (*data)->env) == -1)
+	if (execve((data)->cmd_path, (data)->cmd, (data)->env) == -1)
 	{
-		(ft_putstr_fd("bash: ", 2),ft_putstr_fd((*data)->cmd[0], 2), ft_putstr_fd(": command not found\n", 2));
-		clear_t_mini(data);
+		clear_t_mini(&data);
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd((data)->cmd[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 		exit(EXIT_FAILURE);
 	}
 }
 
-void	main_process(t_mini	**data, char **env)
+void	main_process(t_mini	*data, char **env)
 {
-	int		pid;
-	int		fdin;
-	int		fdout;
-	int		p_fdin;
-	int		p_fdout;
+	t_fd	fd;
 
-	p_fdin = dup(0);
-	p_fdout = dup(1);
-	if((*data)->fd_in != 0)
-		fdin = (*data)->fd_in;
-	while (*data)
+	fd.fdin = 0;
+	fd.fdout = 1;
+	while (data)
 	{
-		(*data)->env = env;
-		if (fdin != 0)
+		data->env = env;
+		(duping_fd(data, &fd), fd.pid = fork());
+		if (fd.pid == 0)
 		{
-			dup2(fdin, 0);
-			close(fdin);
+			if (fd.fdin != 0)
+				close(fd.fdin);
+			if ((data)->fd_in != -1 && (data)->fd_out != -1)
+				run_cmd(data);
+			else
+				exit(EXIT_FAILURE);
+			(close(fd.p_fdin), close(fd.p_fdout));
 		}
-		if ((*data)->next)
-		{
-			creat_pipe((*data)->t_fd);
-			dup2((*data)->t_fd[1], 1);
-			close ((*data)->t_fd[1]);
-			fdin = (*data)->t_fd[0];
-		}
-		else
-		{
-			if ((*data)->fd_in != 0)
-			{
-				fdin = (*data)->fd_in;
-				dup2(fdin, 0);
-				close(fdin);
-			}
-			fdout = (*data)->fd_out;
-			if (fdout != 1)
-			{
-				dup2(fdout, 1);
-				close(fdout);
-			}
-		}
-		pid = fork();
-		if (pid == 0)
-		{
-			run_cmd(data);
-		}
-		else if (pid < 0)
-		{
-			ft_putstr_fd("fork probleme !!", 2);
-			clear_t_mini(data);
-		}
-		(*data) = (*data)->next;
-		dup2(p_fdin, 0);
-		dup2(p_fdout, 1);
+		else if (fd.pid < 0)
+			(ft_putstr_fd("fork probleme !!", 2), clear_t_mini(&data));
+		red_fd_parent(&fd);
+		data = data->next;
 	}
 	while (wait(NULL) != -1)
 		;
-	// int c;
-	// waitpid(-1, &c, 0);
-	// printf("%d\n", c >> 8);
-	close (p_fdin);
-	close (p_fdout);
 }

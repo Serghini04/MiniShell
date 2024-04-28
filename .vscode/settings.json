@@ -1,4 +1,9 @@
 {
+<<<<<<< HEAD
+	"files.associations": {
+		"llll": "c"
+	}
+=======
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",
@@ -60,4 +65,5 @@
     "sstream": "c",
     "__node_handle": "c"
   }
+>>>>>>> 195832a2754401d807422e40542c3e4621b09181
 }
