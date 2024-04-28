@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
+#    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/04/26 16:51:55 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/04/28 16:27:01 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ FILE = ${lib} ${parser} ${utils} minishell.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 NAME = minishell
 

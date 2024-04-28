@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/26 12:53:52 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/28 16:01:39 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	expanding(t_list **head)
 
 	i = *head;
 	ret = check_first_node(&i, head);
+	i = *head;
 	if (ret == 0 || ret == -1)
 		return (ret);
 	while (i && i->next)

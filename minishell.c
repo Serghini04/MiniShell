@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/26 19:12:57 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/28 20:29:43 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	main(int ac, char **av, char **env)
 		if(data)
 			main_process(data, env);
 		// print_t_mini(data);
-		clear_t_mini(&data);
+		// clear_t_mini(&data);
 	}
-	
+
 	//atexit(f);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 03:51:28 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/26 16:10:41 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/04/28 16:37:10 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*rm_all_split(char *s1)
 
 	i = 0;
 	len = ft_strlen(s1) -1 ;
+	if (ft_isspace(s1[len]))
+		return (s1);
 	while (len >= 0 && !ft_isspace(s1[len]))
 		len--;
 	while (len >= 0 && ft_isspace(s1[len]))
@@ -34,6 +36,7 @@ char	*rm_all_split(char *s1)
 		res[i] = s1[i];
 		i++;
 	}
+
 	res[i] = '\0';
 	return (free(s1), res);
 }

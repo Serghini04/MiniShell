@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/26 21:29:28 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/04/28 15:49:17 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ void	run_cmd(t_mini *data)
 	{
 		clear_t_mini(&data);
 		ft_putstr_fd("bash: ", 2);
-		ft_putstr_fd((data)->cmd[0], 2);
+		if ((data))
+			ft_putstr_fd((data)->cmd[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 		exit(EXIT_FAILURE);
 	}
