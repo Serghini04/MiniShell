@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/28 15:49:17 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/03 10:12:47 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	run_cmd(t_mini *data)
 		ft_putstr_fd((data)->cmd[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 		clear_t_mini(&data);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	if (execve((data)->cmd_path, (data)->cmd, (data)->env) == -1)
 	{
@@ -101,8 +101,20 @@ void	run_cmd(t_mini *data)
 		if ((data))
 			ft_putstr_fd((data)->cmd[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
+}
+void	return_status()
+{
+	int		ret;
+	char	*res;
+
+	while (waitpid(0, &ret, 0) != -1)
+		;
+	res = ft_itoa(WEXITSTATUS(ret));
+	if (!res)
+		return ;
+	save_exit_status(res);
 }
 
 void	main_process(t_mini	*data, char **env)
@@ -126,10 +138,10 @@ void	main_process(t_mini	*data, char **env)
 			(close(fd.p_fdin), close(fd.p_fdout));
 		}
 		else if (fd.pid < 0)
-			(ft_putstr_fd("fork probleme !!", 2), clear_t_mini(&data));
+			(perror("fork "), clear_t_mini(&data));
 		red_fd_parent(&fd);
 		data = data->next;
 	}
-	while (wait(NULL) != -1)
-		;
+	clear_t_mini(&data);
+	return_status();
 }

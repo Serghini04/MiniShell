@@ -6,11 +6,23 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/28 16:01:39 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/03 10:04:06 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*save_exit_status(char *res)
+{
+	static char	*ret;
+
+	if (res)
+	{
+		free(ret);
+		ret = res;
+	}
+	return (ret);
+}
 
 int	count_doll(char *str)
 {

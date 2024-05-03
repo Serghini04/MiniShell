@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/28 20:29:43 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/03 10:16:53 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	main(int ac, char **av, char **env)
 	char	*res;
 
 	(void)av;
+	(void)env;
+	save_exit_status(ft_strdup("0"));
 	if (ac != 1)
 		exit(EXIT_FAILURE);
 	data = NULL;
@@ -34,12 +36,11 @@ int	main(int ac, char **av, char **env)
 		if (*res)
 			add_history(res);
 		data = parsing_part(res);
-		if(data)
+		if (data)
 			main_process(data, env);
-		// print_t_mini(data);
-		// clear_t_mini(&data);
+		clear_t_mini(&data);
 	}
-
-	//atexit(f);
+	printf("exit\n");
+	atexit(f);
 	return (0);
 }

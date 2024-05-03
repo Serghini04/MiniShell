@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/26 21:06:12 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/03 10:20:08 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
-#include <sys/errno.h>
+# include <sys/errno.h>
 # include <string.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#include<limits.h>
-#define MAX_FD 1024
+# include <limits.h>
+# define MAX_FD 1024
 
 enum e_token
 {
@@ -35,9 +35,7 @@ enum e_token
 	t_app,
 	t_heredoc,
 	t_last,
-}	t_token;
-
-// dd| cat <fff > ddd |ls
+};
 
 typedef struct s_list
 {
@@ -59,7 +57,7 @@ typedef struct s_mini
 	struct s_mini	*next;
 }	t_mini;
 
-typedef struct	s_free
+typedef struct s_free
 {
 	t_list	**head;
 	t_mini	**mini;
@@ -77,28 +75,28 @@ typedef struct s_fd
 	int		t_fd[2];
 }	t_fd;
 
-
 // lib ...
-size_t	ft_strlen(char *s);
-void	free_node(t_list *node);
-void	clear_lst(t_list **lst);
-char	*ft_strdup(char *s1);
-t_list	*last_lst(t_list *lst);
-void	print_lst(t_list *h);
+char	*ft_itoa(int n);
 int		ft_isspace(int c);
 t_mini	*create_node(void);
-void	cln_node(t_mini *node);
-void	clear_t_mini(t_mini **lst);
+size_t	ft_strlen(char *s);
+char	*ft_strdup(char *s1);
+void	print_lst(t_list *h);
 void	free_arr(char **res);
+void	cln_node(t_mini *node);
+t_list	*last_lst(t_list *lst);
+void	free_node(t_list *node);
+void	clear_lst(t_list **lst);
+void	delete_node(t_list *node);
+void	clear_t_mini(t_mini **lst);
 char	*ft_strchr(char *s, int c);
 void	print_t_mini(t_mini *data);
-int		ft_strcmp(char *s1, char *s2);
-char	**ft_split(char const *s, char c);
 char	*str_join(char *s1, char *s2);
-char	*ft_strtrim(char *s1, char *set);
+int		ft_strcmp(char *s1, char *s2);
 t_list	*new_node(char *data, int token);
+char	*ft_strtrim(char *s1, char *set);
+char	**ft_split(char const *s, char c);
 void	add_back(t_list **lst, t_list *new);
-void	delete_node(t_list *node);
 void	add_back_t_mini(t_mini **lst, t_mini *new);
 char	*ft_substr(char *s, size_t start, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -116,6 +114,7 @@ void	join_empty_wrd(t_list *i);
 int		join_qoute(t_list **head);
 int		join_qoute(t_list **head);
 t_mini	*add_cmd_to_lst(t_list *i);
+char	*save_exit_status(char *res);
 void	close_if_open(int fd, int nb);
 int		checking_syntax(t_list **head);
 t_mini	*last_update_lst(t_list *head);
