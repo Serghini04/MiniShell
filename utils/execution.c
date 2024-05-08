@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/03 10:12:47 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:30:36 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ static void	red_fd_parent(t_fd *fd)
 
 void	run_cmd(t_mini *data)
 {
+	if (!(data)->cmd[0])
+		exit(0);
 	if (ft_strchr((data)->cmd[0], '/'))
 		(data)->cmd_path = (data)->cmd[0];
 	else
