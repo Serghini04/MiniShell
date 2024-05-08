@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/08 15:02:34 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:25:33 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ static void	red_fd_parent(t_fd *fd)
 
 void	run_cmd(t_mini *data, t_env *env)
 {
+	if (!data->cmd[0])
+		exit(1);
 	data->env = creat_tabenv(env);
 	if (ft_strchr((data)->cmd[0], '/'))
 		(data)->cmd_path = (data)->cmd[0];

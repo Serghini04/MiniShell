@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/08 14:48:03 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:23:53 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int ac, char **av, char **env)
 		if (*res)
 			add_history(res);
 		data = parsing_part(res);
+		print_t_mini(data);
 		if(data)
 			main_process(data, head);
 		clear_t_mini(&data);
