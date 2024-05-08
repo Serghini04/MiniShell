@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:56:54 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/05 12:35:37 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:16:57 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	duping_fd(t_mini *data, t_fd *fd)
 			close(fd->fdin);
 			fd->fdin = data->fd_in;
 		}
-		(dup2(fd->fdin, 0), close(fd->fdin));
+			(dup2(fd->fdin, 0), close(fd->fdin));
 	}
 	if (data->next)
 	{
