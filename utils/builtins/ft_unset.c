@@ -1,46 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 11:57:33 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/08 12:29:16 by hidriouc         ###   ########.fr       */
+/*   Created: 2024/05/05 11:59:58 by hidriouc          #+#    #+#             */
+/*   Updated: 2024/05/07 10:03:45 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_export(char *name, t_env **head)
+void	ft_unset(char *str, t_env	**head)
 {
-	int		i;
-	int		flag;
 	t_env	*tmp;
-
-	tmp = *head; 
-	flag = 1;
-	while (tmp)
+	int		i;
+	
+	if (!head || !*head)
+		return ;
+	tmp = (*head);
+	if (tmp)
 	{
 		i = 0;
-		while (name[i] && tmp->content[i] && name[i]
-			== tmp->content[i] && name[i] != '=')
-			i++;
-		if(tmp->content[i] == '=')
+		while (tmp->content[i] && str[i] && tmp->content[i] == str[i])
 		{
-			if(name[i] == '=')
+			if(tmp->content[i + 1] && tmp->content[i + 1] == '=' && str[i + 1] == '\0')
 			{
-				free (tmp->content);
-				tmp->content = ft_strdup(name);
+				*head = tmp->next;
+				return ;
 			}
-			flag = 0;
-			break ;
+			i++;
 		}
 		tmp = tmp->next;
 	}
-	if(flag && ft_strchr(name, '='))
+	if(!(*head)->next)
 	{
-		ft_lstadd_back(head, ft_lstnew(ft_strdup(name)));
+		ft_putstr_fd("bash: unset: `", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
+		return ;
 	}
-
+	ft_unset(str, &(*head)->next);
 }

@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/02 16:59:51 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:48:03 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@ int	main(int ac, char **av, char **env)
 {
 	t_mini	*data;
 	char	*res;
-	char	**tb_env;
-	t_env	*head_myenv;
+	int		flag;
+	t_env	*head;
 
 	(void)av;
-	head_myenv = NULL;
+	flag = 0;
+	save_exit_status(ft_strdup("0"));
 	if (ac != 1)
 		exit(EXIT_FAILURE);
 	data = NULL;
-	creat_myenv(&head_myenv, env);
+	head = NULL;
+	creat_myenv(&head, env);
 	while (1)
 	{
 		res = readline("hi me>> ");
@@ -38,14 +40,11 @@ int	main(int ac, char **av, char **env)
 		if (*res)
 			add_history(res);
 		data = parsing_part(res);
-		tb_env = creat_tabenv(head_myenv);
-		data->head = head_myenv;
-		 if(data)
-			main_process(data,tb_env);
-		// print_t_mini(data);
-		// clear_t_mini(&data);
+		if(data)
+			main_process(data, head);
+		clear_t_mini(&data);
 	}
-	
-	//atexit(f);
+	printf("exit\n");
+	atexit(f);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/30 11:06:16 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:20:10 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ t_mini	*add_cmd_to_lst(t_list *i)
 t_mini	*last_update_lst(t_list *head)
 {
 	t_mini	*data;
-	// t_mini	*tmp;
 	t_list	*i;
 	t_list	*s;
 
@@ -90,11 +89,5 @@ t_mini	*last_update_lst(t_list *head)
 		i = i->next;
 	}
 	add_back_t_mini(&data, add_cmd_to_lst(s));
-	// if (data && !data->cmd[0])
-	// {
-	// 	tmp = data->next;
-	// 	(free(data->cmd), free(data));
-	// 	data = tmp;
-	// }
 	return (data);
 }

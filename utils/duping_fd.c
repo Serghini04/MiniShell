@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:56:54 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/26 18:41:37 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/05 10:57:17 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	duping_fd(t_mini *data, t_fd *fd)
 			close(fd->fdin);
 			fd->fdin = data->fd_in;
 		}
-		(dup2(fd->fdin, 0), close(fd->fdin));
+			(dup2(fd->fdin, 0), close(fd->fdin));
 	}
 	if (data->next)
 	{

@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_myenv.c                                      :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 14:02:34 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/07 15:05:31 by hidriouc         ###   ########.fr       */
+/*   Created: 2024/05/04 14:57:18 by hidriouc          #+#    #+#             */
+/*   Updated: 2024/05/07 11:09:44 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-void	creat_myenv(t_env	**head, char **env)
+void	ft_env(char **env)
 {
-	int		i;
-	t_env	*tmp;
+	int	i;
 
 	i = 0;
-	if (!(*env))
+	if (!env || !*env)
 	{
-		tmp = ft_lstnew(ft_strjoin("PWD=", getcwd(0, 0)));
-		ft_lstadd_back(head, tmp);
+		ft_putstr_fd("bash : env: no such file or directory\n", 2);
+		return ;
 	}
-	else
+	while (env[i])
 	{
-		while(env[i])
-		{
-			tmp = ft_lstnew(ft_strdup(env[i]));
-			ft_lstadd_back(head, tmp);
-			i++;
-		}
+		ft_putstr_fd(env[i], 1);
+		ft_putstr_fd("\n", 1);
+		i++;
 	}
 }

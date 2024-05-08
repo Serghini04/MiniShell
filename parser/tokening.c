@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:57:09 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/19 10:42:24 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/03 10:05:43 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 	if (len == -1)
 	{
 		printf("syntax error \"%c\"\n", input[*pos]);
-		clear_lst(head);
+		(save_exit_status(ft_strdup("258")), clear_lst(head));
 		return (-1);
 	}
 	add_back(head, add_single_or_double_q(input, *pos, len));

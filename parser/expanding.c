@@ -6,11 +6,23 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/28 16:02:33 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:19:59 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*save_exit_status(char *res)
+{
+	static char	*ret;
+
+	if (res)
+	{
+		free(ret);
+		ret = res;
+	}
+	return (ret);
+}
 
 int	count_doll(char *str)
 {

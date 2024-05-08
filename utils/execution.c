@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/03 13:17:35 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:02:34 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,94 +80,119 @@ static void	red_fd_parent(t_fd *fd)
 	close (fd->p_fdin);
 }
 
-void	run_cmd(t_mini *data)
+void	run_cmd(t_mini *data, t_env *env)
 {
+	data->env = creat_tabenv(env);
 	if (ft_strchr((data)->cmd[0], '/'))
 		(data)->cmd_path = (data)->cmd[0];
 	else
 		(data)->cmd_path = find_path((data)->cmd[0], (data)->env);
-	if (!(data)->cmd_path)
+	if (!(data)->cmd_path && !ft_is_built_in(data))
 	{
-		perror("cmd ");
-		exit(EXIT_FAILURE);
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd((data)->cmd[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		clear_t_mini(&data);
+		exit(127);
 	}
-	if (execve((data)->cmd_path, (data)->cmd, (data)->env) == -1)
+	if (ft_is_built_in(data))
+	{
+		ft_export(ft_strjoin("_=", NULL), &env);
+		ft_execute_buitl_in(data, env);
+	}
+	else if (execve((data)->cmd_path, (data)->cmd, (data)->env) == -1)
 	{
 		clear_t_mini(&data);
-		perror("execve ");
-		exit(EXIT_FAILURE);
+		ft_putstr_fd("bash: ", 2);
+		if ((data))
+			ft_putstr_fd((data)->cmd[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		exit(127);
 	}
+	exit(1);
 }
 
-void	ft_execute_buitl_in(t_mini *data)
+void	return_status()
 {
-	if (data->fd_in != 0)
-	{
-		dup2(data->fd_in, 0);
-		close(data->fd_in);
-	}
-	if (data->fd_out != 1)
-	{
-		dup2(data->fd_out, 1);
-		close(data->fd_out);
-	}
+	int		ret;
+	char	*res;
+
+	while (waitpid(0, &ret, 0) != -1)
+		;
+	res = ft_itoa(WEXITSTATUS(ret));
+	if (!res)
+		return ;
+	save_exit_status(res);
+}
+
+void	ft_execute_buitl_in(t_mini *data, t_env *env)
+{
 	if (!ft_strcmp(data->cmd[0], "cd"))
-		ft_cd(data);
+		ft_cd(data, env);
 	else if (!ft_strcmp(data->cmd[0], "export"))
-		ft_export( &(data->head),data);
+		ft_export(data->cmd[1], &env);
 	else if (!ft_strcmp(data->cmd[0], "pwd"))
-		ft_pwd(data);
-	else if (!ft_strcmp(data->cmd[0], "export"))
+		ft_pwd();
+	else if (!ft_strcmp(data->cmd[0], "echo"))
 		ft_echo(data);
-	// else if (!ft_strcmp(data->cmd[0], "export"))
-	// 	ft_export( &(data->head),data);
-	// else if (!ft_strcmp(data->cmd[0], "export"))
-	// 	ft_export( &(data->head),data);
+	else if (!ft_strcmp(data->cmd[0], "env") && !data->cmd[1])
+		ft_env(data->env);
+	else if (!ft_strcmp(data->cmd[0], "unset"))
+		ft_unset(data->cmd[1], &env);
 }
 
-int	ft_is_built_in(char **cmd)
+int	ft_is_built_in(t_mini *data)
 {
-	ft_tolower(cmd[0]);
-	if (!ft_strcmp(cmd[0], "cd"))
+	ft_tolower(data->cmd[0]);
+	if (!ft_strcmp(data->cmd[0], "cd"))
 		return (1);
-	else if (!ft_strcmp(cmd[0], "pwd"))
+	else if (!ft_strcmp(data->cmd[0], "pwd"))
 		return (1);
-	// else if (!ft_strcmp(cmd[0], "unset"))
-	// 	return (1);
-	// else if (!ft_strcmp(cmd[0], "env"))
-	// 	return (1);
-	// else if (!ft_strcmp(cmd[0], "exit"))
-	// 	return (1);
-	else if (!ft_strcmp(cmd[0], "echo"))
+	else if (!ft_strcmp(data->cmd[0], "unset"))
+		return (1);
+	else if (!ft_strcmp(data->cmd[0], "env"))
+		return (1);
+	else if (!ft_strcmp(data->cmd[0], "export"))
+		return (1);
+	else if (!ft_strcmp(data->cmd[0], "echo"))
 		return (1);
 	else
 		return (0);
 }
 
-int	ft_check_if_builtin(t_mini *data)
+int	ft_check_if_builtin(t_mini *data, t_fd *fd, t_env *env)
 {
-	if (data && data->next == NULL && ft_is_built_in(data->cmd))
-		return (ft_execute_buitl_in(data), 1);
+	if (data && data->next == NULL)
+	{
+		change_holder_(data, env);
+	}
+	if (data && data->next == NULL && ft_is_built_in(data))
+	{
+		change_holder_(data, env);
+		return (duping_fd(data, fd), ft_execute_buitl_in(data, env), 1);
+	}
 	return (0);
 }
 
-void	main_process(t_mini	*data, char **env)
+void	main_process(t_mini	*data, t_env *strp)
 {
 	t_fd	fd;
 
 	(1) && (fd.fdin = 0, fd.fdout = 1);
-	data->env = env;
-	if (ft_check_if_builtin(data))
+	if (ft_check_if_builtin(data, &fd, strp))
+	{
+		red_fd_parent(&fd);
 		return ;
+	}
 	while (data)
 	{
-		(1) && (data->env = env, duping_fd(data, &fd), fd.pid = fork());
+		(1) && (duping_fd(data, &fd), fd.pid = fork());
 		if (fd.pid == 0)
 		{
 			if (fd.fdin != 0)
 				close(fd.fdin);
 			if ((data)->fd_in != -1 && (data)->fd_out != -1)
-				run_cmd(data);
+				run_cmd(data, strp);
 			else
 				exit(EXIT_FAILURE);
 			(close(fd.p_fdin), close(fd.p_fdout));
@@ -179,6 +204,6 @@ void	main_process(t_mini	*data, char **env)
 		}
 		(red_fd_parent(&fd), data = data->next);
 	}
-	while (wait(NULL) != -1)
-		;
+	clear_t_mini(&data);
+	return_status();
 }

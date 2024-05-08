@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:51:42 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/03 11:26:53 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:39:59 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,37 +27,43 @@ void	ft_tolower(char	*str)
 	}
 }
 
-void	ft_cd(t_mini *data)
+void	ft_cd(t_mini *data, t_env *env)
 {
 	char	*new_path;
-	t_env	*env;
 	char	*tmp;
+	int		i;
 	char	*old_path;
+	t_env	*head;
 
-	env = data->head;
+	head = env;
+	i = 0;
 	old_path = getcwd(NULL, 0);
 	if (data->cmd[1])
 		new_path = data->cmd[1];
 	else
 		new_path = ft_strdup(getenv("HOME"));
 	if (access(new_path, F_OK) != 0)
-			perror(new_path);
+	{
+		ft_putstr_fd("bash: cd: ", 2);
+		ft_putstr_fd(new_path, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		return ;
+	}
 	else
 	{
 		if (chdir(new_path) == 0)
 		{
-			while (ft_strcmp(env->name, "PWD"))
-				env = env->next;
+			
 			tmp = getcwd(NULL, 0);
 			if(!tmp)
-				perror("getcwd");
+				perror(tmp);
 			else
 			{
-				(free(env->my_env),free(env->next->my_env));
-				env->my_env = tmp;
-				env->next->my_env = old_path;
-				data->env = creat_tabenv(data->head);
+				ft_export(ft_strjoin("PWD=", tmp), &head);
+				ft_export(ft_strjoin("OLDPWD=", old_path), &head);
 			}
+				
+		
 		}
 		else
 			perror("chdir");

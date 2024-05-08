@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 09:52:40 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/04/29 14:52:02 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:09:51 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_lstadd_back(t_env **lst, t_env *new)
 
 	if (new == NULL || lst == NULL)
 		return ;
-	if (!*lst)
+	if (!(*lst))
 		*lst = new;
 	else
 	{

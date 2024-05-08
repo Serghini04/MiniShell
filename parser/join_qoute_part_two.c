@@ -6,13 +6,13 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 03:51:28 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/26 16:10:41 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/01 12:56:27 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*rm_all_split(char *s1)
+char	*rm_last_join(char *s1)
 {
 	char	*res;
 	int		len;
@@ -20,13 +20,15 @@ char	*rm_all_split(char *s1)
 
 	i = 0;
 	len = ft_strlen(s1) -1 ;
+	if (ft_isspace(s1[len]))
+		return (s1);
 	while (len >= 0 && !ft_isspace(s1[len]))
 		len--;
 	while (len >= 0 && ft_isspace(s1[len]))
 		len--;
 	if (len == -1)
 		return (free(s1), NULL);
-	res = malloc((int)ft_strlen(s1) - len + 1);
+	res = malloc(len + 2);
 	if (!res)
 		return (free(s1), NULL);
 	while (s1[i] && i <= len)
@@ -35,7 +37,7 @@ char	*rm_all_split(char *s1)
 		i++;
 	}
 	res[i] = '\0';
-	return (free(s1), res);
+	return (res);
 }
 
 void	skip_or_delete(t_list	**head, t_list **i)
@@ -43,7 +45,7 @@ void	skip_or_delete(t_list	**head, t_list **i)
 	t_list	*tmp;
 
 	(*i)->next->wrd = split_wrd_and_join((*i)->wrd, (*i)->next->wrd);
-	(*i)->wrd = rm_all_split((*i)->wrd);
+	(*i)->wrd = rm_last_join((*i)->wrd);
 	if (!(*i)->wrd)
 	{
 		if ((*i)->prv)

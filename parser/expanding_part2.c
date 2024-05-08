@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:09:03 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/26 15:56:06 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/03 10:13:56 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,22 @@ char	*get_expand(char *str)
 	return (free(name_var), ft_strdup(res));
 }
 
+char	*join_var_part_2(char *str, int *i, int *s, char *res)
+{
+	char	*tmp;
+
+	*s = *i + len_var(&str[*i + 1]) + 1;
+	if (str[*i + 1] == '?')
+		(*s)++;
+	tmp = ft_substr(str, *s, next_doll(&str[*s]));
+	res = str_join(res, tmp);
+	(free(tmp), tmp = NULL);
+	if (!res)
+		return (NULL);
+	*s = -1;
+	return (res);
+}
+
 char	*join_variable(int *s, char *str, int *i, char *res)
 {
 	char	*tmp;
@@ -52,7 +68,9 @@ char	*join_variable(int *s, char *str, int *i, char *res)
 		if (!res)
 			return (NULL);
 	}
-	if (!is_var(str[*i + 1]))
+	if (str[*i + 1] == '?')
+		tmp = ft_strdup(save_exit_status(NULL));
+	else if (!is_var(str[*i + 1]))
 		tmp = ft_substr(str, *i, len_var(&str[*i + 1]) + 1);
 	else
 		tmp = get_expand(&str[*i + 1]);
@@ -60,23 +78,17 @@ char	*join_variable(int *s, char *str, int *i, char *res)
 	(free(tmp), tmp = NULL);
 	if (!res)
 		return (NULL);
-	*s = *i + len_var(&str[*i + 1]) + 1;
-	tmp = ft_substr(str, *s, next_doll(&str[*s]));
-	res = str_join(res, tmp);
-	(free(tmp), tmp = NULL);
-	if (!res)
-		return (NULL);
-	*s = -1;
-	return (res);
+	return (join_var_part_2(str, i, s, res));
 }
 
-char	*join_first_expand(char	*str, char *res)
+char	*join_first_expand(char	*str, char *res, int *s)
 {
 	char	*tmp;
 
 	if (!res)
 	{
-		tmp = ft_substr(str, 0, next_doll(str));
+		*s = next_doll(str);
+		tmp = ft_substr(str, 0, *s);
 		if (!tmp)
 			return (free(str), NULL);
 		res = str_join(res, tmp);
@@ -98,8 +110,10 @@ char	*replace_dollar_sing(char *str)
 	while (str[i])
 	{
 		if (str[i] == '$' && (str[i + 1] == '$' || !str[i + 1]))
-			res = join_first_expand(str, res);
-		else if (str[i + 1] && str[i + 1] != '$' && str[i] == '$')
+		{
+			res = join_first_expand(str, res, &s);
+		}
+		else if (str[i] == '$' && (str[i + 1] || str[i + 1] == '?'))
 		{
 			res = join_variable(&s, str, &i, res);
 			if (!res)

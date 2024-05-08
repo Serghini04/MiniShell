@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_myenv.c                                      :+:      :+:    :+:   */
+/*   change_holder_.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 14:02:34 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/07 15:05:31 by hidriouc         ###   ########.fr       */
+/*   Created: 2024/05/08 11:31:49 by hidriouc          #+#    #+#             */
+/*   Updated: 2024/05/08 15:02:27 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	creat_myenv(t_env	**head, char **env)
+void	change_holder_(t_mini *data, t_env *env)
 {
-	int		i;
-	t_env	*tmp;
-
+	int	i;
+	char	*path;
+	
 	i = 0;
-	if (!(*env))
+	data->env = creat_tabenv(env);
+	if (!(data->next))
 	{
-		tmp = ft_lstnew(ft_strjoin("PWD=", getcwd(0, 0)));
-		ft_lstadd_back(head, tmp);
-	}
-	else
-	{
-		while(env[i])
-		{
-			tmp = ft_lstnew(ft_strdup(env[i]));
-			ft_lstadd_back(head, tmp);
+		while (data->cmd[i])
 			i++;
-		}
+		path = find_path(data->cmd[i-1], data->env);
+		if (path)
+			ft_export(ft_strjoin("_=",path), &env);
+		else
+			ft_export(ft_strjoin("_=",data->cmd[i - 1]), &env);
+		data->env = creat_tabenv(env);
 	}
 }
