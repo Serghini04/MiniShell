@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:31:49 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/08 15:02:27 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/12 10:13:05 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	change_holder_(t_mini *data, t_env *env)
 	char	*path;
 	
 	i = 0;
-	data->env = creat_tabenv(env);
 	if (!(data->next))
 	{
 		while (data->cmd[i])
@@ -28,6 +27,5 @@ void	change_holder_(t_mini *data, t_env *env)
 			ft_export(ft_strjoin("_=",path), &env);
 		else
 			ft_export(ft_strjoin("_=",data->cmd[i - 1]), &env);
-		data->env = creat_tabenv(env);
 	}
 }

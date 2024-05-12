@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 09:47:39 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/03/30 01:52:21 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/12 09:47:26 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	size_t	i;
 	size_t	j;
 
-	if (!haystack && !len && needle)
+	if (!haystack || !len || !needle)
 		return (NULL);
 	if (needle[0] == '\0')
 		return ((char *)haystack);

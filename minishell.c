@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/08 16:19:08 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/12 09:20:46 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@ int	main(int ac, char **av, char **env)
 {
 	t_mini	*data;
 	char	*res;
-	int		flag;
 	t_env	*head;
 
 	(void)av;
-	flag = 0;
 	save_exit_status(ft_strdup("0"));
 	if (ac != 1)
 		exit(EXIT_FAILURE);
@@ -50,7 +48,7 @@ int	main(int ac, char **av, char **env)
 			add_history(res);
 		save_env(head);
 		data = parsing_part(res);
-		print_t_mini(data);
+		// print_t_mini(data);
 		if(data)
 			main_process(data, head);
 		clear_t_mini(&data);

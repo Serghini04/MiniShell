@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/08 16:23:02 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/12 11:39:50 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@
 # include <readline/history.h>
 # include <limits.h>
 # define MAX_FD 1024
-
+// ~ , echo \n hola , echo -n -n -n -n -n -n , echo -nnnnn
+// echo -n -nnn -nnnn , echo -n -nnn hola -nnnn, echo -nnn --------n
+// echo \$HOME
 enum e_token
 {
 	t_word,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/08 16:17:11 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/12 11:00:53 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ char	*find_path(char *cmd, char **env)
 	char	*tmp;
 
 	i = 0;
-	while (!(ft_strnstr(env[i], "PATH", 4)))
+	all_paths = NULL;
+	while (env[i] && !(ft_strnstr(env[i], "PATH", 4)))
 		i++;
+	if(!env[i])
+		return (NULL);
 	all_paths = ft_split(env[i] + 5, ':');
 	if (!all_paths || !*all_paths)
 		(perror("allocation problem !!"), exit(EXIT_FAILURE));
@@ -129,18 +132,28 @@ void	return_status()
 
 void	ft_execute_buitl_in(t_mini *data, t_env *env)
 {
+	int	i;
+
+	i = 1;
 	if (!ft_strcmp(data->cmd[0], "cd"))
 		ft_cd(data, env);
 	else if (!ft_strcmp(data->cmd[0], "export"))
-		ft_export(data->cmd[1], &env);
+		while (data->cmd[i])
+			ft_export(data->cmd[i++], &env);
 	else if (!ft_strcmp(data->cmd[0], "pwd"))
-		ft_pwd();
+	{
+		if(data->cmd[i])
+			perror(data->cmd[1]);
+		else
+			ft_pwd();
+	}
 	else if (!ft_strcmp(data->cmd[0], "echo"))
 		ft_echo(data);
 	else if (!ft_strcmp(data->cmd[0], "env") && !data->cmd[1])
 		ft_env(data->env);
 	else if (!ft_strcmp(data->cmd[0], "unset"))
-		ft_unset(data->cmd[1], &env);
+		while (data->cmd[i])
+			ft_unset(data->cmd[i++], &env);
 }
 
 int	ft_is_built_in(t_mini *data)
@@ -152,7 +165,7 @@ int	ft_is_built_in(t_mini *data)
 		return (1);
 	else if (!ft_strcmp(data->cmd[0], "unset"))
 		return (1);
-	else if (!ft_strcmp(data->cmd[0], "env"))
+	else if (!ft_strcmp(data->cmd[0], "env") && find_path(data->cmd[0],data->env))
 		return (1);
 	else if (!ft_strcmp(data->cmd[0], "export"))
 		return (1);
@@ -164,15 +177,10 @@ int	ft_is_built_in(t_mini *data)
 
 int	ft_check_if_builtin(t_mini *data, t_fd *fd, t_env *env)
 {
-	if (data && data->next == NULL)
-	{
-		change_holder_(data, env);
-	}
-	if (data && data->next == NULL && ft_is_built_in(data))
-	{
-		change_holder_(data, env);
+	if (!data && !data->cmd[0])
+		return (0);
+	if (data->next == NULL && ft_is_built_in(data))
 		return (duping_fd(data, fd), ft_execute_buitl_in(data, env), 1);
-	}
 	return (0);
 }
 
@@ -181,6 +189,7 @@ void	main_process(t_mini	*data, t_env *strp)
 	t_fd	fd;
 
 	(1) && (fd.fdin = 0, fd.fdout = 1);
+	data->env = creat_tabenv(strp);
 	if (ft_check_if_builtin(data, &fd, strp))
 	{
 		red_fd_parent(&fd);
