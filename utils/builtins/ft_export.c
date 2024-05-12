@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:57:33 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/11 11:48:13 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:05:44 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_export(char *name, t_env **head)
 	int		i;
 	int		flag;
 	t_env	*tmp;
+	char	*tmp1;
 
 	// if(!is_valid(name))
 	// 	return ;
@@ -34,7 +35,14 @@ void	ft_export(char *name, t_env **head)
 			i++;
 		if(tmp->content[i] == '=')
 		{
-			if(name[i] == '=')
+			if(name[i] == '+' && name[i + 1] == '=')
+			{
+				tmp1 = tmp->content;
+				tmp->content =ft_strjoin(tmp->content, &name[i + 2]);
+				flag = 0;
+				free (tmp1);
+			}
+			else
 			{
 				free (tmp->content);
 				tmp->content = ft_strdup(name);
@@ -44,9 +52,7 @@ void	ft_export(char *name, t_env **head)
 		}
 		tmp = tmp->next;
 	}
-	if(ft_strchr(name, '='))
-	{
+	if (flag)
 		ft_lstadd_back(head, ft_lstnew(ft_strdup(name)));
-	}
 
 }

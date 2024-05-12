@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:57:18 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/12 09:05:52 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:47:27 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ void	ft_env(char **env)
 			j++;
 		if(env[i][j - 1] != '.')
 		{
-			ft_putstr_fd(env[i], 1);
-			ft_putstr_fd("\n", 1);
+			if(ft_strchr(env[i], '='))
+			{
+				ft_putstr_fd(env[i], 1);
+				ft_putstr_fd("\n", 1);
+			}
 		}
 		i++;
 	}
