@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/12 11:20:29 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/12 11:58:57 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@ int	main(int ac, char **av, char **env)
 {
 	t_mini	*data;
 	char	*res;
-	int		flag;
 	t_env	*head;
 
 	(void)av;
-	flag = 0;
 	save_exit_status(ft_strdup("0"));
 	if (ac != 1)
 		exit(EXIT_FAILURE);
