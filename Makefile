@@ -6,14 +6,12 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/05/08 16:36:53 by meserghi         ###   ########.fr        #
+#    Updated: 2024/05/11 10:35:48 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # will be done.
-# // expanding...
 # //==> handel $?.
-# //==> fix leaks.
 # //==> check if all good.
 
 # // protection function...

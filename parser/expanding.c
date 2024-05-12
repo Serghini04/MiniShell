@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/08 16:16:52 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:32:24 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	check_first_node(t_list **i, t_list **head)
 	if (is_expand(node->token, 0) && ft_strchr(node->wrd, '$'))
 	{
 		node->wrd = replace_dollar_sing(node->wrd);
+		puts(node->wrd);
 		if (!node->wrd)
 			return (clear_lst(head), -1);
 		else if (node->token == t_word && !*node->wrd)
