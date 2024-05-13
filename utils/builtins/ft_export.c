@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:57:33 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/13 15:52:31 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 18:28:37 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_valid(char *name)
 {
-	if(!(name[0] >= '_' && name[0] <= 'z') || !(name[0] >= 'A' && name[0] <= 'Z'))
+	if(!(name[0] >= '_' && name[0] <= 'z') && !(name[0] >= 'A' && name[0] <= 'Z'))
 	{
 		ft_putstr_fd("bash: export: `", 2);
 		ft_putstr_fd(name, 2);
