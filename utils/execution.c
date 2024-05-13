@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/12 15:25:15 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 09:36:59 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,28 @@ void	return_status()
 		return ;
 	save_exit_status(res);
 }
+void	ft_print_fd(char *str, int fd)
+{
+	int	i;
+	int	flag;
+
+	i = 0;
+	flag = 0;
+	if (!str)
+		return ;
+	while(str[i])
+	{
+		write(fd, &str[i], 1);
+		if (str[i] == '=')
+		{
+			write(fd, "\"", 1);
+			flag = 1;
+		}
+		if (!str[i + 1] && flag)
+			write(fd, "\"", 1);
+		i++;
+	}
+}
 void	sort_env(t_env *env)
 {
 	t_env	*tmp;
@@ -151,13 +173,13 @@ void	sort_env(t_env *env)
 			if(tmp->content[0] == c)
 			{
 				ft_putstr_fd("declare -x ", 1);
-				ft_putstr_fd(tmp->content, 1);
+				ft_print_fd(tmp->content, 1);
 				ft_putstr_fd("\n", 1);
+				i--;
 			}
 			tmp = tmp->next;
 		}
 		c++;
-		i--;
 	}
 }
 
@@ -177,12 +199,7 @@ void	ft_execute_buitl_in(t_mini *data, t_env *env)
 			sort_env(env);
 	}
 	else if (!ft_strcmp(data->cmd[0], "pwd"))
-	{
-		if(data->cmd[i])
-			perror(data->cmd[1]);
-		else
-			ft_pwd();
-	}
+		ft_pwd();
 	else if (!ft_strcmp(data->cmd[0], "echo"))
 		ft_echo(data);
 	else if (!ft_strcmp(data->cmd[0], "env") && !data->cmd[1])

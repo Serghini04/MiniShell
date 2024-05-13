@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_update_lst.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/08 16:16:54 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/13 11:02:05 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_mini	*add_cmd_to_lst(t_list *i)
 			node->cmd[index] = ft_strdup(i->wrd);
 			index++;
 		}
-		i = i->next;
+			i = i->next;
 	}
 	return (node->cmd[index] = NULL, node);
 }

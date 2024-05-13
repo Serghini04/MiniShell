@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:34 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/12 09:52:16 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 10:34:31 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	creat_myenv(t_env	**head, char **env)
 		tmp = ft_lstnew(ft_strdup("SHLVL=1"));
 		ft_lstadd_back(head, tmp);
 		tmp = ft_lstnew(ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."));
+		ft_lstadd_back(head, tmp);
+		tmp = ft_lstnew(ft_strdup("_=/usr/bin/env"));
 		ft_lstadd_back(head, tmp);
 	}
 	else

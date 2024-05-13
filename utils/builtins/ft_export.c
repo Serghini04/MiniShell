@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:57:33 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/12 18:05:44 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 10:16:19 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,18 @@ void	ft_export(char *name, t_env **head)
 				free (tmp->content);
 				tmp->content = ft_strdup(name);
 				flag = 0;
-				return ;
+				break ;
 			}
+		}
+		if(!tmp->next && name[i + 1] == '+')
+		{
+			name[i + 1] ='\0';
+			ft_lstadd_back(head, ft_lstnew(ft_strjoin(name, &name[i + 2])));
+			flag = 0;
+			break;
 		}
 		tmp = tmp->next;
 	}
 	if (flag)
 		ft_lstadd_back(head, ft_lstnew(ft_strdup(name)));
-
 }

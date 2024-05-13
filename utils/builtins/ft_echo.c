@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:02:57 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/12 14:11:57 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:05:32 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_echo(t_mini	*data)
 	int	i;
 	int	j;
 	int	v;
-	if (!data)
+	if (!data || !data->cmd[0])
 		return ;
 	i = 1;
 	if (!ft_strcmp(data->cmd[i], "-n"))
@@ -27,7 +27,6 @@ void	ft_echo(t_mini	*data)
 	}
 	while ( data->cmd[i] && data->cmd[i][0] == '-' && data->cmd[i][1] == 'n')
 	{
-		v = 1;
 		j = 2;
 		while (data->cmd[i][j] && data->cmd[i][j] == 'n')
 			j++;

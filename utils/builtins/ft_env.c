@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:57:18 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/12 16:47:27 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 10:30:55 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_env(char **env)
 		j = 0;
 		while(env[i][j])
 			j++;
-		if(env[i][j - 1] != '.')
+		if(ft_strcmp(env[i], "PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."))
 		{
 			if(ft_strchr(env[i], '='))
 			{
