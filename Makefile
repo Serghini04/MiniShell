@@ -6,14 +6,11 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/05/13 11:04:34 by meserghi         ###   ########.fr        #
+#    Updated: 2024/05/13 14:34:07 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# will be done.
-# //==> handel $?.
 # //==> check if all good.
-
 # // protection function...
 # // split with '\t'/./
 # // done.
