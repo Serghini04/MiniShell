@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/12 11:00:53 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 10:01:08 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,37 @@ void	return_status()
 		return ;
 	save_exit_status(res);
 }
+void	sort_env(t_env *env)
+{
+	t_env	*tmp;
+	int		i;
+	char	c;
+
+	i = 0;
+	tmp = env;
+	c = 'A';
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	while (i > 0)
+	{
+		tmp = env;
+		while(tmp)
+		{
+			if(tmp->content[0] == c)
+			{
+				ft_putstr_fd("declare -x ", 1);
+				ft_putstr_fd(tmp->content, 1);
+				ft_putstr_fd("\n", 1);
+			}
+			tmp = tmp->next;
+		}
+		c++;
+		i--;
+	}
+}
 
 void	ft_execute_buitl_in(t_mini *data, t_env *env)
 {
@@ -138,15 +169,15 @@ void	ft_execute_buitl_in(t_mini *data, t_env *env)
 	if (!ft_strcmp(data->cmd[0], "cd"))
 		ft_cd(data, env);
 	else if (!ft_strcmp(data->cmd[0], "export"))
-		while (data->cmd[i])
-			ft_export(data->cmd[i++], &env);
-	else if (!ft_strcmp(data->cmd[0], "pwd"))
 	{
-		if(data->cmd[i])
-			perror(data->cmd[1]);
+		if(data->cmd[1])
+			while (data->cmd[i])
+				ft_export(data->cmd[i++], &env);
 		else
-			ft_pwd();
+			sort_env(env);
 	}
+	else if (!ft_strcmp(data->cmd[0], "pwd"))
+		ft_pwd();
 	else if (!ft_strcmp(data->cmd[0], "echo"))
 		ft_echo(data);
 	else if (!ft_strcmp(data->cmd[0], "env") && !data->cmd[1])

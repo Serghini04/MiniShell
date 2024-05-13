@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/12 12:04:10 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/13 11:03:51 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@
 # include <readline/history.h>
 # include <limits.h>
 # define MAX_FD 1024
-
+//, echo -n -n -n -n -n -n , echo -nnnnn
+// echo -n -nnn -nnnn , echo -n -nnn hola -nnnn, echo -nnn --------n
+// echo \$HOME
 enum e_token
 {
 	t_word,
@@ -123,7 +125,6 @@ int		is_var(int c);
 int		next_doll(char *str);
 t_env	*save_env(t_env *env);
 t_list	*tokening(char *input);
-char	*rm_all_split(char *s1);
 int		expanding(t_list **head);
 t_mini	*parsing_part(char*line);
 int		len_q(char *input, int c);
@@ -131,10 +132,10 @@ void	join_empty_wrd(t_list *i);
 int		join_qoute(t_list **head);
 int		join_qoute(t_list **head);
 t_mini	*add_cmd_to_lst(t_list *i);
+char	*my_getenv(char	*name_var);
 void	close_if_open(int fd, int nb);
 int		checking_syntax(t_list **head);
 t_mini	*last_update_lst(t_list *head);
-int		get_next_dollar_sing(char *str);
 int		remove_dollar_sign(t_list **head);
 void	open_file(t_list *i, t_mini *node);
 void	delete_if_empty_wrd(t_list **head);
