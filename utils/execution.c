@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/13 09:36:59 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:42:40 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,7 @@ void	run_cmd(t_mini *data, t_env *env)
 		exit(127);
 	}
 	if (ft_is_built_in(data))
-	{
-		ft_export(ft_strjoin("_=", NULL), &env);
 		ft_execute_buitl_in(data, env);
-	}
 	else if (execve((data)->cmd_path, (data)->cmd, (data)->env) == -1)
 	{
 		clear_t_mini(&data);

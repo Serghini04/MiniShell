@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:34 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/13 10:34:31 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:09:04 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ void	creat_myenv(t_env	**head, char **env)
 	{
 		while(env[i])
 		{
-			tmp = ft_lstnew(ft_strdup(env[i]));
-			ft_lstadd_back(head, tmp);
+			if(ft_strncmp("OLDPWD", env[i], 6))
+			{
+				tmp = ft_lstnew(ft_strdup(env[i]));
+				ft_lstadd_back(head, tmp);
+			}
 			i++;
 		}
 	}

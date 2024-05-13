@@ -6,16 +6,23 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:57:33 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/13 10:16:19 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:52:31 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-// int	is_valid(char *name)
-// {
-	
-// }
+int	is_valid(char *name)
+{
+	if(!(name[0] >= '_' && name[0] <= 'z') || !(name[0] >= 'A' && name[0] <= 'Z'))
+	{
+		ft_putstr_fd("bash: export: `", 2);
+		ft_putstr_fd(name, 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
+		return (0);
+	}
+	return(1);
+}
 void	ft_export(char *name, t_env **head)
 {
 	int		i;
@@ -23,9 +30,9 @@ void	ft_export(char *name, t_env **head)
 	t_env	*tmp;
 	char	*tmp1;
 
-	// if(!is_valid(name))
-	// 	return ;
-	tmp = *head; 
+	if(!is_valid(name))
+		return ;
+	tmp = *head;
 	flag = 1;
 	while (tmp)
 	{

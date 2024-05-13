@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:01:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/05 12:14:03 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/13 11:59:55 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,16 @@ int	len_cmd(t_list *head)
 {
 	t_list	*i;
 	int		count;
-	int		s;
 
 	count = 0;
 	i = head;
-	s = 0;
 	while (i && i->token != t_pipe)
 	{
-		if (!is_red(i))
+		if (!is_red(i) || (is_red(i) && !i->next))
 			count++;
-		else
-			s++;
 		i = i->next;
 	}
-	return (count - s);
+	return (count);
 }
 
 int	len(char **cmd)
@@ -57,18 +53,32 @@ char	*expand_heredoc(char *str, int token)
 	return (res);
 }
 
+int	open_here_doc_file(int *save, int *fd_in)
+{
+	unlink("/tmp/my_f");
+	*fd_in = open("/tmp/my_f", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (*fd_in == -1)
+		return (printf("bash: open here_doc error\n"), -1);
+	*save = open("/tmp/my_f", O_RDONLY, 0644);
+	if (*save == -1)
+		return (printf("bash: open here_doc error\n"), close(*fd_in), -1);
+	unlink("/tmp/my_f");
+	return (*save);
+}
+
 int	part_heredoc(t_list *i, t_mini *node)
 {
 	char	*res;
 	char	*line_heredoc;
 	int		v;
+	int		save;
 
 	v = 1;
 	if (node->fd_in == -1)
 		v = 0;
-	node->fd_in = open("/tmp/my_f", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (node->fd_in == -1)
-		return (printf("bash: %s: No such file or directory\n", i->wrd), -1);
+	save = open_here_doc_file(&save, &node->fd_in);
+	if (save == -1)
+		return (-1);
 	while (1)
 	{
 		res = readline(">");
@@ -80,8 +90,6 @@ int	part_heredoc(t_list *i, t_mini *node)
 	}
 	close(node->fd_in);
 	if (!v)
-		node->fd_in = -1;
-	else
-		node->fd_in = open("/tmp/my_f", O_RDWR, 0644);
-	return (free(res), node->fd_in);
+		save = -1;
+	return (free(res), save);
 }

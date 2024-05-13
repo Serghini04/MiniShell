@@ -6,14 +6,12 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/05/13 14:28:22 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/05/13 14:29:18 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # will be done.
-# // expanding...
 # //==> handel $?.
-# //==> fix leaks.
 # //==> check if all good.
 
 # // protection function...
@@ -27,7 +25,7 @@ lib = lib/ft_strdup.c lib/str_join.c lib/ft_strlen.c lib/ft_strtrim.c\
 
 parser = parser/parsing_part.c parser/tokening.c parser/last_update_lst.c\
 	parser/checking_syntax.c parser/join_qoute.c parser/join_qoute_part_two.c\
-	parser/expanding.c parser/expanding_part2.c
+	parser/expanding.c parser/expanding_part2.c parser/my_getenv.c
 
 utils = utils/print_error.c utils/is_token.c utils/parsing_utils.c utils/split_cmd.c\
 		utils/execution.c utils/expanding_utils.c utils/duping_fd.c utils/builtins/ft_cd.c\

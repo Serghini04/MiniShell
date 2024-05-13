@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:20:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/26 11:59:33 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:24:23 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	remove_dollar_sign(t_list **head)
 		return (-1);
 	while (h->next)
 	{
-		if (is_q(h->next->token))
+		if (is_q(h->next->token) && h->token == t_word)
 		{
 			h->wrd = find_dollar_sing(h->wrd);
 			if (!h->wrd)
