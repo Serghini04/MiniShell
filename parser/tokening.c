@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokening.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:57:09 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/05 12:56:16 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:23:06 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	add_token_lst(t_list **head, char *input, int *i, int *s)
 {
 	char	*res;
 	t_list	*node;
-
 	res = ft_strtrim(ft_substr(input, *s, *i - *s), " \t");
 	if (*res)
 	{

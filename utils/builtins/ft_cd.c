@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:51:42 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/08 14:39:59 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:21:51 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_cd(t_mini *data, t_env *env)
 		ft_putstr_fd("bash: cd: ", 2);
 		ft_putstr_fd(new_path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
+		save_exit_status("1");
 		return ;
 	}
 	else

@@ -6,7 +6,7 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/05/13 14:29:18 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/05/17 16:21:06 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@
 # // split with '\t'/./
 # // done.
 
-lib = lib/ft_strdup.c lib/str_join.c lib/ft_strlen.c lib/ft_strtrim.c\
+lib = lib/ft_strdup.c lib/str_join.c lib/ft_strlen.c lib/ft_strtrim.c lib/ft_atoi.c\
 	lib/ft_substr.c lib/all_list.c lib/ft_split.c lib/all_new_list.c lib/ft_strcmp.c\
 	lib/free_arr.c lib/ft_isspace.c lib/ft_strchr.c lib/ft_strnstr.c lib/ft_putstr_fd.c\
 	lib/ft_lstadd_back.c lib/ft_lstnew.c lib/ft_lstlast.c lib/ft_strncmp.c lib/ft_itoa.c
@@ -31,13 +31,13 @@ utils = utils/print_error.c utils/is_token.c utils/parsing_utils.c utils/split_c
 		utils/execution.c utils/expanding_utils.c utils/duping_fd.c utils/builtins/ft_cd.c\
 		utils/creat_myenv.c utils/builtins/ft_export.c utils/creat_tabenv.c\
 		utils/builtins/ft_pwd.c utils/builtins/ft_echo.c utils/builtins/ft_env.c\
-		utils/builtins/ft_unset.c utils/change_holder_.c
+		utils/builtins/ft_unset.c utils/change_holder_.c utils/builtins/ft_exit.c
 
 GREEN = \033[1;32m
 RED = \033[1;31m
 BLUE = \033[1;34m
 YELL = \033[0;33m
-STOP_C = \033[0m
+STOP_C = \033[0m 
 
 FILE = ${lib} ${parser} ${utils} minishell.c
 
@@ -67,7 +67,11 @@ fclean : clean
 
 re : fclean all
 
-
+#cat << op << op << op <<<< op
+# export a export a
+#export a+=bb
+# export +==
+# unset last one
 # Replace 'mehdi' with your branch name before executing.
 push : fclean
 	@git add .

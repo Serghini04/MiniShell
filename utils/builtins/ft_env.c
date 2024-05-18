@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:57:18 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/13 10:30:55 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:14:02 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_env(char **env)
 	if (!env || !*env)
 	{
 		ft_putstr_fd("bash : env: no such file or directory\n", 2);
+		save_exit_status("127");
 		return ;
 	}
 	i = 0;
@@ -38,5 +39,6 @@ void	ft_env(char **env)
 			}
 		}
 		i++;
+		save_exit_status("0");
 	}
 }

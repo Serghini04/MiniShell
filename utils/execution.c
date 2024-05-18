@@ -6,9 +6,11 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/13 15:42:40 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:08:50 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../minishell.h"
 
 #include "../minishell.h"
 
@@ -83,11 +85,10 @@ static void	red_fd_parent(t_fd *fd)
 	close (fd->p_fdin);
 }
 
-void	run_cmd(t_mini *data, t_env *env)
+void	run_cmd(t_mini *data, t_env **env)
 {
 	if (!data->cmd[0])
 		exit(1);
-	data->env = creat_tabenv(env);
 	if (ft_strchr((data)->cmd[0], '/'))
 		(data)->cmd_path = (data)->cmd[0];
 	else
@@ -101,7 +102,10 @@ void	run_cmd(t_mini *data, t_env *env)
 		exit(127);
 	}
 	if (ft_is_built_in(data))
+	{
+		ft_export(ft_strjoin("_=", NULL), env);
 		ft_execute_buitl_in(data, env);
+	}
 	else if (execve((data)->cmd_path, (data)->cmd, (data)->env) == -1)
 	{
 		clear_t_mini(&data);
@@ -119,39 +123,19 @@ void	return_status()
 	int		ret;
 	char	*res;
 
-	while (waitpid(0, &ret, 0) != -1)
+	while (waitpid(-1, &ret, 0) != -1)
 		;
 	res = ft_itoa(WEXITSTATUS(ret));
 	if (!res)
 		return ;
 	save_exit_status(res);
 }
-void	ft_print_fd(char *str, int fd)
-{
-	int	i;
-	int	flag;
-
-	i = 0;
-	flag = 0;
-	if (!str)
-		return ;
-	while(str[i])
-	{
-		write(fd, &str[i], 1);
-		if (str[i] == '=')
-		{
-			write(fd, "\"", 1);
-			flag = 1;
-		}
-		if (!str[i + 1] && flag)
-			write(fd, "\"", 1);
-		i++;
-	}
-}
 void	sort_env(t_env *env)
 {
 	t_env	*tmp;
 	int		i;
+	int		j;
+	int		flag;
 	char	c;
 
 	i = 0;
@@ -167,11 +151,25 @@ void	sort_env(t_env *env)
 		tmp = env;
 		while(tmp)
 		{
+			j = 0;
+			flag = 0;
 			if(tmp->content[0] == c)
 			{
 				ft_putstr_fd("declare -x ", 1);
-				ft_print_fd(tmp->content, 1);
-				ft_putstr_fd("\n", 1);
+				while(tmp->content[j])
+				{
+					write(1, &tmp->content[j], 1);
+					if(tmp->content[j] =='=')
+					{
+						flag = 1;
+						write(1, "\"", 1);
+					}
+					if (!tmp->content[j] && flag)
+						write(1, "\"\n", 1);
+					else if(!tmp->content[j + 1])
+						write(1, "\n", 1);
+					j++;
+				}
 				i--;
 			}
 			tmp = tmp->next;
@@ -180,20 +178,21 @@ void	sort_env(t_env *env)
 	}
 }
 
-void	ft_execute_buitl_in(t_mini *data, t_env *env)
+
+void	ft_execute_buitl_in(t_mini *data, t_env **env)
 {
 	int	i;
 
 	i = 1;
 	if (!ft_strcmp(data->cmd[0], "cd"))
-		ft_cd(data, env);
+		ft_cd(data, *env);
 	else if (!ft_strcmp(data->cmd[0], "export"))
 	{
 		if(data->cmd[1])
 			while (data->cmd[i])
-				ft_export(data->cmd[i++], &env);
+				ft_export(data->cmd[i++], env);
 		else
-			sort_env(env);
+			sort_env(*env);
 	}
 	else if (!ft_strcmp(data->cmd[0], "pwd"))
 		ft_pwd();
@@ -203,7 +202,7 @@ void	ft_execute_buitl_in(t_mini *data, t_env *env)
 		ft_env(data->env);
 	else if (!ft_strcmp(data->cmd[0], "unset"))
 		while (data->cmd[i])
-			ft_unset(data->cmd[i++], &env);
+			ft_unset(data->cmd[i++], env);
 }
 
 int	ft_is_built_in(t_mini *data)
@@ -225,7 +224,7 @@ int	ft_is_built_in(t_mini *data)
 		return (0);
 }
 
-int	ft_check_if_builtin(t_mini *data, t_fd *fd, t_env *env)
+int	ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env)
 {
 	if (!data && !data->cmd[0])
 		return (0);
@@ -234,12 +233,12 @@ int	ft_check_if_builtin(t_mini *data, t_fd *fd, t_env *env)
 	return (0);
 }
 
-void	main_process(t_mini	*data, t_env *strp)
+void	main_process(t_mini	*data, t_env **strp)
 {
 	t_fd	fd;
 
 	(1) && (fd.fdin = 0, fd.fdout = 1);
-	data->env = creat_tabenv(strp);
+	data->env = creat_tabenv(*strp);
 	if (ft_check_if_builtin(data, &fd, strp))
 	{
 		red_fd_parent(&fd);
@@ -247,6 +246,8 @@ void	main_process(t_mini	*data, t_env *strp)
 	}
 	while (data)
 	{
+		if (data->next)
+			data->next->env = data->env;
 		(1) && (duping_fd(data, &fd), fd.pid = fork());
 		if (fd.pid == 0)
 		{

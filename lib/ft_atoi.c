@@ -1,43 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_tabenv.c                                     :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 14:13:22 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/14 11:03:03 by hidriouc         ###   ########.fr       */
+/*   Created: 2023/11/08 12:11:48 by hidriouc          #+#    #+#             */
+/*   Updated: 2024/05/14 11:52:45 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**creat_tabenv(t_env	*head)
+int	ft_atoi(const char *str)
 {
-	t_env	*tmp;
-	int		i;
-	char	**env;
-	
-	if(!head)
-		return (NULL);
-	tmp = head;
+	unsigned long	i_num;
+	int				sign;
+	size_t			i;
+
 	i = 0;
-	while(tmp)
-	{
+	i_num = 0;
+	sign = 1;
+	while (str[i] == 32 || (str[i] <= 13 && str[i] >= 9))
 		i++;
-		tmp = tmp->next;
-	}
-	env = malloc((i + 1) * sizeof(char*));
-	if(!env)
-		return(NULL);
-	i = 0;
-	tmp = head;
-	while (tmp)
+	if (str[i] == '-' || str[i] == '+')
 	{
-		env[i] = ft_strdup(tmp->content);
+		if (str[i] == '-')
+			sign = -1;
 		i++;
-		tmp = tmp->next;
 	}
-	env[i] = 0;
-	return(env);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		if (i_num > LONG_MAX / 10 && sign == 1)
+			return (-1);
+		if (i_num > LONG_MAX / 10 && sign == -1)
+			return (0);
+		i_num = (i_num * 10) + (str[i] - '0');
+		i++;
+	}
+	return (((int)i_num) * sign);
 }

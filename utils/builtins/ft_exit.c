@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 20:09:06 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/15 17:27:23 by hidriouc         ###   ########.fr       */
+/*   Created: 2024/05/14 11:47:32 by hidriouc          #+#    #+#             */
+/*   Updated: 2024/05/14 12:16:26 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-char	*ft_strdup(char *s1)
+void ft_exit(char *status)
 {
-	char	*res;
-	int		len;
-	int		i;
+	int	var;
 
-	i = 0;
-	if (!s1)
-		return (NULL);
-	len = ft_strlen(s1);
-	res = malloc(len + 1);
-	if (!res)
-		return (NULL);
-	while (s1[i])
-	{
-		res[i] = ((char *)s1)[i];
-		i++;
-	}
-	((char *)res)[i] = '\0';
-	return (res);
+	if (status)
+		var = (ft_atoi(status) % 256);
+	else
+		var = ft_atoi(save_exit_status(NULL));
+	exit(var);
 }

@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/13 15:14:02 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/17 10:07:34 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 # include <sys/errno.h>
 # include <string.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
 # define MAX_FD 1024
-
+// ls > c | cat < c
 enum e_token
 {
 	t_word,
@@ -74,6 +75,7 @@ typedef struct s_mini
 	int				fd_in;
 	int				fd_out;
 	t_fd			fd;
+	int				status;
 	struct s_mini	*next;
 }	t_mini;
 
@@ -92,6 +94,7 @@ typedef struct s_free
 size_t	ft_strlen(char *s);
 char	*ft_itoa(int n);
 void	free_node(t_list *node);
+int		ft_atoi(const char *str);
 void	clear_lst(t_list **lst);
 t_env	*ft_lstlast(t_env *lst);
 char	*ft_strdup(char *s1);
@@ -121,6 +124,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 //parser
 int		is_var(int c);
 int		next_doll(char *str);
+void	ft_exit(char *status);
 t_env	*save_env(t_env *env);
 t_list	*tokening(char *input);
 int		expanding(t_list **head);
@@ -143,7 +147,7 @@ void	add_split_lst(char **cmd, t_list **head, t_list **root);
 int		add_token_lst(t_list **head, char *input, int *i, int *s);
 int		add_singl_double_q(t_list **head, char *input, int *i, int *pos);
 char	*save_exit_status(char *res);
-int		ft_check_if_builtin(t_mini *data, t_fd	*fd,t_env *env);
+int		ft_check_if_builtin(t_mini *data, t_fd	*fd,t_env **env);
 // builtins
 
 //utils
@@ -170,10 +174,10 @@ void	duping_fd(t_mini *data, t_fd *t_fd);
 int		part_heredoc(t_list *i, t_mini *node);
 void	print_error(t_list **head, t_list *i);
 void	creat_myenv(t_env	**head, char **env);
-void	main_process(t_mini	*data, t_env *env);
+void	main_process(t_mini	*data, t_env **env);
 void	ft_export(char *name, t_env **head);
 char	*find_path(char *cmd, char **env);
-void	ft_execute_buitl_in(t_mini *data, t_env *env);
+void	ft_execute_buitl_in(t_mini *data, t_env **env);
 int		ft_is_built_in(t_mini *data);
 void	change_holder_(t_mini *data, t_env *env);
 void	ft_unset(char *str, t_env	**head);

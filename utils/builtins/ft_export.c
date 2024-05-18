@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:57:33 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/13 18:28:37 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:20:46 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,33 @@
 
 int	is_valid(char *name)
 {
+	int i;
+	int flag;
+
+	i = 1;
+	flag = 1;
 	if(!(name[0] >= '_' && name[0] <= 'z') && !(name[0] >= 'A' && name[0] <= 'Z'))
+		flag = 0;
+	if(name[0] == '-')
+	{
+		ft_putstr_fd("bash: export: `", 2);
+		write(2, &name[0], 2);
+		ft_putstr_fd("': invalid option\n", 2);
+		return (0);
+	}
+	else
+		while (name[i] && name[i] != '=')
+		{
+			if((!(name[i] >= '_' && name[i] <= 'z') && !(name[i] >= 'A' && name[i] <= 'Z') && !(name[i] >= '0' && name[i] <= '9')))
+			{
+				if (name[i] == '+' && name[i + 1] == '=')
+					break;
+				flag = 0;
+				break ;
+			}
+			i++;
+		}
+	if(!flag)
 	{
 		ft_putstr_fd("bash: export: `", 2);
 		ft_putstr_fd(name, 2);
@@ -29,38 +55,49 @@ void	ft_export(char *name, t_env **head)
 	int		flag;
 	t_env	*tmp;
 	char	*tmp1;
+	char	*p;
 
 	if(!is_valid(name))
 		return ;
 	tmp = *head;
 	flag = 1;
+	p = NULL;
 	while (tmp)
 	{
 		i = 0;
 		while (name[i] && tmp->content[i] && name[i]
 			== tmp->content[i] && name[i] != '=')
 			i++;
-		if(tmp->content[i] == '=')
+		if((tmp->content[i] && tmp->content[i] == '=') || (name[i] && name[i] == '='))
 		{
 			if(name[i] == '+' && name[i + 1] == '=')
 			{
 				tmp1 = tmp->content;
 				tmp->content =ft_strjoin(tmp->content, &name[i + 2]);
-				flag = 0;
 				free (tmp1);
+				flag = 0;
+				break;
 			}
-			else
+			else if(name[i])
 			{
 				free (tmp->content);
 				tmp->content = ft_strdup(name);
 				flag = 0;
 				break ;
 			}
+			else if (!name[i] && !tmp->next)
+			{
+				flag = 0;
+				break ;
+			}
 		}
-		if(!tmp->next && name[i + 1] == '+')
+		else if (!name[i] && !tmp->content[i])
+			flag = 0;
+		else if(!tmp->next && name[i] && ft_strchr(name, '+'))
 		{
-			name[i + 1] ='\0';
-			ft_lstadd_back(head, ft_lstnew(ft_strjoin(name, &name[i + 2])));
+			p = ft_strchr(name, '+');
+			*p ='\0';
+			ft_lstadd_back(head, ft_lstnew(ft_strjoin(name, ++p)));
 			flag = 0;
 			break;
 		}
