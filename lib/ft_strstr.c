@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 22:17:19 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/18 17:38:01 by meserghi         ###   ########.fr       */
+/*   Created: 2024/05/18 18:44:25 by meserghi          #+#    #+#             */
+/*   Updated: 2024/05/18 20:35:16 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_substr(char *s, size_t start, size_t len)
+char	*ft_strstr(char *haystack, char *needle)
 {
-	size_t	i;
-	size_t	j;
-	char	*res;
+	int	i;
+	int	j;
 
-	i = start;
-	j = 0;
-	if (!s || start >= ft_strlen(s))
-		return (ft_strdup(""));
-	if (len > ft_strlen(s))
-		return (ft_strdup(s + start));
-	if (len >= ft_strlen(s) - start)
-		len = ft_strlen(s) - start;
-	res = malloc(len + 1);
-	if (!res)
-		return (0);
-	while (j < len && s[i])
+	i = 0;
+	if (!*needle)
+		return (haystack);
+	while (haystack[i])
 	{
-		res[j] = ((char *)s)[i];
+		j = 0;
+		while ((haystack[i + j] == needle[j]) && needle[j])
+			j++;
+		if (!needle[j])
+			return (&haystack[i]);
 		i++;
-		j++;
 	}
-	res[j] = '\0';
-	return (res);
+	return (NULL);
 }

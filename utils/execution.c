@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/13 10:01:08 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:50:00 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	return_status()
 	int		ret;
 	char	*res;
 
-	while (waitpid(0, &ret, 0) != -1)
+	while (waitpid(-1, &ret, 0) != -1)
 		;
 	res = ft_itoa(WEXITSTATUS(ret));
 	if (!res)

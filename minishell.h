@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/13 11:03:51 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:47:53 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
+# include <sys/types.h>
+# include <dirent.h>
 # define MAX_FD 1024
-//, echo -n -n -n -n -n -n , echo -nnnnn
-// echo -n -nnn -nnnn , echo -n -nnn hola -nnnn, echo -nnn --------n
-// echo \$HOME
+
 enum e_token
 {
 	t_word,
@@ -91,19 +91,20 @@ typedef struct s_free
 /// <""|<""  && <"s"|  a
 
 // lib ...
-size_t	ft_strlen(char *s);
 char	*ft_itoa(int n);
+int		ft_isspace(int c);
+t_mini	*create_node(void);
+size_t	ft_strlen(char *s);
+void	print_lst(t_list *h);
+char	*ft_strdup(char *s1);
+void	free_arr(char **res);
+t_list	*last_lst(t_list *lst);
+void	cln_node(t_mini *node);
 void	free_node(t_list *node);
 void	clear_lst(t_list **lst);
 t_env	*ft_lstlast(t_env *lst);
-char	*ft_strdup(char *s1);
-t_list	*last_lst(t_list *lst);
-void	print_lst(t_list *h);
-int		ft_isspace(int c);
-t_mini	*create_node(void);
-void	cln_node(t_mini *node);
 void	clear_t_mini(t_mini **lst);
-void	free_arr(char **res);
+void	delete_node(t_list *node);
 t_env	*ft_lstnew(char *content);
 char	*ft_strchr(char *s, int c);
 void	print_t_mini(t_mini *data);
@@ -114,7 +115,7 @@ char	*ft_strtrim(char *s1, char *set);
 t_list	*new_node(char *data, int token);
 void	add_back(t_list **lst, t_list *new);
 void	ft_lstadd_back(t_env **lst, t_env *new);
-void	delete_node(t_list *node);
+char	*ft_strstr(char *haystack, char *needle);
 void	add_back_t_mini(t_mini **lst, t_mini *new);
 char	*ft_substr(char *s, size_t start, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -136,6 +137,7 @@ char	*my_getenv(char	*name_var);
 void	close_if_open(int fd, int nb);
 int		checking_syntax(t_list **head);
 t_mini	*last_update_lst(t_list *head);
+int		wildcards_part(t_list **head);
 int		remove_dollar_sign(t_list **head);
 void	open_file(t_list *i, t_mini *node);
 void	delete_if_empty_wrd(t_list **head);

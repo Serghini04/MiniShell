@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/13 14:15:46 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:48:53 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	open_file(t_list *i, t_mini *node)
 	else if (i->token == t_red_out)
 	{
 		close_if_open(node->fd_out, 1);
-		node->fd_out = open(i->next->wrd, O_CREAT | O_WRONLY, 0644);
+		node->fd_out = open(i->next->wrd, O_TRUNC | O_CREAT | O_WRONLY, 0644);
 	}
 	else if (i->token == t_app)
 	{

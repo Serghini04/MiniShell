@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 21:35:29 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/03/30 02:11:28 by hidriouc         ###   ########.fr       */
+/*   Created: 2024/05/19 12:39:10 by meserghi          #+#    #+#             */
+/*   Updated: 2024/05/19 14:31:02 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
+	if (*s1 == '.')
+		return (1);
 	while ((*s1 || *s2) && n > 0)
 	{
 		if (*s1 != *s2)
