@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"termios.h": "c",
+		"minishell.h": "c",
+		"unistd.h": "c",
+		"readline.h": "c",
+		"history.h": "c",
+		"stat.h": "c"
+	}
+}

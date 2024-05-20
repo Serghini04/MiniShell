@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:56:54 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/17 11:16:28 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:08:32 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	duping_fd(t_mini *data, t_fd *fd)
 	{
 		if (data->fd_in > 1)
 		{
-			close(fd->fdout);
+			close(fd->fdin);
 			fd->fdin = data->fd_in;
 		}
 			(dup2(fd->fdin, 0), close(fd->fdin));

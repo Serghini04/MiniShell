@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/17 10:07:34 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:11:40 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 # include <unistd.h>
 # include <stdio.h>
+#include <signal.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sys/errno.h>
@@ -23,8 +24,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
+#include <termios.h>
 # define MAX_FD 1024
 // ls > c | cat < c
+
 enum e_token
 {
 	t_word,
@@ -52,7 +55,6 @@ typedef struct s_env
 	char			*content;
 	struct s_env	*next;
 }	t_env;
-
 
 typedef struct s_fd
 {
@@ -155,6 +157,7 @@ int		is_q(int c);
 int		len(char **cmd);
 void	if_failing(void);
 int		is_red(t_list *c);
+void	handl_sig(int sig);
 int		len_var(char *str);
 void	ft_env(char **env);
 int		check_token(char c);
@@ -174,7 +177,7 @@ void	duping_fd(t_mini *data, t_fd *t_fd);
 int		part_heredoc(t_list *i, t_mini *node);
 void	print_error(t_list **head, t_list *i);
 void	creat_myenv(t_env	**head, char **env);
-void	main_process(t_mini	*data, t_env **env);
+void	main_process(t_mini	*data, t_env **env, struct termios *term);
 void	ft_export(char *name, t_env **head);
 char	*find_path(char *cmd, char **env);
 void	ft_execute_buitl_in(t_mini *data, t_env **env);

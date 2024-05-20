@@ -6,7 +6,7 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/05/17 16:21:06 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/05/19 13:24:20 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,15 +46,17 @@ FILE_OBJ = ${FILE:.c=.o}
 FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 NAME = minishell
+READLINE_L = $(shell brew --prefix readline)/lib
+READLINE_I = $(shell brew --prefix readline)/include
 
 all : ${NAME}
 	@echo "${GREEN}minishell has been built ...${STOP_C}"
 
 ${NAME} : ${FILE_OBJ}
-	cc ${FLAGS} ${FILE_OBJ} -lreadline -o ${NAME}
+	cc ${FLAGS} ${FILE_OBJ} -o ${NAME} -L ${READLINE_L} -lreadline
 
 %.o : %.c minishell.h
-	@cc ${FLAGS} -c $< -o $@
+	@cc ${FLAGS} -I ${READLINE_I} -c  $< -o $@
 	@echo "${BLUE}$@ has been built${NC}"
 
 clean :
@@ -67,9 +69,9 @@ fclean : clean
 
 re : fclean all
 
-#cat << op << op << op <<<< op
+# cat << op << op << op <<<< op
 # export a export a
-#export a+=bb
+# export a+=bb
 # export +==
 # unset last one
 # Replace 'mehdi' with your branch name before executing.

@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/17 16:08:50 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:53:35 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,21 @@ static void	red_fd_parent(t_fd *fd)
 	close (fd->p_fdin);
 }
 
+int	is_dir_or_file(char *name)
+{
+	struct stat st;
+
+	if (!stat(name, &st))
+	{
+		if (S_ISREG(st.st_mode))
+			return (1);
+		if (S_ISDIR(st.st_mode))
+			return (2);
+		return (0);
+	}
+	return (-1);
+}
+
 void	run_cmd(t_mini *data, t_env **env)
 {
 	if (!data->cmd[0])
@@ -108,13 +123,22 @@ void	run_cmd(t_mini *data, t_env **env)
 	}
 	else if (execve((data)->cmd_path, (data)->cmd, (data)->env) == -1)
 	{
-		clear_t_mini(&data);
 		ft_putstr_fd("bash: ", 2);
-		if ((data))
-			ft_putstr_fd((data)->cmd[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
+		ft_putstr_fd((data)->cmd[0], 2);
+		if (ft_strchr(data->cmd[0], '/') && is_dir_or_file(data->cmd[0]) == 2)
+		{
+			ft_putstr_fd(": is a directory\n", 2);
+			clear_t_mini(&data);
+			exit(126);
+		}
+		else if (ft_strchr(data->cmd[0], '/') && !ft_strchr(data->cmd[1], '/') && is_dir_or_file(data->cmd[0]) == -1)
+			ft_putstr_fd(": No such file or directory\n", 2); 
+		else
+			ft_putstr_fd(": command not found\n", 2);
+		clear_t_mini(&data);
 		exit(127);
 	}
+
 	exit(1);
 }
 
@@ -122,10 +146,18 @@ void	return_status()
 {
 	int		ret;
 	char	*res;
-
 	while (waitpid(-1, &ret, 0) != -1)
 		;
-	res = ft_itoa(WEXITSTATUS(ret));
+	if(WIFSIGNALED(ret))
+	{
+		res = ft_itoa(128 + WTERMSIG(ret));
+		if(WTERMSIG(ret) == 2)
+			ft_putstr_fd("\n", 1);
+		if(WTERMSIG(ret) == 3)
+			ft_putstr_fd("Quit: 3\n", 1);
+	}
+	else
+		res = ft_itoa(WEXITSTATUS(ret));
 	if (!res)
 		return ;
 	save_exit_status(res);
@@ -233,9 +265,10 @@ int	ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env)
 	return (0);
 }
 
-void	main_process(t_mini	*data, t_env **strp)
+void	main_process(t_mini	*data, t_env **strp, struct termios *term)
 {
 	t_fd	fd;
+	int		i;
 
 	(1) && (fd.fdin = 0, fd.fdout = 1);
 	data->env = creat_tabenv(*strp);
@@ -246,6 +279,7 @@ void	main_process(t_mini	*data, t_env **strp)
 	}
 	while (data)
 	{
+		i = 0;
 		if (data->next)
 			data->next->env = data->env;
 		(1) && (duping_fd(data, &fd), fd.pid = fork());
@@ -254,7 +288,9 @@ void	main_process(t_mini	*data, t_env **strp)
 			if (fd.fdin != 0)
 				close(fd.fdin);
 			if ((data)->fd_in != -1 && (data)->fd_out != -1)
+			{
 				run_cmd(data, strp);
+			}
 			else
 				exit(EXIT_FAILURE);
 			(close(fd.p_fdin), close(fd.p_fdout));
@@ -266,6 +302,7 @@ void	main_process(t_mini	*data, t_env **strp)
 		}
 		(red_fd_parent(&fd), data = data->next);
 	}
-	clear_t_mini(&data);
+	tcsetattr(STDIN_FILENO, TCSANOW, term);
 	return_status();
+	clear_t_mini(&data);
 }
