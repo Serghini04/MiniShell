@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/05/18 19:01:43 by meserghi         ###   ########.fr        #
+#    Updated: 2024/05/20 15:11:04 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ utils = utils/print_error.c utils/is_token.c utils/parsing_utils.c utils/split_c
 		utils/builtins/ft_pwd.c utils/builtins/ft_echo.c utils/builtins/ft_env.c\
 		utils/builtins/ft_unset.c utils/change_holder_.c
 
-wildcard = wildcard/wildcard.c
+wildcard = wildcard/wildcard.c wildcard/get_name_var.c wildcard/get_dir.c\
+		   wildcard/free_t_env.c wildcard/delete_not_need.c
 
 GREEN = \033[1;32m
 RED = \033[1;31m

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/18 17:42:33 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:11:12 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ int	main(int ac, char **av, char **env)
 		clear_t_mini(&data);
 	}
 	printf("exit\n");
-	// atexit(f);
+	atexit(f);
 	return (0);
 }

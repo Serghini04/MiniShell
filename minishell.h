@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/18 18:47:53 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:09:53 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,15 @@ void	add_back_t_mini(t_mini **lst, t_mini *new);
 char	*ft_substr(char *s, size_t start, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+
+//wildcard
+char	*get_name_wildcard(char *line, int i );
+char	*get_name_part2(char *line, int *i);
+int		reverse_cmp(char *s1, char *s2, int len);
+void	free_t_env(t_env **env, int free_content);
+t_env	*save_find_dir(char	*name_wildcard, t_env **head);
+t_env	*delete_not_need(char *name_var, t_env **head);
+t_env	*delete_not_need_part2(char *name_var, t_env **head);
 
 //parser
 int		is_var(int c);
