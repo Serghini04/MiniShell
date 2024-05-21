@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:53:20 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/20 15:07:16 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:18:08 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,41 @@ char	*convert_lst_to_line(t_env **head)
 	return (res);
 }
 
+int	is_middle_var(char *line, int *s)
+{
+	int	i;
+
+	i = *s;
+	while (line[i] && line[i] != '*')
+		i++;
+	if (line[i] == '*')
+		return (1);
+	return (0);
+}
+
+t_env	*delete_not_need_middle(char *name_var, t_env **head)
+{
+	t_env	*new_head;
+	t_env	*h;
+
+	printf("name->>%s<<\n", name_var);
+	new_head = NULL;
+	if (!name_var)
+		return (free_t_env(head, 1), NULL);
+	if (!head)
+		return (free(name_var), NULL);
+	h = *head;
+	while (h)
+	{
+		if (ft_strstr(h->content, name_var))
+			ft_lstadd_back(&new_head, ft_lstnew(h->content));
+		h = h->next;
+	}
+	free(name_var);
+	free_t_env(head, 0);
+	return (new_head);
+}
+
 char	*get_expand_wildcards(char *line, int *is_first, int *i, t_env	**head)
 {
 	char	*res;
@@ -47,10 +82,12 @@ char	*get_expand_wildcards(char *line, int *is_first, int *i, t_env	**head)
 		*head = save_find_dir(get_name_wildcard(line, *i - 1), head);
 		*is_first = 0;
 	}
-	else
+	else if (line[*i] != '*')
 		*head = delete_not_need(get_name_wildcard(line, *i - 1), head);
 	(*i)++;
-	if (line[*i])
+	if (line[*i] && line[*i] != '*' && is_middle_var(line, i))
+		*head = delete_not_need_middle(get_name_part2(line, i), head);
+	else if (line[*i] && line[*i] != '*')
 		*head = delete_not_need_part2(get_name_part2(line, i), head);
 	if (head && *head)
 		return (convert_lst_to_line(head));
