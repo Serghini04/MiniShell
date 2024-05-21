@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/20 15:09:53 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:21:05 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ void	free_t_env(t_env **env, int free_content);
 t_env	*save_find_dir(char	*name_wildcard, t_env **head);
 t_env	*delete_not_need(char *name_var, t_env **head);
 t_env	*delete_not_need_part2(char *name_var, t_env **head);
+t_env	*delete_not_need_middle(char *name_var, t_env **head);
+
 
 //parser
 int		is_var(int c);

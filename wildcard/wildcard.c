@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:53:20 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/21 10:18:08 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:20:39 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,29 +47,6 @@ int	is_middle_var(char *line, int *s)
 	if (line[i] == '*')
 		return (1);
 	return (0);
-}
-
-t_env	*delete_not_need_middle(char *name_var, t_env **head)
-{
-	t_env	*new_head;
-	t_env	*h;
-
-	printf("name->>%s<<\n", name_var);
-	new_head = NULL;
-	if (!name_var)
-		return (free_t_env(head, 1), NULL);
-	if (!head)
-		return (free(name_var), NULL);
-	h = *head;
-	while (h)
-	{
-		if (ft_strstr(h->content, name_var))
-			ft_lstadd_back(&new_head, ft_lstnew(h->content));
-		h = h->next;
-	}
-	free(name_var);
-	free_t_env(head, 0);
-	return (new_head);
 }
 
 char	*get_expand_wildcards(char *line, int *is_first, int *i, t_env	**head)
