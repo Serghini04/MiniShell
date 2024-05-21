@@ -1,42 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_tabenv.c                                     :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 14:13:22 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/21 09:44:55 by hidriouc         ###   ########.fr       */
+/*   Created: 2023/11/13 09:37:14 by hidriouc          #+#    #+#             */
+/*   Updated: 2024/05/21 10:31:13 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**creat_tabenv(t_env *head)
+int	ft_lstsize(t_mini	*lst)
 {
-	t_env	*tmp;
-	int		i;
-	char	**env;
-	
-	tmp = head;
+	int	i;
+
 	i = 0;
-	if(!head)
-		return (NULL);
-	while(tmp)
+	if (lst == NULL)
+		return (0);
+	while (lst)
 	{
 		i++;
-		tmp = tmp->next;
+		lst = lst -> next ;
 	}
-	env = malloc((i + 1) * sizeof(char*));
-	if(!env)
-		return(NULL);
-	i = 0;
-	tmp = head;
-	while (tmp)
-	{
-		env[i] = ft_strdup(tmp->content);
-		i++;
-		tmp = tmp->next;
-	}
-	return(env[i] = NULL, env);
+	return (i);
 }

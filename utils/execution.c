@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/20 15:53:35 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:39:21 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,11 +142,14 @@ void	run_cmd(t_mini *data, t_env **env)
 	exit(1);
 }
 
-void	return_status()
+void	return_status(int *tb)
 {
 	int		ret;
 	char	*res;
-	while (waitpid(-1, &ret, 0) != -1)
+	int i;
+	
+	i = 0;
+	while (waitpid(tb[i], &ret, 0) != -1)
 		;
 	if(WIFSIGNALED(ret))
 	{
@@ -265,44 +268,53 @@ int	ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env)
 	return (0);
 }
 
-void	main_process(t_mini	*data, t_env **strp, struct termios *term)
+int	ft_handel_prossid(t_mini *data, t_fd *fd, int i, t_env **lin_env)
+{
+	int	j;
+
+	j = 0;
+	if (fd->pid[i] == 0)
+	{
+		(fd->fdin != 0) && (close(fd->fdin));
+		if (data->fd_in != -1 && data->fd_out != -1)
+			run_cmd(data, lin_env);
+		else
+			exit(EXIT_FAILURE);
+		(close(fd->p_fdin), close(fd->p_fdout));
+	}
+	else if (fd->pid[i] < 0)
+		return (perror("fork"), red_fd_parent(fd), 0);
+	return (1);
+}
+
+void	main_process(t_mini	*data, t_env **lin_env, struct termios *term)
 {
 	t_fd	fd;
 	int		i;
+	int		size;
 
-	(1) && (fd.fdin = 0, fd.fdout = 1);
-	data->env = creat_tabenv(*strp);
-	if (ft_check_if_builtin(data, &fd, strp))
-	{
-		red_fd_parent(&fd);
-		return ;
-	}
+	fd.fdin = 0;
+	size = ft_lstsize(data);
+	data->env = creat_tabenv(*lin_env);
+	if (ft_check_if_builtin(data, &fd, lin_env))
+		return (red_fd_parent(&fd));
+	fd.pid = malloc(size * sizeof(pid_t));
+	// check if malloc failed
+	i = 0;
 	while (data)
 	{
-		i = 0;
 		if (data->next)
 			data->next->env = data->env;
-		(1) && (duping_fd(data, &fd), fd.pid = fork());
-		if (fd.pid == 0)
-		{
-			if (fd.fdin != 0)
-				close(fd.fdin);
-			if ((data)->fd_in != -1 && (data)->fd_out != -1)
-			{
-				run_cmd(data, strp);
-			}
-			else
-				exit(EXIT_FAILURE);
-			(close(fd.p_fdin), close(fd.p_fdout));
-		}
-		else if (fd.pid < 0)
-		{
-			(perror("fork"), clear_t_mini(&data), red_fd_parent(&fd));
-			return ;
-		}
-		(red_fd_parent(&fd), data = data->next);
+		duping_fd(data, &fd);
+		fd.pid[i] = fork();
+		if (!ft_handel_prossid(data, &fd, i, lin_env))
+			break ;
+		red_fd_parent(&fd);
+		data = data->next;
+		i++;
 	}
 	tcsetattr(STDIN_FILENO, TCSANOW, term);
-	return_status();
-	clear_t_mini(&data);
+	return_status(fd.pid);
+	free(fd.pid);
+	// clear_t_mini(&data);
 }

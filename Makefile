@@ -6,7 +6,7 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/05/19 13:24:20 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/05/21 11:04:58 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@
 lib = lib/ft_strdup.c lib/str_join.c lib/ft_strlen.c lib/ft_strtrim.c lib/ft_atoi.c\
 	lib/ft_substr.c lib/all_list.c lib/ft_split.c lib/all_new_list.c lib/ft_strcmp.c\
 	lib/free_arr.c lib/ft_isspace.c lib/ft_strchr.c lib/ft_strnstr.c lib/ft_putstr_fd.c\
-	lib/ft_lstadd_back.c lib/ft_lstnew.c lib/ft_lstlast.c lib/ft_strncmp.c lib/ft_itoa.c
+	lib/ft_lstadd_back.c lib/ft_lstnew.c lib/ft_lstlast.c lib/ft_strncmp.c lib/ft_itoa.c\
+	lib/ft_lstsize.c
 
 parser = parser/parsing_part.c parser/tokening.c parser/last_update_lst.c\
 	parser/checking_syntax.c parser/join_qoute.c parser/join_qoute_part_two.c\
@@ -43,7 +44,7 @@ FILE = ${lib} ${parser} ${utils} minishell.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 
 NAME = minishell
 READLINE_L = $(shell brew --prefix readline)/lib
@@ -60,11 +61,11 @@ ${NAME} : ${FILE_OBJ}
 	@echo "${BLUE}$@ has been built${NC}"
 
 clean :
-	rm -f ${FILE_OBJ}
+	@rm -f ${FILE_OBJ}
 	@echo "${RED}Cleaned object files${STOP_C}"
 
 fclean : clean
-	rm -f ${NAME}
+	@rm -f ${NAME}
 	@echo "${RED}Fully cleaned${STOP_C}"
 
 re : fclean all

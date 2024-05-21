@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/20 15:11:40 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:25:36 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,8 @@ typedef struct s_env
 
 typedef struct s_fd
 {
-	int		pid;
+	pid_t	*pid;
 	int		fdin;
-	int		flag;
-	int		fdout;
 	int		p_fdin;
 	int		p_fdout;
 	int		t_fd[2];
@@ -97,6 +95,7 @@ size_t	ft_strlen(char *s);
 char	*ft_itoa(int n);
 void	free_node(t_list *node);
 int		ft_atoi(const char *str);
+int		ft_lstsize(t_mini	*lst);
 void	clear_lst(t_list **lst);
 t_env	*ft_lstlast(t_env *lst);
 char	*ft_strdup(char *s1);
