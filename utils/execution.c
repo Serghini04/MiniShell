@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/21 12:39:21 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:39:44 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,15 +142,15 @@ void	run_cmd(t_mini *data, t_env **env)
 	exit(1);
 }
 
-void	return_status(int *tb)
+void	return_status(int *tb, int nb_pids)
 {
 	int		ret;
 	char	*res;
-	int i;
+	int		i;
 	
 	i = 0;
-	while (waitpid(tb[i], &ret, 0) != -1)
-		;
+	while (waitpid(tb[i], &ret, 0) != -1 && i < nb_pids)
+		i++;
 	if(WIFSIGNALED(ret))
 	{
 		res = ft_itoa(128 + WTERMSIG(ret));
@@ -165,12 +165,43 @@ void	return_status(int *tb)
 		return ;
 	save_exit_status(res);
 }
+void	ft_deslpay(t_env *tmp,char *ptr_c, int *nb)
+{
+	int		j;
+	int		flag;
+	
+	while(tmp)
+	{
+		j = 0;
+		flag = 0;
+		if(tmp->content[0] == *ptr_c)
+		{
+			ft_putstr_fd("declare -x ", 1);
+			while(tmp->content[j])
+			{
+				write(1, &tmp->content[j], 1);
+				if(tmp->content[j] =='=')
+				{
+					flag = 1;
+					write(1, "\"", 1);
+				}
+				if (!tmp->content[j] && flag)
+					write(1, "\"\n", 1);
+				else if(!tmp->content[j + 1])
+					write(1, "\n", 1);
+				j++;
+			}
+			(*nb)--;
+		}
+		tmp = tmp->next;
+	}
+}
 void	sort_env(t_env *env)
 {
 	t_env	*tmp;
 	int		i;
-	int		j;
-	int		flag;
+	// int		j;
+	// int		flag;
 	char	c;
 
 	i = 0;
@@ -184,31 +215,32 @@ void	sort_env(t_env *env)
 	while (i > 0)
 	{
 		tmp = env;
-		while(tmp)
-		{
-			j = 0;
-			flag = 0;
-			if(tmp->content[0] == c)
-			{
-				ft_putstr_fd("declare -x ", 1);
-				while(tmp->content[j])
-				{
-					write(1, &tmp->content[j], 1);
-					if(tmp->content[j] =='=')
-					{
-						flag = 1;
-						write(1, "\"", 1);
-					}
-					if (!tmp->content[j] && flag)
-						write(1, "\"\n", 1);
-					else if(!tmp->content[j + 1])
-						write(1, "\n", 1);
-					j++;
-				}
-				i--;
-			}
-			tmp = tmp->next;
-		}
+		ft_deslpay(tmp, &c, &i);
+		// while(tmp)
+		// {
+		// 	j = 0;
+		// 	flag = 0;
+		// 	if(tmp->content[0] == c)
+		// 	{
+		// 		ft_putstr_fd("declare -x ", 1);
+		// 		while(tmp->content[j])
+		// 		{
+		// 			write(1, &tmp->content[j], 1);
+		// 			if(tmp->content[j] =='=')
+		// 			{
+		// 				flag = 1;
+		// 				write(1, "\"", 1);
+		// 			}
+		// 			if (!tmp->content[j] && flag)
+		// 				write(1, "\"\n", 1);
+		// 			else if(!tmp->content[j + 1])
+		// 				write(1, "\n", 1);
+		// 			j++;
+		// 		}
+		// 		i--;
+		// 	}
+		// 	tmp = tmp->next;
+		// }
 		c++;
 	}
 }
@@ -231,6 +263,8 @@ void	ft_execute_buitl_in(t_mini *data, t_env **env)
 	}
 	else if (!ft_strcmp(data->cmd[0], "pwd"))
 		ft_pwd();
+	else if (!ft_strcmp(data->cmd[0], "exit"))
+		ft_exit(data->cmd[1]);
 	else if (!ft_strcmp(data->cmd[0], "echo"))
 		ft_echo(data);
 	else if (!ft_strcmp(data->cmd[0], "env") && !data->cmd[1])
@@ -248,6 +282,8 @@ int	ft_is_built_in(t_mini *data)
 	else if (!ft_strcmp(data->cmd[0], "pwd"))
 		return (1);
 	else if (!ft_strcmp(data->cmd[0], "unset"))
+		return (1);
+	else if (!ft_strcmp(data->cmd[0], "exit"))
 		return (1);
 	else if (!ft_strcmp(data->cmd[0], "env") && find_path(data->cmd[0],data->env))
 		return (1);
@@ -283,7 +319,7 @@ int	ft_handel_prossid(t_mini *data, t_fd *fd, int i, t_env **lin_env)
 		(close(fd->p_fdin), close(fd->p_fdout));
 	}
 	else if (fd->pid[i] < 0)
-		return (perror("fork"), red_fd_parent(fd), 0);
+		return (close (fd->fdin), perror("fork"), red_fd_parent(fd), 0);
 	return (1);
 }
 
@@ -293,28 +329,25 @@ void	main_process(t_mini	*data, t_env **lin_env, struct termios *term)
 	int		i;
 	int		size;
 
+	i = 0;
 	fd.fdin = 0;
 	size = ft_lstsize(data);
 	data->env = creat_tabenv(*lin_env);
 	if (ft_check_if_builtin(data, &fd, lin_env))
-		return (red_fd_parent(&fd));
+		return (tcsetattr(STDIN_FILENO, TCSANOW, term), red_fd_parent(&fd));
 	fd.pid = malloc(size * sizeof(pid_t));
-	// check if malloc failed
-	i = 0;
+	if (!fd.pid)
+		return ;
 	while (data)
 	{
 		if (data->next)
 			data->next->env = data->env;
-		duping_fd(data, &fd);
-		fd.pid[i] = fork();
+		(duping_fd(data, &fd), fd.pid[i] = fork());
 		if (!ft_handel_prossid(data, &fd, i, lin_env))
 			break ;
-		red_fd_parent(&fd);
-		data = data->next;
+		(red_fd_parent(&fd), data = data->next);
 		i++;
 	}
+	return_status(fd.pid, i - 1);
 	tcsetattr(STDIN_FILENO, TCSANOW, term);
-	return_status(fd.pid);
-	free(fd.pid);
-	// clear_t_mini(&data);
 }
