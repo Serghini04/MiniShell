@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/21 10:21:05 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:36:01 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,11 @@ t_env	*ft_lstnew(char *content);
 char	*ft_strchr(char *s, int c);
 void	print_t_mini(t_mini *data);
 int		ft_strcmp(char *s1, char *s2);
-char	**ft_split(char const *s, char c);
+char	**my_split(char const *s);
 char	*str_join(char *s1, char *s2);
 char	*ft_strtrim(char *s1, char *set);
 t_list	*new_node(char *data, int token);
+char	**ft_split(char const *s, char c);
 void	add_back(t_list **lst, t_list *new);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 char	*ft_strstr(char *haystack, char *needle);
