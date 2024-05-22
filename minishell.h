@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/21 11:25:36 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:25:29 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	clear_t_mini(t_mini **lst);
 void	free_arr(char **res);
 t_env	*ft_lstnew(char *content);
 char	*ft_strchr(char *s, int c);
+char	*ft_strjoin(char *s1, char *s2);
 void	print_t_mini(t_mini *data);
 int		ft_strcmp(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
@@ -163,11 +164,14 @@ int		check_token(char c);
 void	ft_pwd(void);
 int		find_space(char *s);
 int		print_dollar(char c);
-void	ft_tolower(char	*str);
+char	*ft_tolower(char	*str);
 int		len_cmd(t_list *head);
 void	ft_echo(t_mini	*data);
+void	red_fd_parent(t_fd *fd);
+int		is_dir_or_file(char *name);
 int		split_cmd(t_list **head);
 void	ft_putstr_fd(char *s, int fd);
+void	return_status(int *tb, int nb_pids);
 char	**creat_tabenv(t_env	*head);
 char	*ft_strjoin(char *s1, char *s2);
 char	*replace_dollar_sing(char *str);
@@ -184,5 +188,7 @@ int		ft_is_built_in(t_mini *data);
 void	change_holder_(t_mini *data, t_env *env);
 void	ft_unset(char *str, t_env	**head);
 void	ft_cd(t_mini *data, t_env *env);
+int		ft_is_built_in(t_mini *data);
+int		ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env);
 
 #endif

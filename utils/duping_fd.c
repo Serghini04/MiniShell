@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:56:54 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/20 19:51:17 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/22 20:45:16 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,29 @@ static void	creat_pipe(int *T)
 {
 	if (pipe(T) == -1)
 		(perror("piping probleme !!"), exit(EXIT_FAILURE));
+}
+void	red_fd_parent(t_fd *fd)
+{
+	if (dup2(fd->p_fdout, 1) == -1)
+		(perror("dup2 Error !!"), exit(EXIT_FAILURE));
+	close (fd->p_fdout);
+	if (dup2(fd->p_fdin, 0) == -1)
+		(perror("dup2 Error !!"), exit(EXIT_FAILURE));
+	close (fd->p_fdin);
+}
+int	is_dir_or_file(char *name)
+{
+	struct stat	st;
+
+	if (!stat(name, &st))
+	{
+		if (S_ISREG(st.st_mode))
+			return (1);
+		if (S_ISDIR(st.st_mode))
+			return (2);
+		return (0);
+	}
+	return (-1);
 }
 
 void	duping_fd(t_mini *data, t_fd *fd)
@@ -31,7 +54,7 @@ void	duping_fd(t_mini *data, t_fd *fd)
 			close(fd->fdin);
 			fd->fdin = data->fd_in;
 		}
-			(dup2(fd->fdin, 0), close(fd->fdin));
+		(dup2(fd->fdin, 0), close(fd->fdin));
 	}
 	if (data->next)
 	{

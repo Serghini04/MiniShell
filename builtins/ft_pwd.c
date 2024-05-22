@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 11:47:32 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/14 12:16:26 by hidriouc         ###   ########.fr       */
+/*   Created: 2024/05/03 08:57:17 by hidriouc          #+#    #+#             */
+/*   Updated: 2024/05/22 21:34:20 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
-void ft_exit(char *status)
+void	ft_pwd(void)
 {
-	int	var;
-
-	if (status)
-		var = (ft_atoi(status) % 256);
-	else
-		var = ft_atoi(save_exit_status(NULL));
-	exit(var);
+	ft_putstr_fd(getcwd(NULL, 0), 1);
+	ft_putstr_fd("\n", 1);
 }

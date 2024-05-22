@@ -6,11 +6,11 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:02:57 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/13 12:05:32 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:34:06 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
 void	ft_echo(t_mini	*data)
 {

@@ -6,11 +6,11 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:57:18 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/14 18:14:02 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:33:56 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
 void	ft_env(char **env)
 {

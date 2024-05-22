@@ -6,31 +6,51 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:51:42 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/14 17:21:51 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:33:43 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
-void	ft_tolower(char	*str)
+char	*ft_tolower(char	*str)
 {
 	int	i;
 
 	i = 0;
 	if (!str)
-		return ;
+		return (NULL);
 	while (str[i])
 	{
 		if (str[i] >= 'A' && str[i] <= 'Z')
 			str[i] += 32;
 		i++;
 	}
+	return (str);
 }
+void ft_changedir(char *new_path, char	*old_path, t_env **head)
+{
+	char	*tmp;
 
+	if (chdir(new_path) == 0)
+	{
+		
+		tmp = getcwd(NULL, 0);
+		if(!tmp)
+			perror(tmp);
+		else
+		{
+			ft_export(ft_strjoin("PWD=", tmp), head);
+			ft_export(ft_strjoin("OLDPWD=", old_path), head);
+		}
+			
+	
+	}
+	else
+		perror("chdir");
+}
 void	ft_cd(t_mini *data, t_env *env)
 {
 	char	*new_path;
-	char	*tmp;
 	int		i;
 	char	*old_path;
 	t_env	*head;
@@ -51,22 +71,5 @@ void	ft_cd(t_mini *data, t_env *env)
 		return ;
 	}
 	else
-	{
-		if (chdir(new_path) == 0)
-		{
-			
-			tmp = getcwd(NULL, 0);
-			if(!tmp)
-				perror(tmp);
-			else
-			{
-				ft_export(ft_strjoin("PWD=", tmp), &head);
-				ft_export(ft_strjoin("OLDPWD=", old_path), &head);
-			}
-				
-		
-		}
-		else
-			perror("chdir");
-	}
+		ft_changedir(new_path,old_path, &head);
 }

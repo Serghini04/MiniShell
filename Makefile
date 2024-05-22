@@ -6,7 +6,7 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/05/21 14:32:06 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/05/22 21:36:47 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,17 +22,18 @@ lib = lib/ft_strdup.c lib/str_join.c lib/ft_strlen.c lib/ft_strtrim.c lib/ft_ato
 	lib/ft_substr.c lib/all_list.c lib/ft_split.c lib/all_new_list.c lib/ft_strcmp.c\
 	lib/free_arr.c lib/ft_isspace.c lib/ft_strchr.c lib/ft_strnstr.c lib/ft_putstr_fd.c\
 	lib/ft_lstadd_back.c lib/ft_lstnew.c lib/ft_lstlast.c lib/ft_strncmp.c lib/ft_itoa.c\
-	lib/ft_lstsize.c
+	lib/ft_lstsize.c lib/ft_strjoin.c
 
 parser = parser/parsing_part.c parser/tokening.c parser/last_update_lst.c\
 	parser/checking_syntax.c parser/join_qoute.c parser/join_qoute_part_two.c\
 	parser/expanding.c parser/expanding_part2.c parser/my_getenv.c
 
 utils = utils/print_error.c utils/is_token.c utils/parsing_utils.c utils/split_cmd.c\
-		utils/execution.c utils/expanding_utils.c utils/duping_fd.c utils/builtins/ft_cd.c\
-		utils/creat_myenv.c utils/builtins/ft_export.c utils/creat_tabenv.c\
-		utils/builtins/ft_pwd.c utils/builtins/ft_echo.c utils/builtins/ft_env.c\
-		utils/builtins/ft_unset.c utils/change_holder_.c utils/builtins/ft_exit.c
+		utils/execution.c utils/expanding_utils.c utils/duping_fd.c \
+		utils/creat_myenv.c utils/creat_tabenv.c utils/change_holder_.c utils/statut.c
+
+buliltins = builtins/ft_cd.c builtins/ft_env.c  builtins/ft_echo.c builtins/ft_exit.c\
+		builtins/ft_unset.c  builtins/ft_export.c builtins/manag_builtins.c builtins/ft_pwd.c
 
 GREEN = \033[1;32m
 RED = \033[1;31m
@@ -40,7 +41,7 @@ BLUE = \033[1;34m
 YELL = \033[0;33m
 STOP_C = \033[0m 
 
-FILE = ${lib} ${parser} ${utils} minishell.c
+FILE = ${lib} ${parser} ${utils} ${buliltins} minishell.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
