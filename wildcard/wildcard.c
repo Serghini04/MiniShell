@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:53:20 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/21 10:20:39 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:34:20 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,26 +103,25 @@ char	*replace_wildcards(char *line)
 int	wildcards_part(t_list **head)
 {
 	t_list	*h;
+	int		need_split;
 	int		i;
 
 	i = 0;
 	h = *head;
-	if (h->token == t_word && ft_strchr(h->wrd, '*'))
-	{
-		h->wrd = replace_wildcards(h->wrd);
-		if (!h->wrd)
-			return (-1);
-	}
+	if (check_node(h, &need_split) == -1)
+		return (-1);
 	while (h && h->next)
 	{
-		if (h && h->token != t_heredoc && h->next->token == t_word && \
+		if (h && h->token != t_heredoc && h->next->exp_wildcard && \
 											ft_strchr(h->next->wrd, '*'))
 		{
-			h->next->wrd = replace_wildcards(h->next->wrd);
+			(1) && (need_split = 1, h->next->wrd = replace_wildcards(h->next->wrd));
 			if (!h->next->wrd)
 				return (-1);
 		}
 		h = h->next;
 	}
+	if (need_split)
+		return (split_cmd(head));
 	return (0);
 }

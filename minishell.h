@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/21 10:36:01 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:35:12 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_list
 {
 	char			*wrd;
 	int				token;
+	int				exp_wildcard;
 	int				is_sp;
 	struct s_list	*prv;
 	struct s_list	*next;
@@ -123,15 +124,18 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 
 //wildcard
-char	*get_name_wildcard(char *line, int i );
+int		wildcards_part(t_list **head);
+char	*replace_wildcards(char *line);
+int		need_to_exp_wildards(char *str);
 char	*get_name_part2(char *line, int *i);
+int		check_node(t_list *h, int *need_split);
+char	*get_name_wildcard(char *line, int i );
 int		reverse_cmp(char *s1, char *s2, int len);
 void	free_t_env(t_env **env, int free_content);
-t_env	*save_find_dir(char	*name_wildcard, t_env **head);
 t_env	*delete_not_need(char *name_var, t_env **head);
+t_env	*save_find_dir(char	*name_wildcard, t_env **head);
 t_env	*delete_not_need_part2(char *name_var, t_env **head);
 t_env	*delete_not_need_middle(char *name_var, t_env **head);
-
 
 //parser
 int		is_var(int c);
@@ -149,7 +153,6 @@ char	*my_getenv(char	*name_var);
 void	close_if_open(int fd, int nb);
 int		checking_syntax(t_list **head);
 t_mini	*last_update_lst(t_list *head);
-int		wildcards_part(t_list **head);
 int		remove_dollar_sign(t_list **head);
 void	open_file(t_list *i, t_mini *node);
 void	delete_if_empty_wrd(t_list **head);
@@ -176,7 +179,6 @@ int		print_dollar(char c);
 void	ft_tolower(char	*str);
 int		len_cmd(t_list *head);
 void	ft_echo(t_mini	*data);
-int		split_cmd(t_list **head);
 void	ft_putstr_fd(char *s, int fd);
 char	**creat_tabenv(t_env	*head);
 char	*ft_strjoin(char *s1, char *s2);
@@ -186,6 +188,7 @@ void	duping_fd(t_mini *data, t_fd *t_fd);
 int		part_heredoc(t_list *i, t_mini *node);
 void	print_error(t_list **head, t_list *i);
 void	creat_myenv(t_env	**head, char **env);
+int		split_cmd(t_list **head);
 void	main_process(t_mini	*data, t_env *env);
 void	ft_export(char *name, t_env **head);
 char	*find_path(char *cmd, char **env);

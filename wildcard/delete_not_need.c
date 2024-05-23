@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:00:44 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/21 10:21:13 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:34:10 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_env	*delete_not_need_part2(char *name_var, t_env **head)
 	t_env	*new_head;
 	t_env	*h;
 
-	printf("name->>%s<<\n", name_var);
 	new_head = NULL;
 	if (!name_var)
 		return (free_t_env(head, 1), NULL);
@@ -77,4 +76,17 @@ t_env	*delete_not_need_part2(char *name_var, t_env **head)
 	free(name_var);
 	free_t_env(head, 0);
 	return (new_head);
+}
+
+int	check_node(t_list *h, int *need_split)
+{
+	need_split = 0;
+	if (h->exp_wildcard && ft_strchr(h->wrd, '*'))
+	{
+		*need_split = 1;
+		h->wrd = replace_wildcards(h->wrd);
+		if (!h->wrd)
+			return (-1);
+	}
+	return (0);
 }

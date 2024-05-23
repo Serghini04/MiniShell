@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:30:26 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/26 01:06:17 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:14:31 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ void	print_lst(t_list *h)
 
 	i = h;
 	printf("---------------------------------\n");
+	printf("str---token---exp_wildcard\n");
+	printf("---------------------------------\n");
 	while (i)
 	{
-		printf(">>%s<< ===> %d ==> %d\n", i->wrd, i->token, i->is_sp);
+		printf(">>%s<< ===> %d ==> %d\n", i->wrd, i->token, i->exp_wildcard);
 		i = i->next;
 	}
 	printf("\n---------------------------------\n");
