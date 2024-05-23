@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:53:20 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/23 10:34:20 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:41:13 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ int	wildcards_part(t_list **head)
 		if (h && h->token != t_heredoc && h->next->exp_wildcard && \
 											ft_strchr(h->next->wrd, '*'))
 		{
-			(1) && (need_split = 1, h->next->wrd = replace_wildcards(h->next->wrd));
+			need_split = 1;
+			h->next->wrd = replace_wildcards(h->next->wrd);
 			if (!h->next->wrd)
 				return (-1);
 		}
