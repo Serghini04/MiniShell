@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/22 21:25:29 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:30:07 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,6 @@ void	ft_export(char *name, t_env **head);
 char	*find_path(char *cmd, char **env);
 void	ft_execute_buitl_in(t_mini *data, t_env **env);
 int		ft_is_built_in(t_mini *data);
-void	change_holder_(t_mini *data, t_env *env);
 void	ft_unset(char *str, t_env	**head);
 void	ft_cd(t_mini *data, t_env *env);
 int		ft_is_built_in(t_mini *data);

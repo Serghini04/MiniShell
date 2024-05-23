@@ -6,7 +6,7 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/05/22 21:36:47 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/05/23 11:28:05 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ parser = parser/parsing_part.c parser/tokening.c parser/last_update_lst.c\
 
 utils = utils/print_error.c utils/is_token.c utils/parsing_utils.c utils/split_cmd.c\
 		utils/execution.c utils/expanding_utils.c utils/duping_fd.c \
-		utils/creat_myenv.c utils/creat_tabenv.c utils/change_holder_.c utils/statut.c
+		utils/creat_myenv.c utils/creat_tabenv.c  utils/statut.c
 
 buliltins = builtins/ft_cd.c builtins/ft_env.c  builtins/ft_echo.c builtins/ft_exit.c\
 		builtins/ft_unset.c  builtins/ft_export.c builtins/manag_builtins.c builtins/ft_pwd.c

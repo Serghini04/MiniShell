@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/14 17:48:55 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:10:42 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ char	*save_exit_status(char *res)
 
 	if (res)
 	{
-		// if (ret)
-		// 	free(ret);
+		if (ret)
+			free(ret);
 		ret = res;
 	}
 	return (ret);

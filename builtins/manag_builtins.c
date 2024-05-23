@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:52:09 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/22 21:35:53 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:01:27 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,16 @@ int	ft_is_built_in(t_mini *data)
 		return (1);
 	else if (!ft_strcmp(data->cmd[0], "env")
 		&& find_path(data->cmd[0], data->env))
-		return (1);
+		{
+			if (data->cmd[1])
+				ft_putstr_fd("'env' without argumments please !! \n", 2);
+			return (1);
+		}
 	else if (!ft_strcmp(data->cmd[0], "export"))
 		return (1);
 	else if (!ft_strcmp(data->cmd[0], "echo"))
 		return (1);
-	else
+	free(ptr);
 		return (0);
 }
 
