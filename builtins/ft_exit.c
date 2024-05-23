@@ -6,13 +6,13 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:47:32 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/22 21:34:10 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:41:43 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void ft_exit(char *status)
+void	ft_exit(char *status)
 {
 	int	var;
 

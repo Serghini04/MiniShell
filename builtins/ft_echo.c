@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:02:57 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/23 12:38:39 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:45:28 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int ft_handel_input(t_mini *data, int *i, int *v)
 {
 	int j;
 
+	*v = 1;
 	if (!data || !data->cmd[0])
 		return (0);
 	*i = 1;

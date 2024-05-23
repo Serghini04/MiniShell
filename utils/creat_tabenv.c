@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:13:22 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/21 09:44:55 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:18:59 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ char	**creat_tabenv(t_env *head)
 	t_env	*tmp;
 	int		i;
 	char	**env;
-	
+
 	tmp = head;
 	i = 0;
-	if(!head)
+	if (!head)
 		return (NULL);
-	while(tmp)
+	while (tmp)
 	{
 		i++;
 		tmp = tmp->next;
 	}
-	env = malloc((i + 1) * sizeof(char*));
-	if(!env)
-		return(NULL);
+	env = malloc((i + 1) * sizeof(char *));
+	if (!env)
+		return (NULL);
 	i = 0;
 	tmp = head;
 	while (tmp)
@@ -38,5 +38,5 @@ char	**creat_tabenv(t_env *head)
 		i++;
 		tmp = tmp->next;
 	}
-	return(env[i] = NULL, env);
+	return (env[i] = NULL, env);
 }

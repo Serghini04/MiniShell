@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:56:54 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/22 20:45:16 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:17:14 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	creat_pipe(int *T)
 	if (pipe(T) == -1)
 		(perror("piping probleme !!"), exit(EXIT_FAILURE));
 }
+
 void	red_fd_parent(t_fd *fd)
 {
 	if (dup2(fd->p_fdout, 1) == -1)
@@ -26,6 +27,7 @@ void	red_fd_parent(t_fd *fd)
 		(perror("dup2 Error !!"), exit(EXIT_FAILURE));
 	close (fd->p_fdin);
 }
+
 int	is_dir_or_file(char *name)
 {
 	struct stat	st;

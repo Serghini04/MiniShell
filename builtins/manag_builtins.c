@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:52:09 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/23 12:01:27 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:52:16 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_deslpay(t_env *tmp, char *ptr_c, int *nb)
 {
-	int	j;
-	int	flag;
+	int		j;
+	int		flag;
 
 	while (tmp)
 	{
@@ -27,7 +27,8 @@ void	ft_deslpay(t_env *tmp, char *ptr_c, int *nb)
 			while (tmp->content[j])
 			{
 				write(1, &tmp->content[j], 1);
-				((tmp->content[j] == '=') && (flag = 1) && write(1, "\"", 1));
+				if (tmp->content[j] == '=' && !flag)
+					((flag = 1) && write(1, "\"", 1));
 				((!tmp->content[j + 1] && flag) && write(1, "\"", 1));
 				((!tmp->content[j + 1]) && write(1, "\n", 1));
 				j++;
@@ -47,6 +48,8 @@ void	sort_env(t_env *env)
 	i = 0;
 	tmp = env;
 	c = 'A';
+	if (!env)
+		return ;
 	while (tmp)
 	{
 		tmp = tmp->next;
@@ -90,8 +93,8 @@ void	ft_execute_buitl_in(t_mini *data, t_env **env)
 
 int	ft_is_built_in(t_mini *data)
 {
-	char *ptr;
-	
+	char	*ptr;
+
 	ptr = ft_tolower(ft_strdup(data->cmd[0]));
 	if (!ft_strcmp(data->cmd[0], "cd"))
 		return (1);
@@ -103,17 +106,17 @@ int	ft_is_built_in(t_mini *data)
 		return (1);
 	else if (!ft_strcmp(data->cmd[0], "env")
 		&& find_path(data->cmd[0], data->env))
-		{
-			if (data->cmd[1])
-				ft_putstr_fd("'env' without argumments please !! \n", 2);
-			return (1);
-		}
+	{
+		if (data->cmd[1])
+			ft_putstr_fd("'env' without argumments please !! \n", 2);
+		return (1);
+	}
 	else if (!ft_strcmp(data->cmd[0], "export"))
 		return (1);
 	else if (!ft_strcmp(data->cmd[0], "echo"))
 		return (1);
 	free(ptr);
-		return (0);
+	return (0);
 }
 
 int	ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env)
