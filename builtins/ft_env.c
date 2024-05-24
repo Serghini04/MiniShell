@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:57:18 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/23 17:48:27 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:29:45 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,17 @@ void	ft_env(char **env)
 	char	*ptr;
 
 	i = 0;
-	ptr = "PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.";
-	if (!env || !*env)
+	ptr = find_path("env", env);
+	if (!env || !*env || !ptr)
 	{
 		ft_putstr_fd("bash : env: no such file or directory\n", 2);
-		save_exit_status("127");
+		save_exit_status(ft_strdup("127"));
 		return ;
 	}
-	i = 0;
-	while (env[i])
+	free(ptr);
+	ptr = "PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.";
+	i = -1;
+	while (env[++i])
 	{
 		j = 0;
 		while (env[i][j])
@@ -35,7 +37,6 @@ void	ft_env(char **env)
 		if (ft_strcmp(env[i], ptr))
 			if (ft_strchr(env[i], '='))
 				(ft_putstr_fd(env[i], 1), ft_putstr_fd("\n", 1));
-		i++;
-		save_exit_status("0");
+		save_exit_status(ft_strdup("0"));
 	}
 }

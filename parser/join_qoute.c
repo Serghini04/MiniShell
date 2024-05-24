@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 01:27:11 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/22 22:18:12 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/24 10:07:49 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	split_and_join(t_list **i)
 	t_list	*tmp;
 
 	s = (*i)->wrd;
+	(*i)->exp_wildcard = need_to_exp_wildards((*i)->wrd);
 	(*i)->wrd = join_q_wrd((*i)->wrd, (*i)->next->wrd);
 	free(s);
 	len = ft_strlen((*i)->next->wrd) - cln_space((*i)->next->wrd);
@@ -89,6 +90,8 @@ void	split_and_join(t_list **i)
 	{
 		tmp = (*i)->next;
 		(*i)->next = (*i)->next->next;
+		if (tmp->next)
+			(*i)->next->prv = *i;
 		free_node(tmp);
 	}
 }
@@ -104,6 +107,7 @@ int	join_qoute(t_list **head)
 		if (is_q(i->token) && !i->next->is_sp && is_q(i->next->token))
 		{
 			i->wrd = str_join(i->wrd, i->next->wrd);
+			i->exp_wildcard = need_to_exp_wildards(i->next->wrd);
 			tmp = i->next;
 			i->next = i->next->next;
 			free_node(tmp);

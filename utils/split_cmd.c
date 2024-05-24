@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:07:09 by meserghi          #+#    #+#             */
-/*   Updated: 2024/03/25 22:07:33 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/22 19:24:02 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	split_cmd(t_list **head)
 	{
 		if (i->token == t_word && find_space(i->wrd))
 		{
-			cmd = ft_split(i->wrd, ' ');
+			cmd = my_split(i->wrd);
 			if (!cmd)
 				return (-1);
 			add_split_lst(cmd, &i, head);

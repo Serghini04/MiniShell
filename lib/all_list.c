@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 20:47:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/04/19 10:44:58 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:10:51 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ t_list	*new_node(char *data, int token)
 	new->wrd = data;
 	new->token = token;
 	new->is_sp = 1;
+	if (token != t_word)
+		new->exp_wildcard = 0;
+	else
+		new->exp_wildcard = 1;
 	new->prv = NULL;
 	new->next = NULL;
 	return (new);

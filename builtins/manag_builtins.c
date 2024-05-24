@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:52:09 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/23 18:52:16 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:22:57 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_execute_buitl_in(t_mini *data, t_env **env)
 			sort_env(*env);
 	}
 	else if (!ft_strcmp(data->cmd[0], "pwd"))
-		ft_pwd();
+		ft_pwd(data->env);
 	else if (!ft_strcmp(data->cmd[0], "exit"))
 		ft_exit(data->cmd[1]);
 	else if (!ft_strcmp(data->cmd[0], "echo"))
@@ -95,28 +95,28 @@ int	ft_is_built_in(t_mini *data)
 {
 	char	*ptr;
 
+	if (!data || !data->cmd[0])
+		return (0);
 	ptr = ft_tolower(ft_strdup(data->cmd[0]));
 	if (!ft_strcmp(data->cmd[0], "cd"))
-		return (1);
+		return (free(ptr), 1);
 	else if (!ft_strcmp(data->cmd[0], "pwd"))
-		return (1);
+		return (free(ptr), 1);
 	else if (!ft_strcmp(data->cmd[0], "unset"))
-		return (1);
+		return (free(ptr), 1);
 	else if (!ft_strcmp(data->cmd[0], "exit"))
-		return (1);
-	else if (!ft_strcmp(data->cmd[0], "env")
-		&& find_path(data->cmd[0], data->env))
+		return (free(ptr), 1);
+	else if (!ft_strcmp(data->cmd[0], "env"))
 	{
 		if (data->cmd[1])
 			ft_putstr_fd("'env' without argumments please !! \n", 2);
-		return (1);
+		return (free(ptr), 1);
 	}
 	else if (!ft_strcmp(data->cmd[0], "export"))
-		return (1);
+		return (free(ptr), 1);
 	else if (!ft_strcmp(data->cmd[0], "echo"))
-		return (1);
-	free(ptr);
-	return (0);
+		return (free(ptr), 1);
+	return (free(ptr), 0);
 }
 
 int	ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env)
@@ -124,6 +124,11 @@ int	ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env)
 	if (!data && !data->cmd[0])
 		return (0);
 	if (data->next == NULL && ft_is_built_in(data))
-		return (duping_fd(data, fd), ft_execute_buitl_in(data, env), 1);
+	{
+		duping_fd(data, fd);
+		ft_execute_buitl_in(data, env);
+		free_arr(data->env);
+		return (1);
+	}
 	return (0);
 }

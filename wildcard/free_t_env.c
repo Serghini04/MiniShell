@@ -1,28 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   free_t_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 12:39:10 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/19 14:31:02 by meserghi         ###   ########.fr       */
+/*   Created: 2024/05/20 15:05:18 by meserghi          #+#    #+#             */
+/*   Updated: 2024/05/23 10:06:42 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	need_to_exp_wildards(char *str)
 {
-	if (*s1 == '.')
-		return (1);
-	while ((*s1 || *s2) && n > 0)
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		if (*s1 != *s2)
-			return ((unsigned char)*s1 - (unsigned char)*s2);
-		s1++;
-		s2++;
-		n--;
+		if (str[i] == '*')
+			return (0);
+		i++;
 	}
-	return (0);
+	return (1);
+}
+
+void	free_t_env(t_env **env, int free_content)
+{
+	t_env	*h;
+	t_env	*swap;
+
+	if (!env)
+		return ;
+	h = *env;
+	while (h)
+	{
+		swap = h->next;
+		if (free_content)
+			free(h->content);
+		free(h);
+		h = swap;
+	}
+	env = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/24 09:58:33 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:51:53 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,10 @@ int	main(int ac, char **av, char **env)
 			g_sig_global = 1;
 			main_process(data, &head, &term);
 			g_sig_global = 0;
+			// free_arr(data->env);
+			clear_t_mini(&data);
 		}
 	}
-	 atexit(f);
+	atexit(f);
 	return (0);
 }

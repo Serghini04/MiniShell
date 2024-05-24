@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 03:51:28 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/13 11:01:39 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:24:41 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	skip_or_delete(t_list	**head, t_list **i)
 	t_list	*tmp;
 
 	(*i)->next->wrd = split_wrd_and_join((*i)->wrd, (*i)->next->wrd);
+	(*i)->next->exp_wildcard = need_to_exp_wildards((*i)->next->wrd);
 	(*i)->wrd = rm_last_join((*i)->wrd);
 	if (!(*i)->wrd)
 	{

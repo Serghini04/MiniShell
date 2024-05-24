@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/13 14:24:53 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/23 10:26:07 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	delete_if_empty_wrd(t_list **head)
 void	add_split_lst(char **cmd, t_list **head, t_list **root)
 {
 	t_list	*new_head;
+	t_list	*node;
 	t_list	*last;
 	t_list	*swap;
 	int		i;
@@ -49,12 +50,14 @@ void	add_split_lst(char **cmd, t_list **head, t_list **root)
 	new_head = NULL;
 	while (cmd[i])
 	{
-		add_back(&new_head, new_node(ft_strdup(cmd[i]), t_word));
+		node = new_node(ft_strdup(cmd[i]), t_word);
+		if (!i)
+			node->is_sp = (*head)->is_sp;
+		add_back(&new_head, node);
 		i++;
 	}
 	last = last_lst(new_head);
-	swap = (*head);
-	last->next = (*head)->next;
+	(1) && (swap = (*head), last->next = (*head)->next);
 	if ((*head)->prv)
 		(*head)->prv->next = new_head;
 	else

@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:51:42 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/24 10:05:27 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:01:17 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ char	*ft_tolower(char	*str)
 void	ft_changedir(char *new_path, char	*old_path, t_env **head)
 {
 	char	*tmp;
+	char	*pwd;
+	char	*oldpwd;
 
+	tmp = NULL;
 	if (chdir(new_path) == 0)
 	{
 		tmp = getcwd(NULL, 0);
@@ -39,12 +42,18 @@ void	ft_changedir(char *new_path, char	*old_path, t_env **head)
 			perror(tmp);
 		else
 		{
-			ft_export(ft_strjoin("PWD=", tmp), head);
-			ft_export(ft_strjoin("OLDPWD=", old_path), head);
+			pwd = ft_strjoin("PWD=", tmp);
+			oldpwd = ft_strjoin("OLDPWD=", old_path);
+			ft_export(pwd, head);
+			ft_export(oldpwd, head);
+			free(pwd);
+			free(oldpwd);
 		}
 	}
 	else
 		perror("chdir");
+	free(old_path);
+	free(tmp);
 }
 
 void	ft_cd(t_mini *data, t_env *env)
@@ -59,7 +68,7 @@ void	ft_cd(t_mini *data, t_env *env)
 	new_path = NULL;
 	old_path = getcwd(NULL, 0);
 	if (data->cmd[1])
-		new_path = data->cmd[1];
+		new_path = ft_strdup(data->cmd[1]);
 	else
 		new_path = ft_strdup(getenv("HOME"));
 	if (access(new_path, F_OK) != 0)
@@ -67,8 +76,8 @@ void	ft_cd(t_mini *data, t_env *env)
 		ft_putstr_fd("bash: cd: ", 2);
 		ft_putstr_fd(new_path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		save_exit_status("1");
-		return ;
+		save_exit_status(ft_strdup("1"));
+		return (free(old_path));
 	}
 	else
 		ft_changedir(new_path, old_path, &head);

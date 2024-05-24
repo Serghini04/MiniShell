@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 08:57:17 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/24 14:09:31 by hidriouc         ###   ########.fr       */
+/*   Created: 2024/05/18 18:44:25 by meserghi          #+#    #+#             */
+/*   Updated: 2024/05/18 20:35:16 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pwd(char **env)
+char	*ft_strstr(char *haystack, char *needle)
 {
-	char	*pwd;
-	int		i;
+	int	i;
+	int	j;
 
 	i = 0;
-	pwd = getcwd(NULL, 0);
-	if (pwd)
+	if (!*needle)
+		return (haystack);
+	while (haystack[i])
 	{
-		ft_putstr_fd(pwd, 1);
-		free(pwd);
+		j = 0;
+		while ((haystack[i + j] == needle[j]) && needle[j])
+			j++;
+		if (!needle[j])
+			return (&haystack[i]);
+		i++;
 	}
-	else
-	{
-		while (env[i])
-		{
-			if (!ft_strncmp("PWD=", env[i], 4))
-				ft_putstr_fd(env[i], 1);
-			i++;
-		}
-	}
-	ft_putstr_fd("\n", 1);
+	return (NULL);
 }
