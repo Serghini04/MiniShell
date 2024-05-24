@@ -6,11 +6,20 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:56:54 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/23 17:17:14 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/24 09:08:18 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	check_malloc_sac(char **all_path)
+{
+	if (!all_path || !*all_path)
+	{
+		perror("allocation Error !!");
+		exit(EXIT_FAILURE);
+	}
+}
 
 static void	creat_pipe(int *T)
 {

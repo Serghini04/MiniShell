@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:51:42 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/22 21:33:43 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/24 09:24:12 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,26 @@ char	*ft_tolower(char	*str)
 	}
 	return (str);
 }
-void ft_changedir(char *new_path, char	*old_path, t_env **head)
+
+void	ft_changedir(char *new_path, char	*old_path, t_env **head)
 {
 	char	*tmp;
 
 	if (chdir(new_path) == 0)
 	{
-		
 		tmp = getcwd(NULL, 0);
-		if(!tmp)
+		if (!tmp)
 			perror(tmp);
 		else
 		{
 			ft_export(ft_strjoin("PWD=", tmp), head);
 			ft_export(ft_strjoin("OLDPWD=", old_path), head);
 		}
-			
-	
 	}
 	else
 		perror("chdir");
 }
+
 void	ft_cd(t_mini *data, t_env *env)
 {
 	char	*new_path;
@@ -71,5 +70,5 @@ void	ft_cd(t_mini *data, t_env *env)
 		return ;
 	}
 	else
-		ft_changedir(new_path,old_path, &head);
+		ft_changedir(new_path, old_path, &head);
 }

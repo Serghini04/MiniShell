@@ -6,12 +6,11 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/23 18:20:59 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/24 09:33:03 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <termios.h>
 
 int	g_sig_global;
 
@@ -22,7 +21,7 @@ void	f(void)
 
 t_env	*save_env(t_env *env)
 {
-	static t_env *new_env;
+	static t_env	*new_env;
 
 	if (env)
 		new_env = env;
@@ -32,8 +31,7 @@ t_env	*save_env(t_env *env)
 void	handl_sig(int sig)
 {
 	(void)sig;
-
-	if(g_sig_global == 0)
+	if (g_sig_global == 0)
 	{
 		write (1, "\n", 1);
 		rl_on_new_line();
@@ -47,7 +45,8 @@ void	handle_sigquit(int sig)
 {
 	(void)sig;
 }
-void	ft_handel_aergs(int ac,char **av,struct termios *term, t_env **head)
+
+void	ft_handel_aergs(int ac, char **av, struct termios *term, t_env **head)
 {
 	(void)av;
 	*head = NULL;
@@ -84,7 +83,7 @@ int	main(int ac, char **av, char **env)
 			add_history(res);
 		save_env(head);
 		data = parsing_part(res);
-		if(data)
+		if (data)
 		{
 			g_sig_global = 1;
 			main_process(data, &head, &term);

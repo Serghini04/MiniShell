@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/23 18:38:21 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/24 09:17:36 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ char	*find_path(char *cmd, char **env)
 	(1) && (i = 0, all_paths = NULL);
 	while (env && env[i] && !(ft_strnstr(env[i], "PATH", 4)))
 		i++;
-	if(!env || !*env || !env[i])
+	if (!env || !*env || !env[i])
 		return (NULL);
 	all_paths = ft_split(env[i] + 5, ':');
-	if (!all_paths || !*all_paths)
-		(perror("allocation problem !!"), exit(EXIT_FAILURE));
+	check_malloc_sac(all_paths);
 	i = 0;
 	while (all_paths[i])
 	{
 		(1) && (path = ft_strjoin(all_paths[i], "/"), tmp = path);
-		(path = ft_strjoin(path, cmd), free(tmp));
+		path = ft_strjoin(path, cmd);
+		free(tmp);
 		if (!path)
 			(free_arr(all_paths), perror("allocation ER"), exit(EXIT_FAILURE));
 		if (access(path, F_OK | X_OK) == 0)
@@ -82,7 +82,7 @@ void	run_cmd(t_mini *data, t_env **env)
 	{
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd((data)->cmd[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 		clear_t_mini(&data);
 		exit(127);
 	}

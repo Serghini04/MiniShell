@@ -6,15 +6,15 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:02:57 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/23 14:45:28 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/24 09:21:52 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_handel_input(t_mini *data, int *i, int *v)
+int	ft_handel_input(t_mini *data, int *i, int *v)
 {
-	int j;
+	int	j;
 
 	*v = 1;
 	if (!data || !data->cmd[0])
@@ -25,7 +25,7 @@ int ft_handel_input(t_mini *data, int *i, int *v)
 		(*i)++;
 		*v = 0;
 	}
-	while ( data->cmd[*i] && data->cmd[*i][0] == '-' && data->cmd[*i][1] == 'n')
+	while (data->cmd[*i] && data->cmd[*i][0] == '-' && data->cmd[*i][1] == 'n')
 	{
 		j = 2;
 		while (data->cmd[*i][j] && data->cmd[*i][j] == 'n')
@@ -49,7 +49,7 @@ void	ft_echo(t_mini	*data)
 	while (data->cmd[i])
 	{
 		ft_putstr_fd(data->cmd[i], 1);
-		if(data->cmd[i + 1])
+		if (data->cmd[i + 1])
 			ft_putstr_fd(" ", 1);
 		i++;
 	}

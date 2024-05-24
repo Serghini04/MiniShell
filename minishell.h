@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/23 11:30:07 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/24 09:26:16 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 # include <unistd.h>
 # include <stdio.h>
-#include <signal.h>
+# include <signal.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sys/errno.h>
@@ -24,7 +24,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
-#include <termios.h>
+# include <termios.h>
 # define MAX_FD 1024
 // ls > c | cat < c
 
@@ -85,7 +85,6 @@ typedef struct s_free
 	t_mini	**mini;
 	char	*res;
 }	t_free;
-
 
 //python3 -c 'print("ls | " * 1000 , end = "ls")' | pbcopy
 /// <""|<""  && <"s"|  a
@@ -149,8 +148,7 @@ void	add_split_lst(char **cmd, t_list **head, t_list **root);
 int		add_token_lst(t_list **head, char *input, int *i, int *s);
 int		add_singl_double_q(t_list **head, char *input, int *i, int *pos);
 char	*save_exit_status(char *res);
-int		ft_check_if_builtin(t_mini *data, t_fd	*fd,t_env **env);
-// builtins
+int		ft_check_if_builtin(t_mini *data, t_fd	*fd, t_env **env);
 
 //utils
 int		is_q(int c);
@@ -176,6 +174,7 @@ char	**creat_tabenv(t_env	*head);
 char	*ft_strjoin(char *s1, char *s2);
 char	*replace_dollar_sing(char *str);
 int		is_expand(int token, int heredoc);
+void	check_malloc_sac(char **all_path);
 void	duping_fd(t_mini *data, t_fd *t_fd);
 int		part_heredoc(t_list *i, t_mini *node);
 void	print_error(t_list **head, t_list *i);
