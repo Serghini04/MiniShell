@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:51:42 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/24 09:24:12 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/24 10:05:27 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_cd(t_mini *data, t_env *env)
 
 	head = env;
 	i = 0;
+	new_path = NULL;
 	old_path = getcwd(NULL, 0);
 	if (data->cmd[1])
 		new_path = data->cmd[1];
@@ -71,4 +72,5 @@ void	ft_cd(t_mini *data, t_env *env)
 	}
 	else
 		ft_changedir(new_path, old_path, &head);
+	free(new_path);
 }
