@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/24 15:43:10 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/25 11:21:46 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_free
 
 // lib ...
 char	*ft_itoa(int n);
+int		is_heredoc_open(int nb);
 void	free_node(t_list *node);
 int		ft_atoi(const char *str);
 int		ft_lstsize(t_mini	*lst);
@@ -149,7 +150,6 @@ t_env	*delete_not_need_middle(char *name_var, t_env **head);
 //parser
 int		is_var(int c);
 int		next_doll(char *str);
-void	ft_exit(char *status);
 t_env	*save_env(t_env *env);
 t_list	*tokening(char *input);
 int		expanding(t_list **head);
@@ -164,6 +164,7 @@ void	close_if_open(int fd, int nb);
 int		checking_syntax(t_list **head);
 t_mini	*last_update_lst(t_list *head);
 int		remove_dollar_sign(t_list **head);
+void	ft_exit(t_mini *data, char *status);
 void	open_file(t_list *i, t_mini *node);
 void	delete_if_empty_wrd(t_list **head);
 char	*split_wrd_and_join(char *s1, char *s2);

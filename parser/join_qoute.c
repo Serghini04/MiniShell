@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join_qoute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 01:27:11 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/24 10:07:49 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/25 17:07:10 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void	split_and_join(t_list **i)
 	t_list	*tmp;
 
 	s = (*i)->wrd;
-	(*i)->exp_wildcard = need_to_exp_wildards((*i)->wrd);
+	if (!(*i)->exp_wildcard)
+		(*i)->exp_wildcard = need_to_exp_wildards((*i)->wrd);
 	(*i)->wrd = join_q_wrd((*i)->wrd, (*i)->next->wrd);
 	free(s);
 	len = ft_strlen((*i)->next->wrd) - cln_space((*i)->next->wrd);
@@ -88,8 +89,7 @@ void	split_and_join(t_list **i)
 	}
 	else
 	{
-		tmp = (*i)->next;
-		(*i)->next = (*i)->next->next;
+		(tmp = (*i)->next) && ((*i)->next = (*i)->next->next);
 		if (tmp->next)
 			(*i)->next->prv = *i;
 		free_node(tmp);

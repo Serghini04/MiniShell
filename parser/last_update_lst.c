@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_update_lst.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/24 10:07:52 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/25 22:06:39 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ void	open_file(t_list *i, t_mini *node)
 
 t_mini	*add_cmd_to_lst(t_list *i)
 {
-	t_mini	*node;
-	int		index;
+	extern int	g_sig_global;
+	t_mini		*node;
+	int			fd;
+	int			index;
 
 	(1) && (index = 0, node = create_node());
 	if (!node)
@@ -52,6 +54,7 @@ t_mini	*add_cmd_to_lst(t_list *i)
 	node->cmd = malloc(sizeof(char *) * (len_cmd(i) + 1));
 	if (!node->cmd)
 		return (free(node), NULL);
+	fd = dup(0);
 	while (i && i->token != t_pipe)
 	{
 		if (is_red(i))
@@ -67,7 +70,8 @@ t_mini	*add_cmd_to_lst(t_list *i)
 			node->cmd[index++] = ft_strdup(i->wrd);
 		i = i->next;
 	}
-	return (node->cmd[index] = NULL, node);
+	dup2(fd, 0);
+	return (close(fd), g_sig_global = 0, node->cmd[index] = NULL, node);
 }
 
 t_mini	*last_update_lst(t_list *head)
