@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:01:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/13 11:59:55 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/25 10:45:46 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	part_heredoc(t_list *i, t_mini *node)
 		return (-1);
 	while (1)
 	{
+		signal(SIGINT, handl_sig1);
 		res = readline(">");
 		if (!res || !ft_strcmp(res, i->next->wrd))
 			break ;

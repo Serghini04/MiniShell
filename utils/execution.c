@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/24 15:49:00 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/25 10:45:03 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,13 +132,14 @@ void	main_process(t_mini	*data, t_env **lin_env, struct termios *term)
 		return ;
 	while (data)
 	{
+		free_arr(data->env);
 		data->env = creat_tabenv(*lin_env);
 		(duping_fd(data, &fd), fd.pid[i] = fork());
 		if (!ft_handel_prossid(data, &fd, i, lin_env))
 			break ;
-		(red_fd_parent(&fd), data = data->next);
+		(free_arr(data->env), red_fd_parent(&fd), data = data->next);
 		i++;
 	}
-	return_status(fd.pid, i - 1);
+	(return_status(fd.pid, i - 1), free (fd.pid));
 	tcsetattr(STDIN_FILENO, TCSANOW, term);
 }

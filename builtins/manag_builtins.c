@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:52:09 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/24 14:22:57 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/25 10:35:06 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_execute_buitl_in(t_mini *data, t_env **env)
 	else if (!ft_strcmp(data->cmd[0], "pwd"))
 		ft_pwd(data->env);
 	else if (!ft_strcmp(data->cmd[0], "exit"))
-		ft_exit(data->cmd[1]);
+		ft_exit(data, data->cmd[1]);
 	else if (!ft_strcmp(data->cmd[0], "echo"))
 		ft_echo(data);
 	else if (!ft_strcmp(data->cmd[0], "env") && !data->cmd[1])
