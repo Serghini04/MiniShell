@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
+#    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/05/24 15:50:36 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/05/25 10:31:01 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,13 +37,13 @@ GREEN = \033[1;32m
 RED = \033[1;31m
 BLUE = \033[1;34m
 YELL = \033[0;33m
-STOP_C = \033[0m 
+STOP_C = \033[0m
 
 FILE = ${lib} ${parser} ${utils}  ${wildcard} ${buliltins} minishell.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 NAME = minishell
 READLINE_L = $(shell brew --prefix readline)/lib
