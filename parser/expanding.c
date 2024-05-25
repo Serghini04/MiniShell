@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/24 14:14:58 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/25 10:44:09 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	expanding(t_list **head)
 	int		ret;
 
 	i = *head;
+	print_lst(*head);
 	ret = check_first_node(&i, head);
 	i = *head;
 	if (ret == 0 || ret == -1)
