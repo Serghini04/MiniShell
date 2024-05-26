@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/26 10:47:20 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/26 14:37:38 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,6 @@ void	handl_sig(int sig)
 	}
 }
 
-void	handle_sigquit(int sig)
-{
-	(void)sig;
-}
-
 void	ft_handel_aergs(int ac, char **av, struct termios *term, t_env **head)
 {
 	(void)av;
@@ -54,16 +49,22 @@ void	ft_handel_aergs(int ac, char **av, struct termios *term, t_env **head)
 	}
 	tcgetattr(STDIN_FILENO, term);
 	signal(SIGINT, handl_sig);
-	signal(SIGQUIT, handle_sigquit);
+	signal(SIGQUIT, SIG_IGN);
 	save_exit_status(ft_strdup("0"));
 	rl_catch_signals = 0;
+	tcsetattr(STDIN_FILENO, TCSANOW, term);
+}
+
+void f(void)
+{
+	system ("leaks minishell");
 }
 int	main(int ac, char **av, char **env)
 {
+	struct termios	term;
 	t_mini			*data;
 	char			*res;
 	t_env			*head;
-	struct termios	term;
 
 	data = NULL;
 	ft_handel_aergs(ac, av, &term, &head);
@@ -72,16 +73,15 @@ int	main(int ac, char **av, char **env)
 	{
 		res = readline("hi me>> ");
 		if (!res)
-			return (ft_clearlist_env(&head),ft_putstr_fd("exit\n", 2), 1);
+			return (ft_clearlist_env(&head), ft_putstr_fd("exit\n", 2), 1);
 		if (*res)
 			add_history(res);
 		save_env(head);
+		g_sig_global = 0;
 		data = parsing_part(res);
 		if (data)
 		{
-			g_sig_global = 1;
 			main_process(data, &head, &term);
-			g_sig_global = 0;
 			clear_t_mini(&data);
 		}
 	}

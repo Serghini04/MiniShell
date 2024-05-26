@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:01:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/25 14:08:21 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/26 11:41:52 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,31 @@ int	open_here_doc_file(int *save, int *fd_in)
 	return (*save);
 }
 
+
+void fn(int c)
+{
+	extern int g_sig_global;
+	(void)c;
+	close(0);
+	g_sig_global = -1;
+	save_exit_status(ft_strdup("1"));
+}
+
 int	part_heredoc(t_list *i, t_mini *node)
 {
-	char	*res;
-	char	*line_heredoc;
-	int		v;
-	int		save;
+	extern int	g_sig_global;
+	char		*res;
+	char		*line_heredoc;
+	int			v;
+	int			save;
 
-	v = 1;
-	if (node->fd_in == -1)
-		v = 0;
+	v = (node->fd_in != -1) * 1;
 	save = open_here_doc_file(&save, &node->fd_in);
 	if (save == -1)
 		return (-1);
-	while (1)
+	while (!g_sig_global && isatty(0))
 	{
+		signal(SIGINT, fn);
 		res = readline(">");
 		if (!res || !ft_strcmp(res, i->next->wrd))
 			break ;
@@ -88,8 +98,7 @@ int	part_heredoc(t_list *i, t_mini *node)
 		write(node->fd_in, line_heredoc, ft_strlen(line_heredoc));
 		free(line_heredoc);
 	}
-	close(node->fd_in);
 	if (!v)
 		save = -1;
-	return (free(res), save);
+	return (close(node->fd_in), free(res), save);
 }

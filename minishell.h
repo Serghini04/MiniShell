@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/26 10:41:44 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/26 11:45:05 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,7 @@ void	if_failing(void);
 int		is_red(t_list *c);
 int		len_var(char *str);
 void	ft_env(char **env);
+void	handl_sig(int sig);
 int		check_token(char c);
 void	ft_pwd(char **env);
 int		find_space(char *s);

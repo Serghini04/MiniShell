@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/26 10:33:44 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/26 14:24:33 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,6 @@ void	run_cmd(t_mini *data, t_env **env)
 		(data)->cmd_path = (data)->cmd[0];
 	else
 		(data)->cmd_path = find_path((data)->cmd[0], (data)->env);
-	if (!(data)->cmd_path && !ft_is_built_in(data))
-	{
-		ft_putstr_fd("bash: ", 2);
-		ft_putstr_fd((data)->cmd[0], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		clear_t_mini(&data);
-		exit(127);
-	}
 	if (ft_is_built_in(data))
 	{
 		ft_execute_buitl_in(data, env);
@@ -115,12 +107,25 @@ int	ft_handel_prossid(t_mini *data, t_fd *fd, int i, t_env **lin_env)
 	return (1);
 }
 
+void	attribute_quit(struct termios save)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag = ~NOFLSH;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &save);
+}
+
 void	main_process(t_mini	*data, t_env **lin_env, struct termios *term)
 {
-	t_fd	fd;
-	int		i;
-	int		size;
+	t_fd			fd;
+	int				i;
+	int				size;
+	extern int		g_sig_global;
+	struct termios	saver;
 
+	tcgetattr(STDIN_FILENO, &saver);
 	i = 0;
 	fd.fdin = 0;
 	size = ft_lstsize(data);
@@ -131,6 +136,8 @@ void	main_process(t_mini	*data, t_env **lin_env, struct termios *term)
 	if (!fd.pid)
 		return ;
 	free_arr(data->env);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	while (data)
 	{
 		data->env = creat_tabenv(*lin_env);
@@ -140,6 +147,9 @@ void	main_process(t_mini	*data, t_env **lin_env, struct termios *term)
 		(free_arr(data->env), red_fd_parent(&fd), data = data->next);
 		i++;
 	}
+	signal(SIGINT, handl_sig);
+	signal(SIGQUIT, SIG_IGN);
 	(return_status(fd.pid, i - 1), free (fd.pid));
-	tcsetattr(STDIN_FILENO, TCSANOW, term);
+	if (ft_atoi(save_exit_status(NULL)) == 131)
+		attribute_quit(saver);
 }
