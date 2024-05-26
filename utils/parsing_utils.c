@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:01:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/25 23:12:45 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:45:42 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void fn(int c)
 {
 	extern int g_sig_global;
 	(void)c;
-	// write(1, "\n", 1);
 	close(0);
 	g_sig_global = -1;
 	save_exit_status(ft_strdup("1"));

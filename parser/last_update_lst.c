@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/25 22:06:39 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:20:57 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_mini	*add_cmd_to_lst(t_list *i)
 		i = i->next;
 	}
 	dup2(fd, 0);
-	return (close(fd), g_sig_global = 0, node->cmd[index] = NULL, node);
+	return (g_sig_global = 0, close(fd), node->cmd[index] = NULL, node);
 }
 
 t_mini	*last_update_lst(t_list *head)
