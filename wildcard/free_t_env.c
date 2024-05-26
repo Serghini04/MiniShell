@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   free_t_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:05:18 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/23 10:06:42 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:41:55 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void	ft_clearlist_env(t_env **head)
+{
+	t_env	*tmp;
+
+	tmp = *head;
+	while (tmp)
+	{
+		free(tmp->content);
+		tmp = tmp->next;
+	}
+	*head = NULL;
+}
 int	need_to_exp_wildards(char *str)
 {
 	int	i;

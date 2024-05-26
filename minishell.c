@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/25 10:48:39 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:47:20 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	ft_handel_aergs(int ac, char **av, struct termios *term, t_env **head)
 	save_exit_status(ft_strdup("0"));
 	rl_catch_signals = 0;
 }
-
 int	main(int ac, char **av, char **env)
 {
 	t_mini			*data;
@@ -73,7 +72,7 @@ int	main(int ac, char **av, char **env)
 	{
 		res = readline("hi me>> ");
 		if (!res)
-			return (ft_putstr_fd("exit\n", 2), 1);
+			return (ft_clearlist_env(&head),ft_putstr_fd("exit\n", 2), 1);
 		if (*res)
 			add_history(res);
 		save_env(head);
