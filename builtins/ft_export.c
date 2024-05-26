@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:57:33 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/24 13:54:27 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/25 23:10:38 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	check_input(char *name, int *flag)
 		ft_putstr_fd("bash: export: `", 2);
 		ft_putstr_fd(name, 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
+		save_exit_status(ft_strdup("1"));
 		return (0);
 	}
 	return (1);
@@ -52,6 +53,7 @@ int	is_valid(char *name)
 		ft_putstr_fd("bash: export: `", 2);
 		write(2, &name[0], 2);
 		ft_putstr_fd("': invalid option\n", 2);
+		save_exit_status(ft_strdup("1"));
 		return (0);
 	}
 	else

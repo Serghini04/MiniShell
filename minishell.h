@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/25 10:34:54 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/26 00:49:58 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_free
 // lib ...
 char	*ft_itoa(int n);
 void	free_node(t_list *node);
+int		ft_isdigit(char *str);
 int		ft_atoi(const char *str);
 int		ft_lstsize(t_mini	*lst);
 void	clear_lst(t_list **lst);
@@ -179,7 +180,6 @@ int		is_q(int c);
 int		len(char **cmd);
 void	if_failing(void);
 int		is_red(t_list *c);
-void	handl_sig(int sig);
 int		len_var(char *str);
 void	ft_env(char **env);
 int		check_token(char c);

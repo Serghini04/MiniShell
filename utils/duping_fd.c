@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:56:54 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/24 09:08:18 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/26 00:35:22 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ void	duping_fd(t_mini *data, t_fd *fd)
 	fd->p_fdin = dup(0);
 	fd->p_fdout = dup(1);
 	if ((data)->fd_in == -1 || (data)->fd_out == -1)
-		return (ft_putstr_fd("bash: No such file or directory\n", 2));
+	{
+		save_exit_status(ft_strdup("1"));
+		ft_putstr_fd("bash: No such file or directory\n", 2);
+	}
 	if (data->fd_in > 0 || fd->fdin > 0)
 	{
 		if (data->fd_in > 1)

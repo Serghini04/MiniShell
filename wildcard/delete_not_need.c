@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_not_need.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:00:44 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/23 10:34:10 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:22:16 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_env	*delete_not_need_part2(char *name_var, t_env **head)
 int	check_node(t_list *h, int *need_split)
 {
 	need_split = 0;
-	if (h->exp_wildcard && ft_strchr(h->wrd, '*'))
+	if (h && h->exp_wildcard && ft_strchr(h->wrd, '*'))
 	{
 		*need_split = 1;
 		h->wrd = replace_wildcards(h->wrd);

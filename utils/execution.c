@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/25 10:45:03 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/26 10:33:44 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_execut_cmd(t_mini *data)
 void	run_cmd(t_mini *data, t_env **env)
 {
 	if (!data->cmd[0])
-		exit(1);
+		exit(EXIT_SUCCESS);
 	if (ft_strchr((data)->cmd[0], '/'))
 		(data)->cmd_path = (data)->cmd[0];
 	else
@@ -130,9 +130,9 @@ void	main_process(t_mini	*data, t_env **lin_env, struct termios *term)
 	fd.pid = malloc(size * sizeof(pid_t));
 	if (!fd.pid)
 		return ;
+	free_arr(data->env);
 	while (data)
 	{
-		free_arr(data->env);
 		data->env = creat_tabenv(*lin_env);
 		(duping_fd(data, &fd), fd.pid[i] = fork());
 		if (!ft_handel_prossid(data, &fd, i, lin_env))

@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:02:57 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/24 09:21:52 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/26 00:46:21 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ void	ft_echo(t_mini	*data)
 	int	i;
 	int	v;
 
+	if (data->fd_in < 0)
+	{
+		ft_putstr_fd("bash : No such file or directory", 2);
+		save_exit_status(ft_strdup("1"));
+	}
 	if (!ft_handel_input(data, &i, &v))
 		return ;
 	while (data->cmd[i])
