@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/26 14:25:10 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/26 14:57:00 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void f(void)
 {
 	system ("leaks minishell");
 }
-
 int	main(int ac, char **av, char **env)
 {
 	struct termios	term;
@@ -74,7 +73,7 @@ int	main(int ac, char **av, char **env)
 	{
 		res = readline("hi me>> ");
 		if (!res)
-			return (ft_putstr_fd("exit\n", 2), ft_atoi(save_exit_status(0)));
+			return (ft_clearlist_env(&head), ft_putstr_fd("exit\n", 2), 1);
 		if (*res)
 			add_history(res);
 		save_env(head);

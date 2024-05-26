@@ -6,12 +6,27 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:05:18 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/25 16:00:43 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/26 14:56:01 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void	ft_clearlist_env(t_env **head)
+{
+	t_env	*tmp;
+	t_env	*swap;
+
+	tmp = *head;
+	while (tmp)
+	{
+		swap = tmp->next;
+		free(tmp->content);
+		free(tmp);
+		tmp = swap;
+	}
+	*head = NULL;
+}
 int	need_to_exp_wildards(char *str)
 {
 	int	i;

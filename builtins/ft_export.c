@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:57:33 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/25 12:27:05 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/26 14:57:52 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	is_valid(char *name)
 		ft_putstr_fd("bash: export: `", 2);
 		write(2, &name[0], 2);
 		ft_putstr_fd("': invalid option\n", 2);
+		save_exit_status(ft_strdup("1"));
 		return (0);
 	}
 	else

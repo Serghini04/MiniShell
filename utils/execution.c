@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/25 23:26:29 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/26 14:57:28 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,6 @@ void	run_cmd(t_mini *data, t_env **env)
 		(data)->cmd_path = (data)->cmd[0];
 	else
 		(data)->cmd_path = find_path((data)->cmd[0], (data)->env);
-	if (!(data)->cmd_path && !ft_is_built_in(data))
-	{
-		ft_putstr_fd("bash: ", 2);
-		ft_putstr_fd((data)->cmd[0], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		clear_t_mini(&data);
-		exit(127);
-	}
 	if (ft_is_built_in(data))
 	{
 		ft_execute_buitl_in(data, env);
@@ -127,10 +119,10 @@ void	attribute_quit(struct termios save)
 
 void	main_process(t_mini	*data, t_env **lin_env, struct termios *term)
 {
-	t_fd	fd;
-	int		i;
-	int		size;
-	extern int g_sig_global;
+	t_fd			fd;
+	int				i;
+	int				size;
+	extern int		g_sig_global;
 	struct termios	saver;
 
 	tcgetattr(STDIN_FILENO, &saver);

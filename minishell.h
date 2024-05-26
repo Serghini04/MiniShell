@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/26 14:00:02 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/26 14:57:09 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_free
 char	*ft_itoa(int n);
 int		is_heredoc_open(int nb);
 void	free_node(t_list *node);
+int		ft_isdigit(char *str);
 int		ft_atoi(const char *str);
 int		ft_lstsize(t_mini	*lst);
 void	clear_lst(t_list **lst);
@@ -134,6 +135,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 
 //wildcard
+void	ft_clearlist_env(t_env **head);
 int		wildcards_part(t_list **head);
 char	*replace_wildcards(char *line);
 int		need_to_exp_wildards(char *str);
@@ -180,9 +182,9 @@ int		is_q(int c);
 int		len(char **cmd);
 void	if_failing(void);
 int		is_red(t_list *c);
-void	handl_sig(int sig);
 int		len_var(char *str);
 void	ft_env(char **env);
+void	handl_sig(int sig);
 int		check_token(char c);
 void	ft_pwd(char **env);
 int		find_space(char *s);
