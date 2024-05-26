@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/26 10:20:57 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/26 14:36:11 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	open_file(t_list *i, t_mini *node)
 	}
 }
 
-t_mini	*add_cmd_to_lst(t_list *i)
+t_mini	*add_cmd_to_lst(t_list *i, int *hand_signal)
 {
 	extern int	g_sig_global;
 	t_mini		*node;
@@ -55,7 +55,7 @@ t_mini	*add_cmd_to_lst(t_list *i)
 	if (!node->cmd)
 		return (free(node), NULL);
 	fd = dup(0);
-	while (i && i->token != t_pipe)
+	while (!*hand_signal && i && i->token != t_pipe)
 	{
 		if (is_red(i))
 		{
@@ -68,6 +68,8 @@ t_mini	*add_cmd_to_lst(t_list *i)
 		}
 		else if (i->wrd)
 			node->cmd[index++] = ft_strdup(i->wrd);
+		if (g_sig_global == -1)
+			*hand_signal = 1;
 		i = i->next;
 	}
 	dup2(fd, 0);
@@ -79,19 +81,23 @@ t_mini	*last_update_lst(t_list *head)
 	t_mini	*data;
 	t_list	*i;
 	t_list	*s;
+	int		hand_signal;
 
 	i = head;
 	s = head;
+	hand_signal = 0;
 	data = NULL;
 	while (i)
 	{
 		if (i->token == t_pipe)
 		{
-			add_back_t_mini(&data, add_cmd_to_lst(s));
+			add_back_t_mini(&data, add_cmd_to_lst(s, &hand_signal));
 			s = i->next;
 		}
 		i = i->next;
 	}
-	add_back_t_mini(&data, add_cmd_to_lst(s));
+	add_back_t_mini(&data, add_cmd_to_lst(s, &hand_signal));
+	if (hand_signal)
+		clear_t_mini(&data);
 	return (data);
 }

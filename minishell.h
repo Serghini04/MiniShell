@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/25 11:21:46 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/26 14:00:02 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int		len_q(char *input, int c);
 void	join_empty_wrd(t_list *i);
 int		join_qoute(t_list **head);
 int		join_qoute(t_list **head);
-t_mini	*add_cmd_to_lst(t_list *i);
+t_mini	*add_cmd_to_lst(t_list *i, int *hand_signal);
 char	*my_getenv(char	*name_var);
 void	close_if_open(int fd, int nb);
 int		checking_syntax(t_list **head);
