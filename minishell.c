@@ -6,11 +6,13 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/26 14:57:00 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:23:27 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//double free echo * *.
 
 int	g_sig_global;
 
@@ -73,14 +75,14 @@ int	main(int ac, char **av, char **env)
 	{
 		res = readline("hi me>> ");
 		if (!res)
-			return (ft_clearlist_env(&head), ft_putstr_fd("exit\n", 2), 1);
+			return (ft_clearlist_env(&head), atexit(f),ft_putstr_fd("exit\n", 2), 1);
 		if (*res)
 			add_history(res);
 		save_env(head);
-		g_sig_global = 0;
 		data = parsing_part(res);
 		if (data)
 		{
+			g_sig_global = 0;
 			main_process(data, &head, &term);
 			clear_t_mini(&data);
 		}

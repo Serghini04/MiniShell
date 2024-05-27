@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:05:18 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/26 14:56:01 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/27 10:46:18 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_clearlist_env(t_env **head)
 	}
 	*head = NULL;
 }
+
 int	need_to_exp_wildards(char *str)
 {
 	int	i;
@@ -58,4 +59,14 @@ void	free_t_env(t_env **env, int free_content)
 		h = swap;
 	}
 	env = NULL;
+}
+
+void	fn(int c)
+{
+	extern int	g_sig_global;
+
+	(void)c;
+	close(0);
+	g_sig_global = -1;
+	save_exit_status(ft_strdup("1"));
 }

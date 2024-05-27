@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:20:02 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/26 14:57:20 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:20:57 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,21 @@ void	open_file(t_list *i, t_mini *node)
 	}
 }
 
+int	init_new_node(int *index, t_mini **node, int *fd, t_list *i)
+{
+	*index = 0;
+	*node = create_node();
+	if (!*node)
+		return (-1);
+	(*node)->cmd = malloc(sizeof(char *) * (len_cmd(i) + 1));
+	if (!(*node)->cmd)
+		return (free(*node), 0);
+	*fd = dup(0);
+	if (*fd == -1)
+		return (free((*node)->cmd), free(*node), -1);
+	return (0);
+}
+
 t_mini	*add_cmd_to_lst(t_list *i, int *hand_signal)
 {
 	extern int	g_sig_global;
@@ -48,13 +63,8 @@ t_mini	*add_cmd_to_lst(t_list *i, int *hand_signal)
 	int			fd;
 	int			index;
 
-	(1) && (index = 0, node = create_node());
-	if (!node)
+	if (init_new_node(&index, &node, &fd, i) == -1)
 		return (NULL);
-	node->cmd = malloc(sizeof(char *) * (len_cmd(i) + 1));
-	if (!node->cmd)
-		return (free(node), NULL);
-	fd = dup(0);
 	while (!*hand_signal && i && i->token != t_pipe)
 	{
 		if (is_red(i))
@@ -72,8 +82,7 @@ t_mini	*add_cmd_to_lst(t_list *i, int *hand_signal)
 			*hand_signal = 1;
 		i = i->next;
 	}
-	dup2(fd, 0);
-	return (g_sig_global = 0, close(fd), node->cmd[index] = NULL, node);
+	return (last_update_node(&fd, &node, &index));
 }
 
 t_mini	*last_update_lst(t_list *head)

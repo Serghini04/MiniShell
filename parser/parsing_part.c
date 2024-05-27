@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/26 13:55:04 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:21:28 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ void	add_split_lst(char **cmd, t_list **head, t_list **root)
 	}
 	last = last_lst(new_head);
 	(1) && (swap = (*head), last->next = (*head)->next);
+	((*head)->next) && ((*head)->next->prv = last);
 	if ((*head)->prv)
 		(*head)->prv->next = new_head;
 	else
 		(*root) = new_head;
-	free_arr(cmd);
 	(*head) = (*head)->next;
-	free_node(swap);
+	(free_arr(cmd), free_node(swap));
 }
 
 t_mini	*parsing_part(char *line)
@@ -86,4 +86,21 @@ t_mini	*parsing_part(char *line)
 	data = last_update_lst(head);
 	clear_lst(&head);
 	return (data);
+}
+
+t_mini	*last_update_node(int *fd, t_mini **node, int *index)
+{
+	extern int	g_sig_global;
+
+	g_sig_global = 0;
+	(*node)->cmd[*index] = NULL;
+	if (dup2(*fd, 0) == -1)
+	{
+		close(*fd);
+		free_arr((*node)->cmd);
+		free(*node);
+		return (NULL);
+	}
+	close(*fd);
+	return (*node);
 }

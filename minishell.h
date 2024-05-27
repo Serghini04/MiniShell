@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/26 14:57:09 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:22:01 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ typedef struct s_free
 
 // lib ...
 char	*ft_itoa(int n);
-int		is_heredoc_open(int nb);
 void	free_node(t_list *node);
 int		ft_isdigit(char *str);
 int		ft_atoi(const char *str);
@@ -148,6 +147,7 @@ t_env	*delete_not_need(char *name_var, t_env **head);
 t_env	*save_find_dir(char	*name_wildcard, t_env **head);
 t_env	*delete_not_need_part2(char *name_var, t_env **head);
 t_env	*delete_not_need_middle(char *name_var, t_env **head);
+t_mini	*last_update_node(int *fd, t_mini **node, int *index);
 
 //parser
 int		is_var(int c);
@@ -178,6 +178,7 @@ char	*save_exit_status(char *res);
 int		ft_check_if_builtin(t_mini *data, t_fd	*fd, t_env **env);
 
 //utils
+void	fn(int c);
 int		is_q(int c);
 int		len(char **cmd);
 void	if_failing(void);
