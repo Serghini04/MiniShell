@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 11:41:40 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/27 14:12:29 by hidriouc         ###   ########.fr       */
+/*   Created: 2024/05/26 16:00:38 by hidriouc          #+#    #+#             */
+/*   Updated: 2024/05/27 10:39:25 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_isdigit(char *str)
+int	ft_builtins(t_mini *data, t_env *lin_env, struct termios *saver, t_fd *fd)
 {
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-	{
-		if (!(str[i] >= '0' && str[i] <= '9'))
-			return (0);
-		i++;
-	}
-	return (1);
+	fd->fdin = 0;
+	tcgetattr(STDIN_FILENO, saver);
+	data->env = creat_tabenv(lin_env);
+	if (ft_check_if_builtin(data, fd, &lin_env) && !data->next)
+		return (red_fd_parent(fd), 1);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	return (0);
 }

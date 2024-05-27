@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:51:42 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/24 14:01:17 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/27 12:18:38 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,12 @@ void	ft_cd(t_mini *data, t_env *env)
 		save_exit_status(ft_strdup("1"));
 		return (free(old_path));
 	}
-	else
+	else if(ft_strcmp(data->env[5], "HOME=/Users/hidriouc") == 0 || data->cmd[1])
 		ft_changedir(new_path, old_path, &head);
+	else
+	{
+		ft_putstr_fd("bash: cd: HOME not set\n", 2);
+		save_exit_status(ft_strdup("1"));
+	}
 	free(new_path);
 }

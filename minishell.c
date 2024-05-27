@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/26 14:57:00 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:15:35 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_handel_aergs(int ac, char **av, struct termios *term, t_env **head)
 {
 	(void)av;
 	*head = NULL;
-	if (ac != 1 || !isatty(0))
+	if (ac != 1)
 	{
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd(av[1], 2);
@@ -66,7 +66,7 @@ int	main(int ac, char **av, char **env)
 	char			*res;
 	t_env			*head;
 
-	data = NULL;;
+	data = NULL;
 	ft_handel_aergs(ac, av, &term, &head);
 	creat_myenv(&head, env);
 	while (1)
@@ -85,6 +85,5 @@ int	main(int ac, char **av, char **env)
 			clear_t_mini(&data);
 		}
 	}
-	atexit(f);
 	return (0);
 }
