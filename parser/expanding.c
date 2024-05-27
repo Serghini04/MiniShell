@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:19:04 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/27 17:00:51 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:16:58 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	check_first_node(t_list **i, t_list **head)
 			}
 		}
 	}
-	print_lst(*head);
 	return (1);
 }
 
