@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:51:42 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/27 12:18:38 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:09:58 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,18 @@ void	ft_changedir(char *new_path, char	*old_path, t_env **head)
 	free(tmp);
 }
 
+void	ft_chek(t_mini *data, char *new_path, char *old_path, t_env *head)
+{
+	if (ft_strcmp(data->env[5], "HOME=/Users/hidriouc") == 0
+		|| data->cmd[1])
+		ft_changedir(new_path, old_path, &head);
+	else
+	{
+		ft_putstr_fd("bash: cd: HOME not set\n", 2);
+		save_exit_status(ft_strdup("1"));
+	}
+}
+
 void	ft_cd(t_mini *data, t_env *env)
 {
 	char	*new_path;
@@ -79,12 +91,7 @@ void	ft_cd(t_mini *data, t_env *env)
 		save_exit_status(ft_strdup("1"));
 		return (free(old_path));
 	}
-	else if(ft_strcmp(data->env[5], "HOME=/Users/hidriouc") == 0 || data->cmd[1])
-		ft_changedir(new_path, old_path, &head);
 	else
-	{
-		ft_putstr_fd("bash: cd: HOME not set\n", 2);
-		save_exit_status(ft_strdup("1"));
-	}
+		ft_chek(data, new_path, old_path, env);
 	free(new_path);
 }

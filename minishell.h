@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/27 12:22:35 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:47:14 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,18 +216,8 @@ void	ft_unset(char *str, t_env	**head);
 void	ft_cd(t_mini *data, t_env *env);
 int		ft_is_built_in(t_mini *data);
 int		ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env);
-int		ft_builtins(t_mini *data, t_env *lin_env, struct termios	*saver, t_fd *fd);
-void	ft_creat_pross(t_mini *data, t_fd *fd, t_env **lin_env, struct termios	*saver);
+void	ft_creat_pross(t_mini *data, t_fd *fd, t_env **env, struct termios *s);
 int		ft_handel_prossid(t_mini *data, t_fd *fd, int i, t_env **lin_env);
 void	main_process(t_mini	*data, t_env **lin_env, struct termios *term);
 
 #endif
-
-
-// unset HOME+=       :: bash: unset: `HOME+=': not a valid identifier ✅
-// unset HOME   :: when using cd should dispaly an error like this -----> bash: cd: HOME not set✅
-// update status in echo { try this and should exit status be 0 : exit 4 5 (enter) , echo somthing (enter), echo $? (should now be 0)}
-// exit t 5 : should exit the program 
-//  exit 18446744073709551616 ---> bash: exit: 18446744073709551616: numeric argument required
-// in part siganls:
-// try : cat | cat | cat | ls  and click CTR-C , should dispal the prompte, here is your result(hi me>> hi me>>);

@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 11:59:58 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/27 11:47:09 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:12:06 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_unset(char *str, t_env	**head)
 	t_env	*tmp;
 	int		i;
 
-	if (!head || !*head || !str || !*str|| !ft_handelinput(str))
+	if (!head || !*head || !str || !*str || !ft_handelinput(str))
 		return ;
 	tmp = (*head);
 	i = 0;

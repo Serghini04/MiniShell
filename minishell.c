@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/27 11:15:35 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:04:27 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,6 @@ void	ft_handel_aergs(int ac, char **av, struct termios *term, t_env **head)
 	tcsetattr(STDIN_FILENO, TCSANOW, term);
 }
 
-void f(void)
-{
-	system ("leaks minishell");
-}
 int	main(int ac, char **av, char **env)
 {
 	struct termios	term;
@@ -77,11 +73,11 @@ int	main(int ac, char **av, char **env)
 		if (*res)
 			add_history(res);
 		save_env(head);
-		g_sig_global = 0;
 		data = parsing_part(res);
 		if (data)
 		{
-			main_process(data, &head, &term);
+			g_sig_global = 1;
+			(main_process(data, &head, &term), g_sig_global = 0);
 			clear_t_mini(&data);
 		}
 	}

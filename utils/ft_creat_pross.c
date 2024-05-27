@@ -6,13 +6,13 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 09:53:18 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/27 10:22:35 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:47:43 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_creat_pross(t_mini *data, t_fd *fd, t_env **l_env, struct termios *s)
+void	ft_creat_pross(t_mini *data, t_fd *fd, t_env **env, struct termios *s)
 {
 	int	size;
 	int	i;
@@ -24,9 +24,9 @@ void	ft_creat_pross(t_mini *data, t_fd *fd, t_env **l_env, struct termios *s)
 		return ;
 	while (data)
 	{
-		data->env = creat_tabenv(*l_env);
+		data->env = creat_tabenv(*env);
 		(duping_fd(data, fd), fd->pid[i] = fork());
-		if (!ft_handel_prossid(data, fd, i, l_env))
+		if (!ft_handel_prossid(data, fd, i, env))
 			break ;
 		(free_arr(data->env), red_fd_parent(fd), data = data->next);
 		i++;

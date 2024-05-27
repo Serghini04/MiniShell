@@ -6,13 +6,13 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:02:57 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/27 15:10:34 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:19:11 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_handel_input(t_mini *data, int *i, int *v)
+int	ft_handel_in(t_mini *data, int *i, int *v)
 {
 	int	j;
 
@@ -44,7 +44,7 @@ void	ft_echo(t_mini	*data)
 	int	i;
 	int	v;
 
-	if (!ft_handel_input(data, &i, &v))
+	if (!ft_handel_in(data, &i, &v))
 		return ;
 	while (data->cmd[i])
 	{
