@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/27 17:04:27 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/28 11:48:36 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	handl_sig(int sig)
 	if (g_sig_global == 0)
 	{
 		write (1, "\n", 1);
-		rl_on_new_line();
+		rl_on_new_line(); 
 		rl_replace_line("", 0);
 		rl_redisplay();
 		save_exit_status(ft_strdup("1"));
@@ -44,15 +44,17 @@ void	ft_handel_aergs(int ac, char **av, struct termios *term, t_env **head)
 	{
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd(av[1], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		ft_putstr_fd(": whithout argumments please !!\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	tcgetattr(STDIN_FILENO, term);
+	if (tcgetattr(STDIN_FILENO, term) != 0)
+        perror("tcgetattr() error");
 	signal(SIGINT, handl_sig);
 	signal(SIGQUIT, SIG_IGN);
 	save_exit_status(ft_strdup("0"));
 	rl_catch_signals = 0;
-	tcsetattr(STDIN_FILENO, TCSANOW, term);
+	if (tcsetattr(STDIN_FILENO, TCSANOW, term) != 0)
+		 perror("tcgetattr() error");
 }
 
 int	main(int ac, char **av, char **env)
