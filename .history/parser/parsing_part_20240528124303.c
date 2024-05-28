@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/28 15:03:23 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/28 12:43:04 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,17 @@ void	add_split_lst(char **cmd, t_list **head, t_list **root)
 	t_list	*swap;
 	int		i;
 
-	(1) && (i = 0, new_head = NULL);
+	i = 0;
+	new_head = NULL;
 	while (cmd[i])
 	{
 		node = new_node(ft_strdup(cmd[i]), t_word);
+		if (!node)
+		{
+			(*head) = (*head)->next;
+			free_arr(cmd);
+			return ;
+		}
 		if (!i)
 			node->is_sp = (*head)->is_sp;
 		add_back(&new_head, node);

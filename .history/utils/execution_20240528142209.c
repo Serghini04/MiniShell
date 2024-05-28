@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/28 15:30:01 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:22:10 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,22 +103,18 @@ int	ft_handel_prossid(t_mini *data, t_fd *fd, int i, t_env **lin_env)
 		exit(EXIT_SUCCESS);
 	}
 	else if (fd->pid[i] < 0)
-	{
-		free_arr(data->env);
-		close (fd->fdin);
-		perror("fork");
-		red_fd_parent(fd);
-		return (0);
-	}
+		return (close (fd->fdin), perror("fork"), red_fd_parent(fd), 0);
 	return (1);
 }
 
 void	main_process(t_mini	*data, t_env **lin_env, struct termios *term)
 {
 	t_fd			fd;
+	int				size;
 	extern int		g_sig_global;
 
 	fd.fdin = 0;
+	size = ft_lstsize(data);
 	data->env = creat_tabenv(*lin_env);
 	if (ft_check_if_builtin(data, &fd, lin_env) && !data->next)
 		return (tcsetattr(STDIN_FILENO, TCSANOW, term), red_fd_parent(&fd));

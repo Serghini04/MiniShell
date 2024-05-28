@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:01:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/26 14:55:42 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:30:02 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,6 @@ int	open_here_doc_file(int *save, int *fd_in)
 		return (printf("bash: open here_doc error\n"), close(*fd_in), -1);
 	unlink("/tmp/my_f");
 	return (*save);
-}
-
-void fn(int c)
-{
-	extern int g_sig_global;
-	(void)c;
-	close(0);
-	g_sig_global = -1;
-	save_exit_status(ft_strdup("1"));
 }
 
 int	part_heredoc(t_list *i, t_mini *node)

@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:05:18 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/27 10:39:43 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:28:49 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,14 @@ void	free_t_env(t_env **env, int free_content)
 		h = swap;
 	}
 	env = NULL;
+}
+
+void	fn(int c)
+{
+	extern int	g_sig_global;
+
+	(void)c;
+	close(0);
+	g_sig_global = -1;
+	save_exit_status(ft_strdup("1"));
 }

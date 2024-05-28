@@ -6,13 +6,13 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 09:53:18 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/28 15:12:51 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:12:50 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_creat_pross(t_mini *data, t_fd *fd, t_env **env, struct termios *s)
+void	ft_create_pross(t_mini *data, t_fd *fd, t_env **env, struct termios *s)
 {
 	int	size;
 	int	i;

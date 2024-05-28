@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:06:58 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/28 15:07:10 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:07:04 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	return_status(int *tb, int nb_pids)
 	if (WIFSIGNALED(ret))
 	{
 		res = ft_itoa(128 + WTERMSIG(ret));
-		if (WTERMSIG(ret) == 2)
+		if (WTERMSIG(ret) == SIGQUIT)
 			ft_putstr_fd("\n", 1);
-		if (WTERMSIG(ret) == 3)
+		if (WTERMSIG(ret) == 2)
 			ft_putstr_fd("Quit: 3\n", 1);
 	}
 	else

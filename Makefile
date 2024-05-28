@@ -6,12 +6,9 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/05/28 10:08:09 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/05/28 12:34:45 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-# //==> check if all good.
-# // done.
 
 lib = lib/ft_strdup.c lib/str_join.c lib/ft_strlen.c lib/ft_strtrim.c lib/ft_atoi.c\
 	lib/ft_substr.c lib/all_list.c lib/ft_split.c lib/all_new_list.c lib/ft_strcmp.c\
@@ -70,12 +67,6 @@ fclean : clean
 
 re : fclean all
 
-# cat << op << op << op <<<< op
-# export a export a
-# export a+=bb
-# export +==
-# unset last one
-# Replace 'mehdi' with your branch name before executing.
 push : fclean
 	@git add .
 	@read -p "Enter commit message: " msg_push; \

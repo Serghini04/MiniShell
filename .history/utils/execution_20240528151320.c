@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/28 15:30:01 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:13:20 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,7 @@ int	ft_handel_prossid(t_mini *data, t_fd *fd, int i, t_env **lin_env)
 		exit(EXIT_SUCCESS);
 	}
 	else if (fd->pid[i] < 0)
-	{
-		free_arr(data->env);
-		close (fd->fdin);
-		perror("fork");
-		red_fd_parent(fd);
-		return (0);
-	}
+		return (close (fd->fdin), perror("fork"), red_fd_parent(fd), 0);
 	return (1);
 }
 
