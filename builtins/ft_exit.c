@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:47:32 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/27 17:11:39 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:25:42 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_handel_input(t_mini *data, char *status, int *var)
 	return (0);
 }
 
-void	ft_exit(t_mini *data, char *status)
+void	ft_exit(t_mini *data, char *status, int flag)
 {
 	int		var;
 
@@ -50,6 +50,8 @@ void	ft_exit(t_mini *data, char *status)
 	if (ft_handel_input(data, status, &var))
 		return ;
 	clear_t_mini(&data);
-	ft_putstr_fd("exit\n", 1);
+	printf ("%d", ft_lstsize(data));
+	if (flag)
+		ft_putstr_fd("exit\n", 1);
 	exit(var);
 }

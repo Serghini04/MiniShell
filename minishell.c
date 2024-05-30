@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/28 15:31:05 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:15:31 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	handl_sig(int sig)
 	}
 }
 
-void	ft_handel_aergs(int ac, char **av, struct termios *term, t_env **head)
+void	ft_handel_args(int ac, char **av, struct termios *term, t_env **head)
 {
 	(void)av;
 	*head = NULL;
@@ -65,7 +65,7 @@ int	main(int ac, char **av, char **env)
 	t_env			*head;
 
 	data = NULL;
-	ft_handel_aergs(ac, av, &term, &head);
+	ft_handel_args(ac, av, &term, &head);
 	creat_myenv(&head, env);
 	while (1)
 	{
@@ -79,8 +79,8 @@ int	main(int ac, char **av, char **env)
 		data = parsing_part(res);
 		if (data)
 		{
-			(1) && (g_sig_global = 1, main_process(data, &head, &term));
-			(1) && (g_sig_global = 0, clear_t_mini(&data));
+			main_process(data, &head, &term);
+			clear_t_mini(&data);
 		}
 	}
 	return (0);

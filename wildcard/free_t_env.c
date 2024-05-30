@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:05:18 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/28 14:28:49 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/30 11:48:04 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 void	ft_clearlist_env(t_env **head)
 {
 	t_env	*tmp;
-	t_env	*swap;
 
-	tmp = *head;
-	while (tmp)
+	while (*head)
 	{
-		swap = tmp->next;
+		tmp = *head;
+		*head = (*head)->next;
 		free(tmp->content);
 		free(tmp);
-		tmp = swap;
 	}
 	*head = NULL;
 }

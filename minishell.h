@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/28 11:58:52 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:27:40 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void	close_if_open(int fd, int nb);
 int		checking_syntax(t_list **head);
 t_mini	*last_update_lst(t_list *head);
 int		remove_dollar_sign(t_list **head);
-void	ft_exit(t_mini *data, char *status);
+void	ft_exit(t_mini *data, char *status, int flag);
 void	open_file(t_list *i, t_mini *node);
 void	delete_if_empty_wrd(t_list **head);
 char	*split_wrd_and_join(char *s1, char *s2);
@@ -209,7 +209,7 @@ void	creat_myenv(t_env	**head, char **env);
 int		split_cmd(t_list **head);
 void	ft_export(char *name, t_env **head);
 char	*find_path(char *cmd, char **env);
-void	ft_execute_buitl_in(t_mini *data, t_env **env);
+void	ft_execute_buitl_in(t_mini *data, t_env **env, int flag);
 void	return_status(int *tb, int nb_pids);
 int		ft_is_built_in(t_mini *data);
 void	ft_unset(char *str, t_env	**head);
