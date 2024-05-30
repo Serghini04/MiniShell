@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/30 16:27:40 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/30 19:13:47 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ char	*replace_dollar_sing(char *str);
 int		is_expand(int token, int heredoc);
 void	check_malloc_sac(char **all_path);
 void	attribute_quit(struct termios save);
-void	duping_fd(t_mini *data, t_fd *t_fd);
+int		duping_fd(t_mini *data, t_fd *t_fd);
 int		part_heredoc(t_list *i, t_mini *node);
 void	print_error(t_list **head, t_list *i);
 void	creat_myenv(t_env	**head, char **env);
