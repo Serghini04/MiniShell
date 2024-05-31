@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 09:53:18 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/30 16:23:46 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/31 10:19:21 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_creat_pross(t_mini *data, t_fd *fd, t_env **env, struct termios *s)
 	}
 	signal(SIGINT, handl_sig);
 	signal(SIGQUIT, SIG_IGN);
-	(return_status(fd->pid, i - 1), free (fd->pid));
+	(return_status(fd->pid, (i - 1)), free (fd->pid));
 	if (ft_atoi(save_exit_status(NULL)) == 131)
-		attribute_quit(*s);
+		tcsetattr(STDIN_FILENO, TCSAFLUSH, s);
 }
