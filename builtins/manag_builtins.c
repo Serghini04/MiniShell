@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:52:09 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/30 19:18:16 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/31 11:52:56 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env)
 		return (0);
 	if (data->next == NULL && ft_is_built_in(data))
 	{
-		if(duping_fd(data, fd))
+		if (duping_fd(data, fd))
 			ft_execute_buitl_in(data, env, 1);
 		free_arr(data->env);
 		return (1);

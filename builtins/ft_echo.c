@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:02:57 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/30 14:13:59 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/31 10:48:48 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,5 @@ void	ft_echo(t_mini	*data)
 	}
 	if (v == 1)
 		ft_putstr_fd("\n", 1);
-	else
-	{
-		save_exit_status(ft_strdup("1"));
-		return ;
-	}
 	save_exit_status(ft_strdup("0"));
 }

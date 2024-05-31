@@ -6,7 +6,7 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/05/30 15:59:57 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/05/31 10:08:18 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ parser = parser/parsing_part.c parser/tokening.c parser/last_update_lst.c\
 utils = utils/print_error.c utils/is_token.c utils/parsing_utils.c utils/split_cmd.c\
 		utils/execution.c utils/expanding_utils.c utils/duping_fd.c \
 		utils/creat_myenv.c utils/creat_tabenv.c  utils/statut.c \
-		utils/ft_manag_tty.c utils/ft_creat_pross.c
+		utils/ft_creat_pross.c
 
 buliltins = builtins/ft_cd.c builtins/ft_env.c  builtins/ft_echo.c builtins/ft_exit.c\
 		builtins/ft_unset.c  builtins/ft_export.c builtins/manag_builtins.c builtins/ft_pwd.c
@@ -41,7 +41,7 @@ FILE = ${lib} ${parser} ${utils}  ${wildcard} ${buliltins} minishell.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror 
 
 NAME = minishell
 READLINE_L = $(shell brew --prefix readline)/lib
@@ -65,10 +65,4 @@ fclean : clean
 	@echo "${RED}Fully cleaned${STOP_C}"
 
 re : fclean all
-
-push : fclean
-	@git add .
-	@read -p "Enter commit message: " msg_push; \
-	git commit -m "$$msg_push";
-	@git push origin mehdi
-	@echo "${RED}Changes have been pushed${STOP_C}"
+	
