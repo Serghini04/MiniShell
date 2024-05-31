@@ -6,7 +6,7 @@
 #    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/05/27 10:33:01 by meserghi         ###   ########.fr        #
+#    Updated: 2024/05/31 09:59:32 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,12 +69,6 @@ fclean : clean
 
 re : fclean all
 
-# cat << op << op << op <<<< op
-# export a export a
-# export a+=bb
-# export +==
-# unset last one
-# Replace 'mehdi' with your branch name before executing.
 push : fclean
 	@git add .
 	@read -p "Enter commit message: " msg_push; \
