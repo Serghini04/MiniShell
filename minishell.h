@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/27 11:22:01 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/30 19:13:47 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ typedef struct s_free
 }	t_free;
 
 //python3 -c 'print("ls | " * 1000 , end = "ls")' | pbcopy
-/// <""|<""  && <"s"|  a
 
 // lib ...
 char	*ft_itoa(int n);
@@ -166,7 +165,7 @@ void	close_if_open(int fd, int nb);
 int		checking_syntax(t_list **head);
 t_mini	*last_update_lst(t_list *head);
 int		remove_dollar_sign(t_list **head);
-void	ft_exit(t_mini *data, char *status);
+void	ft_exit(t_mini *data, char *status, int flag);
 void	open_file(t_list *i, t_mini *node);
 void	delete_if_empty_wrd(t_list **head);
 char	*split_wrd_and_join(char *s1, char *s2);
@@ -202,20 +201,23 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*replace_dollar_sing(char *str);
 int		is_expand(int token, int heredoc);
 void	check_malloc_sac(char **all_path);
-void	duping_fd(t_mini *data, t_fd *t_fd);
+void	attribute_quit(struct termios save);
+int		duping_fd(t_mini *data, t_fd *t_fd);
 int		part_heredoc(t_list *i, t_mini *node);
 void	print_error(t_list **head, t_list *i);
 void	creat_myenv(t_env	**head, char **env);
 int		split_cmd(t_list **head);
 void	ft_export(char *name, t_env **head);
 char	*find_path(char *cmd, char **env);
-void	ft_execute_buitl_in(t_mini *data, t_env **env);
+void	ft_execute_buitl_in(t_mini *data, t_env **env, int flag);
 void	return_status(int *tb, int nb_pids);
 int		ft_is_built_in(t_mini *data);
 void	ft_unset(char *str, t_env	**head);
 void	ft_cd(t_mini *data, t_env *env);
 int		ft_is_built_in(t_mini *data);
 int		ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env);
+void	ft_creat_pross(t_mini *data, t_fd *fd, t_env **env, struct termios *s);
+int		ft_handel_prossid(t_mini *data, t_fd *fd, int i, t_env **lin_env);
 void	main_process(t_mini	*data, t_env **lin_env, struct termios *term);
 
 #endif

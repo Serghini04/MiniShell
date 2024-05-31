@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_manag_tty.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 11:41:40 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/27 14:12:29 by hidriouc         ###   ########.fr       */
+/*   Created: 2024/05/27 09:44:09 by hidriouc          #+#    #+#             */
+/*   Updated: 2024/05/27 10:37:51 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_isdigit(char *str)
+void	attribute_quit(struct termios save)
 {
-	int	i;
+	struct termios	term;
 
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-	{
-		if (!(str[i] >= '0' && str[i] <= '9'))
-			return (0);
-		i++;
-	}
-	return (1);
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag = ~NOFLSH;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &save);
 }

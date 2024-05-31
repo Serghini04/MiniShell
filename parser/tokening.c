@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokening.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:57:09 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/24 10:08:01 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/31 10:44:32 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	add_singl_double_q(t_list **head, char *input, int *i, int *pos)
 
 	res = ft_strtrim(ft_substr(input, *i, *pos - *i), " \t");
 	if (!res)
-		(clear_lst(head), free(input), free(res), exit(1));
+		return (clear_lst(head), -1);
 	if (*res)
 	{
 		node = new_node(res, t_word);

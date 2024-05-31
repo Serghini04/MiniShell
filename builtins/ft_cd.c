@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 11:51:42 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/24 14:01:17 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/30 18:39:29 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,32 +28,63 @@ char	*ft_tolower(char	*str)
 	return (str);
 }
 
+void	up_pwd_oldpwd(char *tmp, t_env **head, char *old_path)
+{
+	char	*oldpwd;
+	char	*pwd;
+
+	pwd = ft_strjoin("PWD=", tmp);
+	ft_export(pwd, head);
+	free(pwd);
+	if (old_path)
+	{
+		oldpwd = ft_strjoin("OLDPWD=", old_path);
+		ft_export(oldpwd, head);
+		free(oldpwd);
+	}
+	save_exit_status(ft_strdup("0"));
+}
+
 void	ft_changedir(char *new_path, char	*old_path, t_env **head)
 {
-	char	*tmp;
-	char	*pwd;
-	char	*oldpwd;
+	char		*tmp;
+	char		*pwd;
+	static int	s;	
 
 	tmp = NULL;
 	if (chdir(new_path) == 0)
 	{
 		tmp = getcwd(NULL, 0);
 		if (!tmp)
-			perror(tmp);
-		else
 		{
-			pwd = ft_strjoin("PWD=", tmp);
-			oldpwd = ft_strjoin("OLDPWD=", old_path);
-			ft_export(pwd, head);
-			ft_export(oldpwd, head);
-			free(pwd);
-			free(oldpwd);
+			pwd = ft_strjoin("PWD+=", "/..");
+			(ft_export(pwd, head), free(pwd));
+			ft_putstr_fd("bash: cd: ..: No such file or directory\n", 2);
+			if (!s)
+				save_exit_status(ft_strdup("1"));
+			else
+				save_exit_status(ft_strdup("0"));
+			s = 1;
 		}
+		else
+			up_pwd_oldpwd(tmp, head, old_path);
 	}
 	else
 		perror("chdir");
-	free(old_path);
 	free(tmp);
+}
+
+void	ft_chek(t_mini *data, char *new_path, char *old_path, t_env *head)
+{
+	if (ft_strcmp(data->env[5], "HOME=/Users/hidriouc") == 0
+		|| data->cmd[1])
+		ft_changedir(new_path, old_path, &head);
+	else
+	{
+		ft_putstr_fd("bash: cd: HOME not set\n", 2);
+		save_exit_status(ft_strdup("1"));
+	}
+	free(old_path);
 }
 
 void	ft_cd(t_mini *data, t_env *env)
@@ -77,9 +108,9 @@ void	ft_cd(t_mini *data, t_env *env)
 		ft_putstr_fd(new_path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 		save_exit_status(ft_strdup("1"));
-		return (free(old_path));
+		return (free(new_path), free(old_path));
 	}
 	else
-		ft_changedir(new_path, old_path, &head);
+		ft_chek(data, new_path, old_path, env);
 	free(new_path);
 }

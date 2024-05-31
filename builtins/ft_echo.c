@@ -6,13 +6,13 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:02:57 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/26 11:52:39 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/30 14:13:59 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_handel_input(t_mini *data, int *i, int *v)
+int	ft_handel_in(t_mini *data, int *i, int *v)
 {
 	int	j;
 
@@ -42,17 +42,9 @@ int	ft_handel_input(t_mini *data, int *i, int *v)
 void	ft_echo(t_mini	*data)
 {
 	int	i;
-	// int	f;
 	int	v;
 
-	// f = 0;
-	// if (data->fd_in < 0)
-	// {
-	// 	ft_putstr_fd("bash : No such file or directory", 2);
-	// 	f = 1;
-	// 	save_exit_status(ft_strdup("1"));
-	// }
-	if (!ft_handel_input(data, &i, &v))
+	if (!ft_handel_in(data, &i, &v))
 		return ;
 	while (data->cmd[i])
 	{
@@ -63,6 +55,10 @@ void	ft_echo(t_mini	*data)
 	}
 	if (v == 1)
 		ft_putstr_fd("\n", 1);
-	// if (!f)
-	// 	save_exit_status(ft_strdup("0"));
+	else
+	{
+		save_exit_status(ft_strdup("1"));
+		return ;
+	}
+	save_exit_status(ft_strdup("0"));
 }

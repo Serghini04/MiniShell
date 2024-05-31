@@ -3,53 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:47:32 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/26 14:57:45 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:25:42 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_exit(t_mini *data, char *status)
+int	ft_handel_input(t_mini *data, char *status, int *var)
 {
-	int		var;
 	char	**cmd;
 	int		len;
 
-	cmd = data->cmd;
 	len = 0;
-
-	if (status)
-	{
-		if (*status == '+')
-			status++;
-	}
+	cmd = data->cmd;
+	if (status && (*status == '+' || *status == '-' ))
+		status++;
 	while (cmd[len])
 		len++;
-	if (len > 2)
+	if (len > 2 && ft_isdigit(status))
 	{
 		ft_putstr_fd("exit\n", 2);
 		ft_putstr_fd("bash: exit: too many arguments\n", 2);
-		save_exit_status(ft_strdup("1"));
-		return ;
+		return (save_exit_status(ft_strdup("1")), 1);
 	}
-	if (status && !ft_isdigit(status))
+	if (status && ft_isdigit(status) == 0)
 	{
-		ft_putstr_fd("exit\n", 2);
-		ft_putstr_fd("bash: exit: ", 2);
+		(ft_putstr_fd("exit\n", 2), ft_putstr_fd("bash: exit: ", 2));
 		ft_putstr_fd(data->cmd[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
-		if (ft_atoi(status) < 0)
-			var = 156;
-		else
-			var = 255;
+		*var = 255;
 	}
-	else if (status)
-		var = ft_atoi(status) % 256;
-	else
-		var = ft_atoi(save_exit_status(NULL));
+	else if (!var && !status)
+		*var = ft_atoi(save_exit_status(NULL));
+	return (0);
+}
+
+void	ft_exit(t_mini *data, char *status, int flag)
+{
+	int		var;
+
+	if (status)
+		var = ft_atoi(status);
+	if (ft_handel_input(data, status, &var))
+		return ;
 	clear_t_mini(&data);
+	printf ("%d", ft_lstsize(data));
+	if (flag)
+		ft_putstr_fd("exit\n", 1);
 	exit(var);
 }

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/27 11:21:28 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/31 11:14:48 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	add_split_lst(char **cmd, t_list **head, t_list **root)
 	t_list	*swap;
 	int		i;
 
-	i = 0;
-	new_head = NULL;
+	(1) && (i = 0, new_head = NULL);
 	while (cmd[i])
 	{
 		node = new_node(ft_strdup(cmd[i]), t_word);
@@ -76,11 +75,11 @@ t_mini	*parsing_part(char *line)
 	data = NULL;
 	res = ft_strtrim(line, " \t");
 	if (!res)
-		(free(res), exit(1));
+		return (free(line), NULL);
 	head = tokening(res);
 	free(res);
 	if (!head)
-		return (clear_lst(&head), NULL);
+		return (NULL);
 	if (checking_syntax(&head) == -1)
 		return (NULL);
 	data = last_update_lst(head);

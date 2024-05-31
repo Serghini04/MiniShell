@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/26 14:57:28 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:31:20 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	run_cmd(t_mini *data, t_env **env)
 		(data)->cmd_path = find_path((data)->cmd[0], (data)->env);
 	if (ft_is_built_in(data))
 	{
-		ft_execute_buitl_in(data, env);
+		ft_execute_buitl_in(data, env, 0);
 		return ;
 	}
 	else
@@ -103,53 +103,29 @@ int	ft_handel_prossid(t_mini *data, t_fd *fd, int i, t_env **lin_env)
 		exit(EXIT_SUCCESS);
 	}
 	else if (fd->pid[i] < 0)
-		return (close (fd->fdin), perror("fork"), red_fd_parent(fd), 0);
+	{
+		free_arr(data->env);
+		close (fd->fdin);
+		perror("fork");
+		red_fd_parent(fd);
+		return (0);
+	}
 	return (1);
-}
-
-void	attribute_quit(struct termios save)
-{
-	struct termios	term;
-
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag = ~NOFLSH;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &save);
 }
 
 void	main_process(t_mini	*data, t_env **lin_env, struct termios *term)
 {
 	t_fd			fd;
-	int				i;
-	int				size;
 	extern int		g_sig_global;
-	struct termios	saver;
 
-	tcgetattr(STDIN_FILENO, &saver);
-	i = 0;
 	fd.fdin = 0;
-	size = ft_lstsize(data);
+	g_sig_global = 1;
 	data->env = creat_tabenv(*lin_env);
 	if (ft_check_if_builtin(data, &fd, lin_env) && !data->next)
 		return (tcsetattr(STDIN_FILENO, TCSANOW, term), red_fd_parent(&fd));
-	fd.pid = malloc(size * sizeof(pid_t));
-	if (!fd.pid)
-		return ;
 	free_arr(data->env);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
-	while (data)
-	{
-		data->env = creat_tabenv(*lin_env);
-		(duping_fd(data, &fd), fd.pid[i] = fork());
-		if (!ft_handel_prossid(data, &fd, i, lin_env))
-			break ;
-		(free_arr(data->env), red_fd_parent(&fd), data = data->next);
-		i++;
-	}
-	signal(SIGINT, handl_sig);
-	signal(SIGQUIT, SIG_IGN);
-	(return_status(fd.pid, i - 1), free (fd.pid));
-	if (ft_atoi(save_exit_status(NULL)) == 131)
-		attribute_quit(saver);
+	ft_creat_pross(data, &fd, lin_env, term);
+	g_sig_global = 0;
 }
