@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/31 09:47:22 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/01 15:52:43 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	main_process(t_mini	*data, t_env **lin_env, struct termios *term)
 	g_sig_global = 1;
 	data->env = creat_tabenv(*lin_env);
 	if (ft_check_if_builtin(data, &fd, lin_env) && !data->next)
-		return (tcsetattr(STDIN_FILENO, TCSANOW, term), red_fd_parent(&fd));
+		return (g_sig_global = 0, red_fd_parent(&fd));
 	free_arr(data->env);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGINT, SIG_DFL);

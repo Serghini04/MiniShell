@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/30 19:13:47 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/01 17:15:09 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ typedef struct s_free
 	t_mini	**mini;
 	char	*res;
 }	t_free;
-
-//python3 -c 'print("ls | " * 1000 , end = "ls")' | pbcopy
 
 // lib ...
 char	*ft_itoa(int n);
@@ -213,7 +211,7 @@ void	ft_execute_buitl_in(t_mini *data, t_env **env, int flag);
 void	return_status(int *tb, int nb_pids);
 int		ft_is_built_in(t_mini *data);
 void	ft_unset(char *str, t_env	**head);
-void	ft_cd(t_mini *data, t_env *env);
+int		ft_cd(t_mini *data, t_env *env);
 int		ft_is_built_in(t_mini *data);
 int		ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env);
 void	ft_creat_pross(t_mini *data, t_fd *fd, t_env **env, struct termios *s);

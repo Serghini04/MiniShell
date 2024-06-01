@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:52:09 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/31 11:52:56 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/01 17:13:58 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,31 @@ void	sort_env(t_env *env)
 
 void	ft_execute_buitl_in(t_mini *data, t_env **env, int flag)
 {
-	int	i;
+	int		i;
+	char	*ptr;
 
 	i = 1;
-	if (!ft_strcmp(data->cmd[0], "cd"))
-		ft_cd(data, *env);
-	else if (!ft_strcmp(data->cmd[0], "export"))
+	ptr = ft_tolower(ft_strdup(data->cmd[0]));
+	(!ft_strcmp(ptr, "cd") && ft_cd(data, *env));
+	if (!ft_strcmp(ptr, "export"))
 	{
-		if (data->cmd[1])
-			while (data->cmd[i])
-				ft_export(data->cmd[i++], env);
-		else
+		while (data->cmd[i])
+			ft_export(data->cmd[i++], env);
+		if (!data->cmd[1])
 			sort_env(*env);
 	}
-	else if (!ft_strcmp(data->cmd[0], "pwd"))
+	else if (!ft_strcmp(ptr, "pwd"))
 		ft_pwd(data->env);
-	else if (!ft_strcmp(data->cmd[0], "exit"))
+	else if (!ft_strcmp(ptr, "exit"))
 		ft_exit(data, data->cmd[1], flag);
-	else if (!ft_strcmp(data->cmd[0], "echo"))
+	else if (!ft_strcmp(ptr, "echo"))
 		ft_echo(data);
-	else if (!ft_strcmp(data->cmd[0], "env") && !data->cmd[1])
+	else if (!ft_strcmp(ptr, "env") && !data->cmd[1])
 		ft_env(data->env);
 	else if (!ft_strcmp(data->cmd[0], "unset"))
 		while (data->cmd[i])
 			ft_unset(data->cmd[i++], env);
+	free (ptr);
 }
 
 int	ft_is_built_in(t_mini *data)
@@ -98,21 +99,21 @@ int	ft_is_built_in(t_mini *data)
 	if (!data || !data->cmd[0])
 		return (0);
 	ptr = ft_tolower(ft_strdup(data->cmd[0]));
-	if (!ft_strcmp(data->cmd[0], "cd"))
+	if (!ft_strcmp(ptr, "cd"))
 		return (free(ptr), 1);
-	else if (!ft_strcmp(data->cmd[0], "pwd"))
+	else if (!ft_strcmp(ptr, "pwd"))
 		return (free(ptr), 1);
 	else if (!ft_strcmp(data->cmd[0], "unset"))
 		return (free(ptr), 1);
-	else if (!ft_strcmp(data->cmd[0], "exit"))
+	else if (!ft_strcmp(ptr, "exit"))
 		return (free(ptr), 1);
-	else if (!ft_strcmp(data->cmd[0], "env"))
+	else if (!ft_strcmp(ptr, "env"))
 	{
 		if (data->cmd[1])
 			ft_putstr_fd("'env' without argumments please !! \n", 2);
 		return (free(ptr), 1);
 	}
-	else if (!ft_strcmp(data->cmd[0], "export"))
+	else if (!ft_strcmp(ptr, "export"))
 		return (free(ptr), 1);
 	else if (!ft_strcmp(data->cmd[0], "echo"))
 		return (free(ptr), 1);

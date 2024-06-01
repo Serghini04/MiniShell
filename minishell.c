@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/31 13:02:53 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:36:59 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int	main(int ac, char **av, char **env)
 	creat_myenv(&head, env);
 	while (1)
 	{
-		signal(SIGINT, handl_sig);
 		res = readline("hi me>> ");
+		signal(SIGINT, handl_sig);
 		if (!res)
 			return (ft_clearlist_env(&head), ft_putstr_fd("exit\n", 2), 1);
 		if (*res)

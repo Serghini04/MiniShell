@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 08:57:17 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/24 14:09:31 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:24:37 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_pwd(char **env)
 		while (env[i])
 		{
 			if (!ft_strncmp("PWD=", env[i], 4))
-				ft_putstr_fd(env[i], 1);
+				ft_putstr_fd((env[i] + 4), 1);
 			i++;
 		}
 	}
