@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/31 21:36:59 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/01 20:27:22 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_handel_args(int ac, char **av, struct termios *term, t_env **head)
 {
 	(void)av;
 	*head = NULL;
-	if (ac != 1 || !isatty(0))
+	if (ac != 1)
 	{
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd("whithout argumments please !!\n", 2);

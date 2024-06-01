@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:47:32 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/31 11:06:07 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/01 20:44:03 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ void	ft_exit(t_mini *data, char *status, int flag)
 	int		var;
 
 	var = 0;
-	if (status)
-		var = ft_atoi(status);
 	if (ft_handel_input(data, status, &var))
 		return ;
+	if (!var && status)
+		var = ft_atoi(status);
+	free_arr(data->env);
 	clear_t_mini(&data);
 	if (flag)
 		ft_putstr_fd("exit\n", 1);
