@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:57:33 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/31 12:58:04 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/02 10:42:26 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	ft_export(char *name, t_env **head)
 	int		flag;
 	t_env	*tmp;
 
-	if (!is_valid(name))
+	if (!is_valid(name) || !head)
 		return ;
 	tmp = *head;
 	flag = 1;

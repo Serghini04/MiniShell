@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:13:22 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/23 17:18:59 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/02 22:24:35 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ char	**creat_tabenv(t_env *head)
 	tmp = head;
 	while (tmp)
 	{
-		env[i] = ft_strdup(tmp->content);
-		i++;
+		if (ft_strchr(tmp->content, '='))
+			env[i++] = ft_strdup(tmp->content);
 		tmp = tmp->next;
 	}
 	return (env[i] = NULL, env);

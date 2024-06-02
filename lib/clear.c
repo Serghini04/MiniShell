@@ -1,38 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 17:25:19 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/06/02 22:23:57 by hidriouc         ###   ########.fr       */
+/*   Created: 2024/06/02 18:09:04 by hidriouc          #+#    #+#             */
+/*   Updated: 2024/06/02 18:28:42 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	check_malloc_sac(char **all_path)
+void	appell_clear(t_env **head)
 {
-	if (!all_path || !*all_path)
-	{
-		perror("allocation Error !!");
-		exit(EXIT_FAILURE);
-	}
-}
-
-char	*ft_strchr(char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (&s[i]);
-		i++;
-	}
-	return (NULL);
+	ft_clearlist_env(head);
+	ft_putstr_fd("exit\n", 2);
 }

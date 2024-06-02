@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:02:34 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/30 11:49:21 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/02 10:04:37 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ void	creat_myenv(t_env	**head, char **env)
 {
 	int		i;
 	t_env	*tmp;
-	int		flag;
 
 	i = 0;
-	flag = 0;
 	if (!env || !(*env))
 		ft_secoure_env(head, &tmp);
 	else

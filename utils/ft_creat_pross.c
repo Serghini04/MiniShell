@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 09:53:18 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/05/31 10:19:21 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/02 13:05:45 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	ft_creat_pross(t_mini *data, t_fd *fd, t_env **env, struct termios *s)
 		return ;
 	while (data)
 	{
-		data->env = creat_tabenv(*env);
+		data->env = NULL;
+		if (env)
+			data->env = creat_tabenv(*env);
 		(duping_fd(data, fd), fd->pid[i] = fork());
 		if (!ft_handel_prossid(data, fd, i, env))
 			break ;

@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/06/01 15:52:43 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/02 22:16:20 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	run_cmd(t_mini *data, t_env **env)
 		exit(EXIT_SUCCESS);
 	if (ft_strchr((data)->cmd[0], '/'))
 		(data)->cmd_path = (data)->cmd[0];
-	else
+	else if (data->env)
 		(data)->cmd_path = find_path((data)->cmd[0], (data)->env);
 	if (ft_is_built_in(data))
 	{
@@ -120,7 +120,9 @@ void	main_process(t_mini	*data, t_env **lin_env, struct termios *term)
 
 	fd.fdin = 0;
 	g_sig_global = 1;
-	data->env = creat_tabenv(*lin_env);
+	data->env = NULL;
+	if (lin_env)
+		data->env = creat_tabenv(*lin_env);
 	if (ft_check_if_builtin(data, &fd, lin_env) && !data->next)
 		return (g_sig_global = 0, red_fd_parent(&fd));
 	free_arr(data->env);

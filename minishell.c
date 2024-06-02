@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/01 20:27:22 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/02 19:27:17 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,18 @@ void	ft_handel_args(int ac, char **av, struct termios *term, t_env **head)
 {
 	(void)av;
 	*head = NULL;
-	if (ac != 1)
+	rl_catch_signals = 0;
+	if (ac != 1 || !isatty(0))
 	{
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd("whithout argumments please !!\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	if (tcgetattr(STDIN_FILENO, term) != 0)
-		perror("tcgetattr() error");
+		perror("tcgetattr()error");
 	signal(SIGINT, handl_sig);
 	signal(SIGQUIT, SIG_IGN);
 	save_exit_status(ft_strdup("0"));
-	rl_catch_signals = 0;
 	if (tcsetattr(STDIN_FILENO, TCSANOW, term) != 0)
 		perror("tcgetattr() error");
 }
@@ -71,7 +71,7 @@ int	main(int ac, char **av, char **env)
 		res = readline("hi me>> ");
 		signal(SIGINT, handl_sig);
 		if (!res)
-			return (ft_clearlist_env(&head), ft_putstr_fd("exit\n", 2), 1);
+			return (appell_clear(&head), ft_atoi(save_exit_status(NULL)));
 		if (*res)
 			add_history(res);
 		save_env(head);

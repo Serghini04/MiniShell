@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:52:09 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/06/01 17:13:58 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/02 10:41:26 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ void	ft_execute_buitl_in(t_mini *data, t_env **env, int flag)
 
 	i = 1;
 	ptr = ft_tolower(ft_strdup(data->cmd[0]));
-	(!ft_strcmp(ptr, "cd") && ft_cd(data, *env));
+	(env && !ft_strcmp(ptr, "cd") && ft_cd(data, *env));
 	if (!ft_strcmp(ptr, "export"))
 	{
 		while (data->cmd[i])
 			ft_export(data->cmd[i++], env);
-		if (!data->cmd[1])
+		if (!data->cmd[1] && data->env)
 			sort_env(*env);
 	}
 	else if (!ft_strcmp(ptr, "pwd"))
@@ -128,7 +128,8 @@ int	ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env)
 	{
 		if (duping_fd(data, fd))
 			ft_execute_buitl_in(data, env, 1);
-		free_arr(data->env);
+		if (data->env)
+			free_arr(data->env);
 		return (1);
 	}
 	return (0);

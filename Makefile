@@ -6,7 +6,7 @@
 #    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/06/01 16:01:41 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/06/02 18:13:18 by hidriouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ lib = lib/ft_strdup.c lib/str_join.c lib/ft_strlen.c lib/ft_strtrim.c lib/ft_ato
 	lib/ft_substr.c lib/all_list.c lib/ft_split.c lib/all_new_list.c lib/ft_strcmp.c\
 	lib/free_arr.c lib/ft_isspace.c lib/ft_strchr.c lib/ft_strnstr.c lib/ft_putstr_fd.c\
 	lib/ft_lstadd_back.c lib/ft_lstnew.c lib/ft_lstlast.c lib/ft_strncmp.c lib/ft_itoa.c\
-	lib/ft_lstsize.c lib/ft_strjoin.c lib/ft_strstr.c lib/my_split.c lib/ft_isdigit.c
+	lib/ft_lstsize.c lib/ft_strjoin.c lib/ft_strstr.c lib/my_split.c lib/ft_isdigit.c\
+	lib/clear.c
 
 parser = parser/parsing_part.c parser/tokening.c parser/last_update_lst.c\
 	parser/checking_syntax.c parser/join_qoute.c parser/join_qoute_part_two.c\

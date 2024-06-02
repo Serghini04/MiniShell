@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_arr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 18:30:26 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/23 10:14:31 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/06/02 11:04:25 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	free_arr(char **res)
 		i++;
 	}
 	free(res);
+	res = NULL;
 }
 
 void	print_t_mini(t_mini *data)
