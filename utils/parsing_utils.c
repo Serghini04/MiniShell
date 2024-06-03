@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:01:40 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/28 14:30:02 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:02:08 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	part_heredoc(t_list *i, t_mini *node)
 	int			save;
 
 	v = (node->fd_in != -1) * 1;
+	res = NULL;
 	save = open_here_doc_file(&save, &node->fd_in);
 	if (save == -1)
 		return (-1);

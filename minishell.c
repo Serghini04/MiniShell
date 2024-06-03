@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/03 19:12:26 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/06/03 19:14:03 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_handel_args(int ac, char **av, struct termios *term, t_env **head)
 	(void)av;
 	*head = NULL;
 	rl_catch_signals = 0;
-	if (ac != 1 || !isatty(0))
+	if (ac != 1)
 	{
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd("whithout argumments please !!\n", 2);
@@ -68,8 +68,8 @@ int	main(int ac, char **av, char **env)
 	creat_myenv(&head, env);
 	while (1)
 	{
-		res = readline("hi me>> ");
 		signal(SIGINT, handl_sig);
+		res = readline("hi me>> ");
 		if (!res)
 			return (appell_clear(&head), ft_atoi(save_exit_status(NULL)));
 		if (*res)

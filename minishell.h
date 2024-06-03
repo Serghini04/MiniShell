@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/03 13:46:32 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:14:15 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,12 +164,12 @@ void		close_if_open(int fd, int nb);
 int			checking_syntax(t_list **head);
 t_mini		*last_update_lst(t_list *head);
 int			remove_dollar_sign(t_list **head);
-void		ft_exit(t_mini *data, char *status, int flag);
 void		open_file(t_list *i, t_mini *node);
 void		delete_if_empty_wrd(t_list **head);
 char		*split_wrd_and_join(char *s1, char *s2);
 void		skip_or_delete(t_list	**head, t_list **i);
 void		add_split_lst(char **cmd, t_list **head, t_list **root);
+void		ft_exit(t_mini *data, char *status, t_env **env, int flag);
 int			add_token_lst(t_list **head, char *input, int *i, int *s);
 int			add_singl_double_q(t_list **head, char *input, int *i, int *pos);
 char		*save_exit_status(char *res);
