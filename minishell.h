@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:24:48 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/02 18:24:04 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:46:32 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,5 +218,6 @@ int			ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env);
 void		ft_creat_pross(t_mini *ta, t_fd *fd, t_env **ev, struct termios *s);
 int			ft_handel_prossid(t_mini *data, t_fd *fd, int i, t_env **lin_env);
 void		main_process(t_mini	*data, t_env **lin_env, struct termios *term);
+char		*handel_accesspath(char *cmd, char **ev, char *path, char **all_pa);
 
 #endif

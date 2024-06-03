@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 01:49:23 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/06/02 22:16:20 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:39:32 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ char	*find_path(char *cmd, char **env)
 		free(tmp);
 		if (!path)
 			(free_arr(all_paths), perror("allocation ER"), exit(EXIT_FAILURE));
-		if (access(path, F_OK | X_OK) == 0)
-			return (free_arr(all_paths), path);
+		if (handel_accesspath(cmd, env, path, all_paths))
+			return (path);
 		(free(path), path = NULL, i++);
 	}
 	return (free_arr(all_paths), NULL);
