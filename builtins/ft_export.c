@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 11:57:33 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/06/02 10:42:26 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:21:27 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	ft_check_arg(t_env **head, t_env *tmp, char *name, int *flag)
 		== tmp->content[i] && name[i] != '=')
 		i++;
 	if ((tmp->content[i] && tmp->content[i] == '=')
-		|| (name[i] && (name[i] == '=' || name[i] == '+')))
+		&& (name[i] && (name[i] == '=' || name[i] == '+')))
 	{
 		if (!ft_change_arg(tmp, name, flag, &i))
 			return (0);

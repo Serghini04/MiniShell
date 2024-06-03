@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:47:32 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/06/02 18:41:27 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:17:25 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_handel_input(t_mini *data, char *status, long long *var, int *flag)
 	return (0);
 }
 
-void	ft_exit(t_mini *data, char *status, int flag)
+void	ft_exit(t_mini *data, char *status, t_env **l_env, int flag)
 {
 	long long	var;
 
@@ -61,5 +61,7 @@ void	ft_exit(t_mini *data, char *status, int flag)
 	}
 	free_arr(data->env);
 	clear_t_mini(&data);
+	if (!data->next)
+		ft_clearlist_env(l_env);
 	exit(var);
 }

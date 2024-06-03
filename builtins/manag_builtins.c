@@ -6,7 +6,7 @@
 /*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:52:09 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/06/02 10:41:26 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:13:27 by hidriouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_execute_buitl_in(t_mini *data, t_env **env, int flag)
 	else if (!ft_strcmp(ptr, "pwd"))
 		ft_pwd(data->env);
 	else if (!ft_strcmp(ptr, "exit"))
-		ft_exit(data, data->cmd[1], flag);
+		ft_exit(data, data->cmd[1], env, flag);
 	else if (!ft_strcmp(ptr, "echo"))
 		ft_echo(data);
 	else if (!ft_strcmp(ptr, "env") && !data->cmd[1])
@@ -126,7 +126,7 @@ int	ft_check_if_builtin(t_mini *data, t_fd *fd, t_env **env)
 		return (0);
 	if (data->next == NULL && ft_is_built_in(data))
 	{
-		if (duping_fd(data, fd))
+		if (duping_fd(data, fd) > 0)
 			ft_execute_buitl_in(data, env, 1);
 		if (data->env)
 			free_arr(data->env);
