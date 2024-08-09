@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:47:32 by hidriouc          #+#    #+#             */
-/*   Updated: 2024/06/03 17:17:25 by hidriouc         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:01:54 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_exit(t_mini *data, char *status, t_env **l_env, int flag)
 	}
 	free_arr(data->env);
 	clear_t_mini(&data);
-	if (!data->next)
+	if (data && !data->next)
 		ft_clearlist_env(l_env);
 	exit(var);
 }

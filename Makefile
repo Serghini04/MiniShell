@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hidriouc <hidriouc@student.42.fr>          +#+  +:+       +#+         #
+#    By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/16 20:26:08 by meserghi          #+#    #+#              #
-#    Updated: 2024/06/03 14:02:21 by hidriouc         ###   ########.fr        #
+#    Updated: 2024/08/09 15:02:40 by meserghi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ FILE = ${lib} ${parser} ${utils}  ${wildcard} ${buliltins} minishell.c
 
 FILE_OBJ = ${FILE:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror
 
 NAME = minishell
 
@@ -69,4 +69,4 @@ fclean : clean
 	@echo "${RED}Fully cleaned${STOP_C}"
 
 re : fclean all
-	
+

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 03:41:37 by meserghi          #+#    #+#             */
-/*   Updated: 2024/05/31 11:14:48 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:00:36 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,18 @@ void	add_split_lst(char **cmd, t_list **head, t_list **root)
 	t_list	*swap;
 	int		i;
 
-	(1) && (i = 0, new_head = NULL);
-	while (cmd[i])
+	(1) && (i = -1, new_head = NULL);
+	while (cmd[i++])
 	{
 		node = new_node(ft_strdup(cmd[i]), t_word);
 		if (!i)
 			node->is_sp = (*head)->is_sp;
 		add_back(&new_head, node);
-		i++;
 	}
 	last = last_lst(new_head);
-	(1) && (swap = (*head), last->next = (*head)->next);
+	swap = (*head);
+	if (last)
+		last->next = (*head)->next;
 	((*head)->next) && ((*head)->next->prv = last);
 	if ((*head)->prv)
 		(*head)->prv->next = new_head;

@@ -6,7 +6,7 @@
 /*   By: meserghi <meserghi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:23:39 by meserghi          #+#    #+#             */
-/*   Updated: 2024/06/03 19:14:03 by meserghi         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:02:47 by meserghi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_handel_args(int ac, char **av, struct termios *term, t_env **head)
 	(void)av;
 	*head = NULL;
 	rl_catch_signals = 0;
-	if (ac != 1)
+	if (ac != 1 || !isatty(1) || !isatty(0))
 	{
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd("whithout argumments please !!\n", 2);
