@@ -7,6 +7,8 @@ Minishell is a simplified shell implementation project developed as part of the 
   <img src="https://github.com/Serghini04/minishell/blob/master/intro.png" alt="Image Description" style="width: 80%;">
 </p>
 
+Minishell is more than just a project; it's a deep dive into the world of operating systems and command-line interfaces. This implementation challenges us to understand the intricacies of how shells work, from parsing user input to executing complex commands.
+
 ## Project Structure
 - `builtins/`: Implementation of built-in shell commands
 - `lib/`: Custom library functions
