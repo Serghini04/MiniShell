@@ -284,6 +284,6 @@ While this project is primarily an academic exercise, we welcome feedback and su
 This project is part of the 42 Network curriculum and is subject to their academic policies.
 
 ## Acknowledgments
-- 42 Network for the project subject and resources
-- The developers of Bash and other Unix shells for inspiration
-- [Hicham Driouch](https://github.com/paybat) for their work on command execution and signal handling
+- 42 Network for the project subject and resources.
+- The developers of Bash and other Unix shells for inspiration.
+- [Hicham Driouch](https://github.com/paybat) for their work on command execution and signal handling.
